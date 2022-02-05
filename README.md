@@ -11,14 +11,14 @@ What works?
 Round Trip Latency Times:
 =========================
 Client-Seller:
-1. Put Item                      ----
-2. Change Sale Price             ----
-3. Remove Item                   ----
-4. Display Item for the seller   ----
+1. Put Item                      ---- 9ms | 6ms | 6ms
+2. Change Sale Price             ---- 11ms | 3ms | 7ms
+3. Remove Item                   ---- 10ms | 6ms 
+4. Display Item for the seller   ---- 7ms | 9ms | 8ms
 
 Client-Buyer:
-1. Search Items for Sale    ----     
-2. Add item to cart         ----
-3. Remove item from cart    ----
-4. Clear cart               ----
-5. Display cart             ----
+1. Search Items for Sale    ----  12ms | 9ms | 7ms
+2. Add item to cart         ----  2ms | 1ms | 3ms
+3. Remove item from cart    ----  2ms | 2ms | 1ms
+4. Clear cart               ----  2ms | 3ms | 4ms
+5. Display cart             ----  6ms | 7ms | 8ms
