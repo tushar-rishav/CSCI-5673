@@ -1,0 +1,24 @@
+{"action": "put_item", "data": {"name": "iphone", "category": 1, "keywords": ["phone", "electronic"], "condition": "new", "price": 25.6, "qty": 10}}
+
+{"action": "put_item", "data": {"name": "macbook", "category": 1, "keywords": ["computer", "electronic"], "condition": "used", "price": 100, "qty": 5}}
+
+
+{"action": "change_sale_price", "data": {"_id": "61fe023c4b1eae8a6dbeb2a3", "price": 500}}
+
+
+{"action": "remove_item", "data": {"_id": "61fe023c4b1eae8a6dbeb2a3", "qty": 2}}
+
+
+{"action": "display_seller_items"}
+
+
+{"action": "put_item", "data": {"name": "charger", "category": 1, "keywords": ["electronic"], "condition": "used", "price": 10, "qty": 10}}
+{"action": "put_item", "data": {"name": "gold", "category": 1, "keywords": ["metal"], "condition": "new", "price": 100, "qty": 2}}
+    
+
+
+
+{
+    error: null,
+    resp: ""
+}
