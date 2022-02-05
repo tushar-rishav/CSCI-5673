@@ -22,3 +22,12 @@ Client-Buyer:
 3. Remove item from cart    ----  2ms | 2ms | 1ms
 4. Clear cart               ----  2ms | 3ms | 4ms
 5. Display cart             ----  6ms | 7ms | 8ms
+
+System Design:
+==============
+We have set up server-side sellers, server-side buyers, client-side sellers, and client-side buyers. 
+Server-side seller stores all the items in MongoDB with an in-memory cache for storing item id per seller. 
+The in-memory item id cache is used to fetch items' info from MongoDB for a particular seller. 
+When an item quantity is reduced to 0, it's deleted from both in-memory cache and mongodb.
+
+Furthermore, each new connection between client and server means a new buyer client or a new seller client is seen.  
