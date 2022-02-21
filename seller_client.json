@@ -22,3 +22,5 @@ Output Format
     error: null,
     resp: ""
 }
+
+{"username": "tushar", "passwd": "pass", "data": {"name": "charger", "category": 1, "keywords": ["electronic"], "condition": "used", "price": 10, "qty": 10, "mean_feedback": 0, "num_feedback": 0}}
