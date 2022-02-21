@@ -1,0 +1,140 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js" integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <script src="buyer/app.js" ></script>
+    <script src="seller/app.js" ></script>
+</head>
+
+<body>
+    <div style="margin: 2%" class="container">
+        <h1> Simple client interface for Seller and Buyer </h1>
+        <hr>
+        <div class="row">
+            <div class="col-8">
+                <div class="seller" style="border: 3em solid black;">
+                    <h3>Seller</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="sellerApis">Seller APIs</label>
+                            <select class="form-control" id="sellerApi">
+                                <option selected value="account:post">Sign-up</option>
+                                <option value="login:post">Sign-in</option>
+                                <option value="logout:post">Sign-out</option>
+                                <option value="add_item:post">Add Items</option>
+                                <option value="display_item:get">Display Items</option>
+                                <option value="change_price:post">Change sale price</option>
+                                <option value="remove_item:post">Remove item</option>
+                                <option value="ratings:get">Get seller rating</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sellerApiData">JSON data to be passed for POST</label>
+                            <textarea class="form-control" id="sellerApiData" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" onclick="sellerHandler()">Submit</button>
+                    </form>
+                </div>
+
+                <div class="buyer" style="border: 3em solid black;">
+                    <h3>Buyer</h3>
+                    <form>
+                        <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary" onclick="buyerHandler()">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div id="response" class="col-sm">
+                <h3>Server response log</h3>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SELLER_HOST = '0.0.0.0';
+        const SELLER_PORT = 6969;
+        const BUYER_HOST = '0.0.0.0';
+        const BUYER_PORT = 6969;
+
+        var sellerHandler = function(e){
+            api = document.getElementById('sellerApi').value.split(':');
+            data = document.getElementById('sellerApiData').value;
+            endpoint = api[0];
+            http_method = api[1];
+            url = `http://${SELLER_HOST}:${SELLER_PORT}/${endpoint}`;
+
+            try {
+                data = JSON.parse(data);
+                console.log(api, data);
+                
+                var xhr = new XMLHttpRequest();
+                xhr.responseType = "json";
+
+                if(http_method == 'post') {
+                    xhr.open(`${http_method}`, url, true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+
+                    xhr.onreadystatechange = function() {
+                        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                            recordResponse(xhr.response);
+                            response = JSON.parse(xhr.response);
+                            console.log('Server response ', response);
+                        }
+                    }
+                    xhr.send(JSON.stringify(data));
+
+                } else if (http_method == 'get') {
+                    var kv_pair = Object.entries(data).map(x => x.join('=')).join('&')
+                    url = `${url}?${kv_pair}`;
+                    console.log(url);
+                    xhr.open(`${http_method}`, url, true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                    xhr.onload = function() {
+                        var response = xhr.response; 
+                        recordResponse(response);
+                    }
+
+                    xhr.send();
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Invalid JSON data format');
+            }
+            
+            
+        };
+
+        var buyerHandler = function(e){
+
+        };
+
+        var recordResponse = function (response){
+            console.log(response);
+            var tag = document.createElement("p");
+            var text = document.createTextNode(response);
+            tag.appendChild(text);
+            var element = document.getElementById("response");
+            element.appendChild(tag);
+        }
+
+
+    </script>
+</body>
+
+</html>

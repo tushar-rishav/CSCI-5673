@@ -1,5 +1,16 @@
 /** 
  * Author: Tushar Gautam (tuga2842)
+ * API Implemented
+ * 
+ * 
+ *  1. Create an account: sets up userusername and password 
+    2. Login: provide userusername and password 
+    3. Logout 
+    4. Get seller rating 
+    5. Put an item for sale: provide all item characteristics and quantity 
+    6. Change the sale price of an item: provide item id and new sale price 
+    7. Remove an item from sale: provide item id and quantity 
+    8. Display items currently on sale put up by this seller
  */
 
 const express = require('express');
@@ -21,6 +32,14 @@ app.set('prod', process.env.prod);
 var logger = log4js.getLogger();
 logger.level = app.get('prod')==1 ? "info" : "debug";
 
+// Add headers before the routes are defined for CORS
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5000');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -35,8 +54,8 @@ MongoClient.connect(DB_URL, function(err, db) {
     //db.close();
 });
 
-function db_get_user(name, callback) {
-    var query = {"name": name} // name is unique index
+function db_get_user(username, callback) {
+    var query = { "username": username } // username is a unique index
     var user = DBO.collection("user").find(query).toArray();
     user.then((result) => {
         logger.debug(JSON.stringify(result, null, 4));
@@ -53,23 +72,24 @@ function error(err, req, res, next) {
   }
 
 function restrict(req, res, next) {
-    if (app.locals[req.query.name]) {
-        logger.info(`Request granted for user ${req.query.name}`);
+    username = req.query.username ? req.query.username : req.body.username;
+    if (app.locals[username]) {
+        logger.info(`Request granted for user ${username}`);
         next();
     } else {
         logger.info(`Request denied!`);
-        res.sendStatus(404);
+        res.status(404).send('Not implemented yet');
     }
   }
 
-function authenticate(name, passwd, fn) {
-    logger.debug(`Authenticating ${name}:${passwd}`);
-    db_get_user(name, (db_err, user) => {
+function authenticate(username, passwd, fn) {
+    logger.debug(`Authenticating ${username}:${passwd}`);
+    db_get_user(username, (db_err, user) => {
         if(db_err){
-            logger.error(`Authentication DB failure for user: ${name} with error: ${db_err}`);
+            logger.error(`Authentication DB failure for user: ${username} with error: ${db_err}`);
             fn(null, null);
         }
-        if(user.name == name && user.passwd == passwd){
+        if(user.username == username && user.passwd == passwd){
             return fn(null, user);
         } else {
             return fn(Error('Auth failed'));
@@ -77,60 +97,55 @@ function authenticate(name, passwd, fn) {
     });
 }
 
-app.post('/account', (req, res) => { // params: {name, passwd}
-    user_data = {name: req.body.name, passwd: req.body.passwd, ratings: [], items: []};
+app.post('/account', (req, res) => { // params: {username, passwd}
+    user_data = {username: req.body.username, passwd: req.body.passwd, mean_ratings: 0, num_ratings: 0, items: []};
+    logger.info(user_data.body);
     DBO.collection("user").insertOne(user_data, function(db_err, db_resp) {
         if (db_err) {
             return res.json({'reg': false, 'msg': `Registration failed with error: ${db_err}`});
         }
-        logger.debug(`Item inserted with item_id ${db_resp.insertedId}`);
-        res.json({'reg': true, 'msg': `Registration successful for ${req.body.name}`});
+        logger.debug(`User inserted with user_id ${db_resp.insertedId}`);
+        res.json({'reg': true, 'msg': `Registration successful for ${req.body.username}`});
     });
 });
 
-app.post('/login', (req, res, next) => { // params: {name, passwd}
-    authenticate(req.body.name, req.body.passwd, (err, user) => {
+app.post('/login', (req, res, next) => { // params: {username, passwd}
+    authenticate(req.body.username, req.body.passwd, (err, user) => {
         if (err){
-            err_msg = `Auth failed for user ${req.body.name}`;
+            err_msg = `Auth failed for user ${req.body.username}`;
             logger.error(`${err_msg}`);
             res.json({'auth': false, 'msg': 'Auth failed'});
         }
         else if(user) {
-            logger.info(`Auth successful for user ${req.body.name}`);
-            app.locals[req.body.name] = user;
+            logger.info(`Auth successful for user ${req.body.username}`);
+            app.locals[req.body.username] = user;
             res.json({'auth': true, 'msg': 'Auth successful'});
         }
         next();
     });
 });
 
-app.post('/logout', (req, res) => {  // params: {name}
-    delete app.locals[req.body.name];
+app.post('/logout', (req, res) => {  // params: {username}
+    delete app.locals[req.body.username];
     res.json({'auth': false, 'msg': 'Logout successful'});
 });
 
-/**
- * 
- *  Create an account: sets up username and password 
-    Login: provide username and password 
-    Logout 
-    Get seller rating 
-    Put an item for sale: provide all item characteristics and quantity 
-    Change the sale price of an item: provide item id and new sale price 
-    Remove an item from sale: provide item id and quantity 
-    Display items currently on sale put up by this seller
- */
-
-
 app.get('/ratings', restrict, (req, res) => { // display seller rating
     logger.debug('Not Implemented');
-    res.json({"msg": "Not implemented yet"});
+    db_get_user(req.query.username, (user_err, user_resp) => {
+        if(user_err){
+            logger.error(`Error fetching user info for user ${req.query.username} error: ${user_err}`);
+            return res.sendStatus(500);
+        }
+
+        res.json({"ratings": user_resp.mean_ratings });
+    })
 });
 
-app.get('/display_items', restrict, (req, res, next) => { // param {name}
-    db_get_user(req.body.name, (user_err, user_resp) => {
+app.get('/display_item', restrict, (req, res, next) => { // param {username}
+    db_get_user(req.query.username, (user_err, user_resp) => {
         if(user_err){
-            logger.error(`Error fetching user info for user ${req.body.name} error: ${user_err}`);
+            logger.error(`Error fetching user info for user ${req.query.username} error: ${user_err}`);
             return res.sendStatus(500);
         }
 
@@ -148,75 +163,96 @@ app.get('/display_items', restrict, (req, res, next) => { // param {name}
     });
 });
 
-app.post('/add_items', restrict, (req, res) => { // param: {name, data}
+app.post('/add_item', restrict, (req, res) => { // param: {username, data}
     DBO.collection("item").insertOne(req.body.data, function(item_err, item_resp) {
         if(item_err){
-            logger.error(`Error fetching user info for user ${req.body.name} error: ${item_err}`);
+            logger.error(`Error fetching user info for user ${req.body.username} error: ${item_err}`);
             return res.sendStatus(500);
         }
-        
-        res.sendStatus(200);
+        // FIXME Add item ID to seller item id list
+        db_get_user(username, (err, user) => {
+            if(err){
+                logger.error(err);
+                return res.send(500);
+            }
+            user.items.push(item_resp.insertedId);
+            DBO.collection("user").updateOne({username: req.body.username}, {$set: {items: user.items}}, function(_err, _resp){
+                if(_err) {
+                    logger.error(`Adding item failed for seller: ${req.body.username} ${_err}`);
+                    return res.sendStatus(500);
+                }
+                logger.debug(`New item added for seller ${req.body.username}`);
+                return res.sendStatus(200);
+            });
+        });
         logger.debug(`Item inserted with item_id ${item_resp.insertedId}`);
     });
 });
 
-app.post('/change_price', restrict, (req, res) => { // params: name, data: {item_id: <>, price: <>}
+app.post('/change_price', restrict, (req, res) => { // params: username, data: {item_id: <>, price: <>}
     
     var query = { "_id": ObjectId(req.body.data.item_id)};
     var values = { $set: {price: req.body.data.price} };
 
-    DBO.collection("item").updateOne(query, values, function(err, res) {
-        if (err){
-            logger.error(`Item updated failed: ${err}`);
-            res.sendStatus(500);
+    DBO.collection("item").updateOne(query, values, function(item_err, item_res) {
+        if (item_err){
+            logger.error(`Item updated failed: ${item_err}`);
+            return res.sendStatus(500);
         }
 
-        logger.debug(`Item price updated by seller ${req.body.name}`);
+        logger.debug(`Item price updated by seller ${req.body.username}`);
         res.sendStatus(200);
     });
 });
 
-app.post('/remove_item', restrict, (req, res, next) => { // params: name, data: {item_id: <>, qty: <> }
+app.post('/remove_item', restrict, (req, res, next) => { // params: username, data: {item_id: <>, qty: <> }
     var query = { "_id": ObjectId(req.body.data.item_id) };
     var cursor = DBO.collection('item').find(query);
-    
     cursor.forEach(doc => {
-        let qty = Math.max(doc.qty - req.body.data.qty, 0);
+        let qty = req.body.data.qty;
         if(qty == 0){
-            DBO.collection("item").deleteOne(query, function(err, res){
-                if(err) {
-                    logger.error(`Remove item failed ${err}`);
+            DBO.collection("item").deleteOne(query, function(item_err, item_resp){ // delete item from item collection
+                if(item_err) {
+                    logger.error(`Remove item failed ${item_err}`);
                     return res.sendStatus(500);
                 }
 
-                db_get_user(req.body.name, (user_err, user) => {
+                db_get_user(req.body.username, (user_err, user) => {    // delete item_id from corresponding seller
                     if(user_err){
                         logger.error(`Error reading user info ${user_err}`);
                         return res.sendStatus(500);
                     }
-                    // FIXME remove item_id from user
-                    logger.debug(`No left over quantity. Item deleted for seller ${req.body.name}`);
+
+                    user_items = user.items.filter(id => id !== ObjectId(req.body.data.item_id));
+                    DBO.collection("user").updateOne({username: req.body.username}, {$set: {items: user_items}}, function(_err, _resp){
+                        if(_err) {
+                            logger.error(`Remove item failed for seller: ${req.body.username} ${_err}`);
+                            return res.sendStatus(500);
+                        }
+                        logger.debug(`No left over quantity. Item deleted for seller ${req.body.username}`);
+                        return res.sendStatus(200);
+                    });
                 });
             });            
         }
         else {
             let value = {$set: {qty: qty}}; 
-            DBO.collection("item").updateOne(query, value, function(err, res){
-                if(err) {
-                    logger.error(`Remove item failed for seller: ${req.body.name} ${err}`);
+            DBO.collection("item").updateOne(query, value, function(item_err, item_res){
+                if(item_err) {
+                    logger.error(`Remove item failed for seller: ${req.body.username} ${item_err}`);
                     return res.sendStatus(500);
                 }
                 
-                logger.debug(`Item quantity reduced by seller: ${req.body.name}`);
+                logger.debug(`Item quantity reduced by seller: ${req.body.username}`);
+                return res.sendStatus(200);
             });
         }
     });
-    if(cursor.size() == 0) {
-        res.json({ "msg": "No item matched to delete" });
-    }
 });
 
 app.use(error);
 app.listen(PORT, HOST, () => {
     logger.info('Seller Server is up');
 });
+
+
