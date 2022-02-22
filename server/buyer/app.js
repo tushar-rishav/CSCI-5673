@@ -252,9 +252,7 @@ app.get('/ratings', restrict, (req, res) => { // param: {username, data: {item_i
             return res.send(500);
         }
 
-        user.cart = user.cart.map(id => id[0] === ObjectId(req.body.data.item_id) ? [id[0], qty] : id);
-        user.cart = user.cart.filter(id => id[1] != 0);
-
+        user.rating.push(req.body.data.rating);
         DBO.collection("user").updateOne({username: req.body.username}, {$set: {rating: user.rating}}, function(_err, _resp){
             if(_err) {
                 logger.error(`Update ratings failed for buyer: ${req.body.username} ${_err}`);
@@ -264,7 +262,7 @@ app.get('/ratings', restrict, (req, res) => { // param: {username, data: {item_i
             return res.json({"msg": "Rating updated"});
         });
     });
-    logger.debug(`Item removed from cart`);
+    logger.debug(`Rating added`);
 });
 
 app.get('/history', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
