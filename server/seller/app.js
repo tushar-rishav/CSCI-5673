@@ -174,6 +174,13 @@ app.post('/logout', (req, res) => {  // params: {username}
 // Ratings
 
 app.get('/ratings', restrict, (req, res) => { // display seller rating
+    logger.info(req.body);
+    user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
+    client.login(encodeMessage(user_data, messages.ratings) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    /*
     logger.debug('Implemented');
     db_get_user(req.query.username, (user_err, user_resp) => {
         if(user_err){
@@ -183,12 +190,19 @@ app.get('/ratings', restrict, (req, res) => { // display seller rating
 
         res.json({"ratings": user_resp.mean_ratings });
     })
+    */
 });
 
 // Display Items
 
 app.get('/display_item', restrict, (req, res, next) => { // param {username}
-    db_get_user(req.query.username, (user_err, user_resp) => {
+    logger.info(req.body);
+    user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
+    client.login(encodeMessage(user_data, messages.displayItemsRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    /*db_get_user(req.query.username, (user_err, user_resp) => {
         if(user_err){
             logger.error(`Error fetching user info for user ${req.query.username} error: ${user_err}`);
             return res.sendStatus(500);
@@ -205,12 +219,19 @@ app.get('/display_item', restrict, (req, res, next) => { // param {username}
             res.sendStatus(500);
         });
 
-    });
+    });*/
 });
 
 // Add Item 
 
 app.post('/add_item', restrict, (req, res) => { // param: {username, data}
+    logger.info(req.body);
+    user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
+    client.login(encodeMessage(user_data, messages.addItemsRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    /*
     DBO.collection("item").insertOne(req.body.data, function(item_err, item_resp) {
         if(item_err){
             logger.error(`Error fetching user info for user ${req.body.username} error: ${item_err}`);
@@ -234,12 +255,19 @@ app.post('/add_item', restrict, (req, res) => { // param: {username, data}
         });
         logger.debug(`Item inserted with item_id ${item_resp.insertedId}`);
     });
+    */
 });
 
 // Change Price
 
 app.post('/change_price', restrict, (req, res) => { // params: username, data: {item_id: <>, price: <>}
-    
+    logger.info(req.body);
+    user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
+    client.login(encodeMessage(user_data, messages.changeItemsRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    /* 
     var query = { "_id": ObjectId(req.body.data.item_id)};
     var values = { $set: {price: req.body.data.price} };
 
@@ -252,11 +280,19 @@ app.post('/change_price', restrict, (req, res) => { // params: username, data: {
         logger.debug(`Item price updated by seller ${req.body.username}`);
         res.sendStatus(200);
     });
+    */
 });
 
 // Remove Item
 
 app.post('/remove_item', restrict, (req, res, next) => { // params: username, data: {item_id: <>, qty: <> }
+    logger.info(req.body);
+    user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
+    client.login(encodeMessage(user_data, messages.rmvItemsRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    /*
     var query = { "_id": ObjectId(req.body.data.item_id) };
     var cursor = DBO.collection('item').find(query);
     cursor.forEach(doc => {
@@ -299,6 +335,7 @@ app.post('/remove_item', restrict, (req, res, next) => { // params: username, da
             });
         }
     });
+    */
 });
 
 app.use(error);
