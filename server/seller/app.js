@@ -1,5 +1,5 @@
 /** 
- * Author: Tushar Gautam (tuga2842)
+ * Author: Sai Akhil / Tushar Gautam
  * API Implemented
  * 
  * 
@@ -97,6 +97,8 @@ function authenticate(username, passwd, fn) {
     });
 }
 
+// Sign-up
+
 app.post('/account', (req, res) => { // params: {username, passwd}
     user_data = {username: req.body.username, passwd: req.body.passwd, mean_ratings: 0, num_ratings: 0, items: []};
     logger.info(user_data.body);
@@ -108,6 +110,8 @@ app.post('/account', (req, res) => { // params: {username, passwd}
         res.json({'reg': true, 'msg': `Registration successful for ${req.body.username}`});
     });
 });
+
+// Login
 
 app.post('/login', (req, res, next) => { // params: {username, passwd}
     authenticate(req.body.username, req.body.passwd, (err, user) => {
@@ -125,10 +129,14 @@ app.post('/login', (req, res, next) => { // params: {username, passwd}
     });
 });
 
+// Logout
+
 app.post('/logout', (req, res) => {  // params: {username}
     delete app.locals[req.body.username];
     res.json({'auth': false, 'msg': 'Logout successful'});
 });
+
+// Ratings
 
 app.get('/ratings', restrict, (req, res) => { // display seller rating
     logger.debug('Not Implemented');
@@ -141,6 +149,8 @@ app.get('/ratings', restrict, (req, res) => { // display seller rating
         res.json({"ratings": user_resp.mean_ratings });
     })
 });
+
+// Display Items
 
 app.get('/display_item', restrict, (req, res, next) => { // param {username}
     db_get_user(req.query.username, (user_err, user_resp) => {
@@ -162,6 +172,8 @@ app.get('/display_item', restrict, (req, res, next) => { // param {username}
 
     });
 });
+
+// Add Item 
 
 app.post('/add_item', restrict, (req, res) => { // param: {username, data}
     DBO.collection("item").insertOne(req.body.data, function(item_err, item_resp) {
@@ -189,6 +201,8 @@ app.post('/add_item', restrict, (req, res) => { // param: {username, data}
     });
 });
 
+// Change Price
+
 app.post('/change_price', restrict, (req, res) => { // params: username, data: {item_id: <>, price: <>}
     
     var query = { "_id": ObjectId(req.body.data.item_id)};
@@ -204,6 +218,8 @@ app.post('/change_price', restrict, (req, res) => { // params: username, data: {
         res.sendStatus(200);
     });
 });
+
+// Remove Item
 
 app.post('/remove_item', restrict, (req, res, next) => { // params: username, data: {item_id: <>, qty: <> }
     var query = { "_id": ObjectId(req.body.data.item_id) };
