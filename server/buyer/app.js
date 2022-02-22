@@ -252,7 +252,7 @@ app.get('/ratings', restrict, (req, res) => { // param: {username, data: {item_i
             return res.send(500);
         }
 
-        user.rating.push(req.body.data.rating);
+        user.rating.push(req.body.data.rating || 10);
         DBO.collection("user").updateOne({username: req.body.username}, {$set: {rating: user.rating}}, function(_err, _resp){
             if(_err) {
                 logger.error(`Update ratings failed for buyer: ${req.body.username} ${_err}`);
@@ -285,7 +285,7 @@ app.post('/feedback', restrict, (req, res) => { // param: {username, data: {item
                 logger.error(err);
                 return res.send(500);
             }
-            user.cart.push([ObjectId(req.body.data.item_id), req.body.data.qty || 0]);
+            user.feedback.push(req.body.data.feedback || 10);
             DBO.collection("item").updateOne({username: req.body.username}, {$set: {feedback: user.feedback}}, function(_err, _resp){
                 if(_err) {
                     logger.error(`Adding feedback failed for item: ${req.body.username} ${_err}`);
