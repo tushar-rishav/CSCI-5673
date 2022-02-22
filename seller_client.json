@@ -23,4 +23,9 @@ Output Format
     resp: ""
 }
 
-{"username": "tushar", "passwd": "pass", "data": {"name": "charger", "category": 1, "keywords": ["electronic"], "condition": "used", "price": 10, "qty": 10, "mean_feedback": 0, "num_feedback": 0}}
+// seller
+{"username": "tushar", "passwd": "pass", "type": "seller", "data": {"item_id": "62146310f1dc51f0cad4aa34", "name": "charger", "category": 1, "keywords": ["electronic"], "condition": "used", "price": 10, "qty": 10, "mean_feedback": 0, "num_feedback": 0}}
+
+// buyer
+
+{"username": "rishav", "passwd": "pass", "type": "buyer", "data": {"item_id": "62146310f1dc51f0cad4aa34", "qty":2, "category": 1, "keywords": ["electronic"]}}
