@@ -64,8 +64,8 @@
                     </form>
                 </div>
             </div>
+            <h3>Server response log</h3>
             <div id="response" class="col-sm">
-                <h3>Server response log</h3>
             </div>
         </div>
     </div>
@@ -182,7 +182,7 @@
             var text = document.createTextNode(response);
             tag.appendChild(text);
             var element = document.getElementById("response");
-            element.appendChild(tag);
+            element.prepend(tag);
         }
 
 

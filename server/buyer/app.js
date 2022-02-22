@@ -94,7 +94,7 @@ function authenticate(username, passwd, fn) {
 // Sign-up
 
 app.post('/account', (req, res) => { // params: {username, passwd}
-    user_data = {username: req.body.username, passwd: req.body.passwd, mean_ratings: 0, num_ratings: 0, items: []};
+    user_data = {username: req.body.username, passwd: req.body.passwd, type: "buyer", mean_ratings: 0, num_ratings: 0, cart: []};
     logger.info(user_data.body);
     DBO.collection("user").insertOne(user_data, function(db_err, db_resp) {
         if (db_err) {
@@ -130,6 +130,8 @@ app.post('/logout', (req, res) => {  // params: {username}
     res.json({'auth': false, 'msg': 'Logout successful'});
 });
 
+// Search
+
 app.post('/search', restrict, (req, res) => { // params: {username, category, keywords}
     var keywords = req.body.data.keywords;
     var itemCategory = req.body.data.category;
@@ -139,17 +141,188 @@ app.post('/search', restrict, (req, res) => { // params: {username, category, ke
     const options = { sort : { name:1 }, projection:{_id:0} }
     var cursor = DBO.collection("item").find(query, options).toArray();
     cursor.then((result) => {
-        logger.debug(`Found items ${JSON.stringify(result. null, 2)}`);
+        logger.debug(result);
         res.json(result);
     }).catch((err) => {
         logger.info(`Search failed for items with keywords ${keywords} and category: ${itemCategory}`);
     });
 });
 
-// Search
+// Add item to cart
+
+app.post('/add_item', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
+    var username = req.body.username;
+    db_get_user(username, (err, user) => {
+            if(err){
+                logger.error(err);
+                return res.send(500);
+            }
+            user.cart.push([ObjectId(req.body.data.item_id), req.body.data.qty || 0]);
+            DBO.collection("user").updateOne({username: req.body.username}, {$set: {cart: user.cart}}, function(_err, _resp){
+                if(_err) {
+                    logger.error(`Adding item failed for buyer: ${req.body.username} ${_err}`);
+                    return res.sendStatus(500);
+                }
+                logger.debug(`New item added for buyer ${req.body.username}`);
+                return res.json({"msg": "New item added to the cart"});
+            });
+    });
+    logger.debug(`Item added to cart`);
+});
+
+// display cart
+
+app.get('/display_cart', restrict, (req, res, next) => { // param {username}
+    db_get_user(req.query.username, (user_err, user_resp) => {
+        if(user_err){
+            logger.error(`Error fetching user info for user ${req.query.username} error: ${user_err}`);
+            return res.sendStatus(500);
+        }
+
+        item_ids = user_resp.cart.map(item_tuple => item_tuple[0]); // choose item id only
+        logger.debug(`Found item_ids in cart: ${item_ids}`);
+        var query = {"_id": { "$in": item_ids } }
+        var docs = DBO.collection("item").find(query, {projection: {_id: 0}}).toArray();
+        docs.then((result) => {
+            logger.debug(JSON.stringify(result, null, 4));
+            res.json({"info" : result, "cart": user_resp.cart});
+        }).catch((item_err) => {
+            logger.error(`Error fetching items: ${item_err}`);
+            res.sendStatus(500);
+        });
+    });
+});
+
+// clear cart
+
+app.post('/clear_cart', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
+    var username = req.body.username;
+    db_get_user(username, (err, user) => {
+        if(err){
+            logger.error(err);
+            return res.send(500);
+        }
+        user.cart = []
+        DBO.collection("user").updateOne({username: req.body.username}, {$set: {cart: user.cart}}, function(_err, _resp){
+            if(_err) {
+                logger.error(`Clearing cart failed for buyer: ${req.body.username} ${_err}`);
+                return res.sendStatus(500);
+            }
+            logger.debug(`Cart cleared for buyer ${req.body.username}`);
+            return res.json({"msg": "Cart cleared"});
+        });
+    });
+    logger.debug(`Cart cleared`);
+});
+
+// update cart
+
+app.post('/remove_item', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
+    var username = req.body.username;
+    var qty = req.body.data.qty;
+
+    db_get_user(username, (err, user) => {
+        if(err){
+            logger.error(err);
+            return res.send(500);
+        }
+
+        user.cart = user.cart.map(id => id[0] === ObjectId(req.body.data.item_id) ? [id[0], qty] : id);
+        user.cart = user.cart.filter(id => id[1] != 0);
+
+        DBO.collection("user").updateOne({username: req.body.username}, {$set: {cart: user.cart}}, function(_err, _resp){
+            if(_err) {
+                logger.error(`Removing cart item failed for buyer: ${req.body.username} ${_err}`);
+                return res.sendStatus(500);
+            }
+            logger.debug(`Cart item removed for buyer ${req.body.username}`);
+            return res.json({"msg": "Cart item removed"});
+        });
+    });
+    logger.debug(`Item removed from cart`);
+});
+
+app.get('/ratings', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
+    var username = req.body.username;
+    var qty = req.body.data.qty;
+
+    db_get_user(username, (err, user) => {
+        if(err){
+            logger.error(err);
+            return res.send(500);
+        }
+
+        user.cart = user.cart.map(id => id[0] === ObjectId(req.body.data.item_id) ? [id[0], qty] : id);
+        user.cart = user.cart.filter(id => id[1] != 0);
+
+        DBO.collection("user").updateOne({username: req.body.username}, {$set: {rating: user.rating}}, function(_err, _resp){
+            if(_err) {
+                logger.error(`Update ratings failed for buyer: ${req.body.username} ${_err}`);
+                return res.sendStatus(500);
+            }
+            logger.debug(`Rating updated for buyer ${req.body.username}`);
+            return res.json({"msg": "Rating updated"});
+        });
+    });
+    logger.debug(`Item removed from cart`);
+});
+
+app.get('/history', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
+    var username = req.body.username;
+
+    var query = { "username": username } // username is a unique index
+    var history = DBO.collection("history").find(query).toArray();
+    history.then((result) => {
+        logger.debug(JSON.stringify(result, null, 4));
+        return res.json(result);
+    }).catch((err) => {
+        res.json({"msg": `Fetching history failed with error: ${err}`});
+    });
+});
+
+app.post('/feedback', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
+    var username = req.body.username;
+    db_get_user(username, (err, user) => {
+            if(err){
+                logger.error(err);
+                return res.send(500);
+            }
+            user.cart.push([ObjectId(req.body.data.item_id), req.body.data.qty || 0]);
+            DBO.collection("item").updateOne({username: req.body.username}, {$set: {feedback: user.feedback}}, function(_err, _resp){
+                if(_err) {
+                    logger.error(`Adding feedback failed for item: ${req.body.username} ${_err}`);
+                    return res.sendStatus(500);
+                }
+                logger.debug(`New feedback added for item ${req.body.username}`);
+                return res.json({"msg": "New feedback added to the item"});
+            });
+    });
+    logger.debug(`Feedback added`);
+});
+
+app.post('/purchase', restrict, (req, res) => {
+    var username = req.body.username;
+    db_get_user(username, (err, user) => {
+            if(err){
+                logger.error(err);
+                return res.send(500);
+            }
+            user.cart.push([ObjectId(req.body.data.item_id), req.body.data.qty || 0]);
+            DBO.collection("user").updateOne({username: req.body.username}, {$set: {cart: user.cart}}, function(_err, _resp){
+                if(_err) {
+                    logger.error(`Item purchased failed for item: ${req.body.username} ${_err}`);
+                    return res.sendStatus(500);
+                }
+                logger.debug(`Purchase done for item ${req.body.username}`);
+                return res.json({"msg": "New item purchased"});
+            });
+    });
+    logger.debug(`New item purchased`);
+});
+
 
 
 app.use(error);
 app.listen(PORT, HOST, () => {
-    logger.info('Seller Server is up');
+    logger.info('Buyer Server is up');
 });

@@ -100,7 +100,7 @@ function authenticate(username, passwd, fn) {
 // Sign-up
 
 app.post('/account', (req, res) => { // params: {username, passwd}
-    user_data = {username: req.body.username, passwd: req.body.passwd, mean_ratings: 0, num_ratings: 0, items: []};
+    user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, items: []};
     logger.info(user_data.body);
     DBO.collection("user").insertOne(user_data, function(db_err, db_resp) {
         if (db_err) {
@@ -187,14 +187,14 @@ app.post('/add_item', restrict, (req, res) => { // param: {username, data}
                 logger.error(err);
                 return res.send(500);
             }
-            user.items.push(item_resp.insertedId);
+            user.items.push([item_resp.insertedId, req.body.data.qty]);
             DBO.collection("user").updateOne({username: req.body.username}, {$set: {items: user.items}}, function(_err, _resp){
                 if(_err) {
                     logger.error(`Adding item failed for seller: ${req.body.username} ${_err}`);
                     return res.sendStatus(500);
                 }
                 logger.debug(`New item added for seller ${req.body.username}`);
-                return res.sendStatus(200);
+                return res.json({"msg": "Item added successfully"});
             });
         });
         logger.debug(`Item inserted with item_id ${item_resp.insertedId}`);
@@ -239,14 +239,14 @@ app.post('/remove_item', restrict, (req, res, next) => { // params: username, da
                         return res.sendStatus(500);
                     }
 
-                    user_items = user.items.filter(id => id !== ObjectId(req.body.data.item_id));
+                    user_items = user.items.filter(id => id[0] !== ObjectId(req.body.data.item_id));
                     DBO.collection("user").updateOne({username: req.body.username}, {$set: {items: user_items}}, function(_err, _resp){
                         if(_err) {
                             logger.error(`Remove item failed for seller: ${req.body.username} ${_err}`);
                             return res.sendStatus(500);
                         }
                         logger.debug(`No left over quantity. Item deleted for seller ${req.body.username}`);
-                        return res.sendStatus(200);
+                        return res.json({"msg": "Item removed successfully"});
                     });
                 });
             });            
@@ -260,7 +260,7 @@ app.post('/remove_item', restrict, (req, res, next) => { // params: username, da
                 }
                 
                 logger.debug(`Item quantity reduced by seller: ${req.body.username}`);
-                return res.sendStatus(200);
+                return res.json({"msg": "Item quantity reduced by seller"});
             });
         }
     });
