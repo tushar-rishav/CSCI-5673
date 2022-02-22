@@ -21,6 +21,11 @@ const hash = require('pbkdf2-password')();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const { response } = require('express');
+const messages = require('../../sellerService/proto/seller_pb');
+const services = require('../../sellerService/proto/seller_grpc_pb');
+const grpc = require('@grpc/grpc-js');
+const protobuf = require("protobufjs");
+const client = new services.SellerSvcClient('localhost:50052', grpc.credentials.createInsecure());
 
 const HOST = '0.0.0.0';
 const PORT = 6969;
@@ -28,6 +33,25 @@ const PORT = 6969;
 const app = express();
 
 app.set('prod', process.env.prod);
+
+// encode the JSON message into protobuf
+async function encodeMessage(payload, messageName) {
+  const root = await protobuf.load("buyer.proto");
+  const testMessage = root.lookupType(messageName);
+  const message = testMessage.create(payload);
+  return testMessage.encode(message).finish();
+}
+
+async function decodeMessage(buffer, messageName) {
+  const root = await protobuf.load("buyer.proto");
+  const testMessage = root.lookupType(messageName);
+  const err = testMessage.verify(buffer);
+  if (err) {
+    throw err;
+  }
+  const message = testMessage.decode(buffer);
+  return testMessage.toObject(message);
+}
 
 var logger = log4js.getLogger();
 logger.level = app.get('prod')==1 ? "info" : "debug";
@@ -102,19 +126,30 @@ function authenticate(username, passwd, fn) {
 app.post('/account', (req, res) => { // params: {username, passwd}
     user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, items: []};
     logger.info(user_data.body);
+    client.register(encodeMessage(user_data, messages.userRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+/* 
     DBO.collection("user").insertOne(user_data, function(db_err, db_resp) {
         if (db_err) {
             return res.json({'reg': false, 'msg': `Registration failed with error: ${db_err}`});
         }
         logger.debug(`User inserted with user_id ${db_resp.insertedId}`);
         res.json({'reg': true, 'msg': `Registration successful for ${req.body.username}`});
-    });
+    });*/
 });
 
 // Login
 
 app.post('/login', (req, res, next) => { // params: {username, passwd}
-    authenticate(req.body.username, req.body.passwd, (err, user) => {
+    logger.info(req.body);
+    user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
+    client.login(encodeMessage(user_data, messages.userRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    /*authenticate(req.body.username, req.body.passwd, (err, user) => {
         if (err){
             err_msg = `Auth failed for user ${req.body.username}`;
             logger.error(`${err_msg}`);
@@ -126,7 +161,7 @@ app.post('/login', (req, res, next) => { // params: {username, passwd}
             res.json({'auth': true, 'msg': 'Auth successful'});
         }
         next();
-    });
+    });*/
 });
 
 // Logout
@@ -139,7 +174,7 @@ app.post('/logout', (req, res) => {  // params: {username}
 // Ratings
 
 app.get('/ratings', restrict, (req, res) => { // display seller rating
-    logger.debug('Not Implemented');
+    logger.debug('Implemented');
     db_get_user(req.query.username, (user_err, user_resp) => {
         if(user_err){
             logger.error(`Error fetching user info for user ${req.query.username} error: ${user_err}`);

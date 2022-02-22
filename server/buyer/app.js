@@ -15,13 +15,38 @@ const hash = require('pbkdf2-password')();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const { response } = require('express');
-
+const messages = require('../../buyerService/proto/buyer_pb');
+const services = require('../../buyerService/proto/buyer_grpc_pb');
+const grpc = require('@grpc/grpc-js');
+const protobuf = require("protobufjs");
+const client = new services.BuyerSvcClient('localhost:50051', grpc.credentials.createInsecure());
 const HOST = '0.0.0.0';
 const PORT = 8888;
 
 const app = express();
+var soap = require('soap');
+var url = 'http://localhost:8000/wsdl?wsdl';
 
 app.set('prod', process.env.prod);
+
+// encode the JSON message into protobuf
+async function encodeMessage(payload, messageName) {
+  const root = await protobuf.load("buyer.proto");
+  const testMessage = root.lookupType(messageName);
+  const message = testMessage.create(payload);
+  return testMessage.encode(message).finish();
+}
+
+async function decodeMessage(buffer, messageName) {
+  const root = await protobuf.load("buyer.proto");
+  const testMessage = root.lookupType(messageName);
+  const err = testMessage.verify(buffer);
+  if (err) {
+    throw err;
+  }
+  const message = testMessage.decode(buffer);
+  return testMessage.toObject(message);
+}
 
 var logger = log4js.getLogger();
 logger.level = app.get('prod')==1 ? "info" : "debug";
@@ -96,19 +121,30 @@ function authenticate(username, passwd, fn) {
 app.post('/account', (req, res) => { // params: {username, passwd}
     user_data = {username: req.body.username, passwd: req.body.passwd, type: "buyer", mean_ratings: 0, num_ratings: 0, cart: []};
     logger.info(user_data.body);
+    client.register(encodeMessage(user_data, messages.userRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+/* 
     DBO.collection("user").insertOne(user_data, function(db_err, db_resp) {
         if (db_err) {
             return res.json({'reg': false, 'msg': `Registration failed with error: ${db_err}`});
         }
         logger.debug(`User inserted with user_id ${db_resp.insertedId}`);
         res.json({'reg': true, 'msg': `Registration successful for ${req.body.username}`});
-    });
+    });*/
 });
 
 // Login
 
 app.post('/login', (req, res, next) => { // params: {username, passwd}
-    authenticate(req.body.username, req.body.passwd, (err, user) => {
+    logger.info(req.body);
+    user_data = {username: req.body.username, passwd: req.body.passwd, type: "buyer", mean_ratings: 0, num_ratings: 0, cart: []};
+    client.login(encodeMessage(user_data, messages.userRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    /*authenticate(req.body.username, req.body.passwd, (err, user) => {
         if (err){
             err_msg = `Auth failed for user ${req.body.username}`;
             logger.error(`${err_msg}`);
@@ -120,7 +156,7 @@ app.post('/login', (req, res, next) => { // params: {username, passwd}
             res.json({'auth': true, 'msg': 'Auth successful'});
         }
         next();
-    });
+    });*/
 });
 
 // Logout
@@ -133,7 +169,14 @@ app.post('/logout', (req, res) => {  // params: {username}
 // Search
 
 app.post('/search', restrict, (req, res) => { // params: {username, category, keywords}
-    var keywords = req.body.data.keywords;
+    logger.info(req.body);
+    user_data = {username: req.body.username, category: req.body.category, keywords: keywords};
+    client.login(encodeMessage(user_data, messages.searchItemsForSaleRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    
+    /* var keywords = req.body.data.keywords;
     var itemCategory = req.body.data.category;
 
     logger.debug(`Searching for items with keywords ${keywords} and category: ${itemCategory}`);
@@ -145,13 +188,19 @@ app.post('/search', restrict, (req, res) => { // params: {username, category, ke
         res.json(result);
     }).catch((err) => {
         logger.info(`Search failed for items with keywords ${keywords} and category: ${itemCategory}`);
-    });
+    });*/
 });
 
 // Add item to cart
 
 app.post('/add_item', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
-    var username = req.body.username;
+    logger.info(req.body);
+    user_data = {username: req.body.username, data: req.body.data};
+    client.login(encodeMessage(user_data, messages.addItemsRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    /*var username = req.body.username;
     db_get_user(username, (err, user) => {
             if(err){
                 logger.error(err);
@@ -167,13 +216,20 @@ app.post('/add_item', restrict, (req, res) => { // param: {username, data: {item
                 return res.json({"msg": "New item added to the cart"});
             });
     });
-    logger.debug(`Item added to cart`);
+    logger.debug(`Item added to cart`);*/
 });
 
 // display cart
 
 app.get('/display_cart', restrict, (req, res, next) => { // param {username}
-    db_get_user(req.query.username, (user_err, user_resp) => {
+    logger.info(req.body);
+    user_data = {username: req.body.username};
+    client.login(encodeMessage(user_data, messages.displayCartRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    /*
+      db_get_user(req.query.username, (user_err, user_resp) => {
         if(user_err){
             logger.error(`Error fetching user info for user ${req.query.username} error: ${user_err}`);
             return res.sendStatus(500);
@@ -190,12 +246,19 @@ app.get('/display_cart', restrict, (req, res, next) => { // param {username}
             logger.error(`Error fetching items: ${item_err}`);
             res.sendStatus(500);
         });
-    });
+    });*/
 });
 
 // clear cart
 
 app.post('/clear_cart', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
+    logger.info(req.body);
+    user_data = {username: req.body.username, data: req.body.data};
+    client.login(encodeMessage(user_data, messages.clearCartRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    /*
     var username = req.body.username;
     db_get_user(username, (err, user) => {
         if(err){
@@ -213,11 +276,19 @@ app.post('/clear_cart', restrict, (req, res) => { // param: {username, data: {it
         });
     });
     logger.debug(`Cart cleared`);
+    */
 });
 
 // update cart
 
 app.post('/remove_item', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
+    logger.info(req.body);
+    user_data = {username: req.body.username, data: req.body.data};
+    client.login(encodeMessage(user_data, messages.rmvItemsRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    /*
     var username = req.body.username;
     var qty = req.body.data.qty;
 
@@ -240,9 +311,17 @@ app.post('/remove_item', restrict, (req, res) => { // param: {username, data: {i
         });
     });
     logger.debug(`Item removed from cart`);
+    */
 });
 
 app.get('/ratings', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
+    logger.info(req.body);
+    user_data = {username: req.body.username, data: req.body.data};
+    client.login(encodeMessage(user_data, messages.getSellerRatingRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    /*
     var username = req.body.username;
     var qty = req.body.data.qty;
 
@@ -263,9 +342,17 @@ app.get('/ratings', restrict, (req, res) => { // param: {username, data: {item_i
         });
     });
     logger.debug(`Rating added`);
+    */
 });
 
 app.get('/history', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
+    logger.info(req.body);
+    user_data = {username: req.body.username, data: req.body.data};
+    client.login(encodeMessage(user_data, messages.getBuyerHistoryRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    /*
     var username = req.body.username;
 
     var query = { "username": username } // username is a unique index
@@ -275,10 +362,17 @@ app.get('/history', restrict, (req, res) => { // param: {username, data: {item_i
         return res.json(result);
     }).catch((err) => {
         res.json({"msg": `Fetching history failed with error: ${err}`});
-    });
+    });*/
 });
 
 app.post('/feedback', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
+    logger.info(req.body);
+    user_data = {username: req.body.username, data: req.body.data};
+    client.login(encodeMessage(user_data, messages.provideFeedbackRequest) , function(err, response) {
+      console.log("called: " );  
+      console.log(response);
+    }); 
+    /*
     var username = req.body.username;
     db_get_user(username, (err, user) => {
             if(err){
@@ -295,28 +389,55 @@ app.post('/feedback', restrict, (req, res) => { // param: {username, data: {item
                 return res.json({"msg": "New feedback added to the item"});
             });
     });
-    logger.debug(`Feedback added`);
+    logger.debug(`Feedback added`);*/
 });
 
 app.post('/purchase', restrict, (req, res) => {
-    var username = req.body.username;
+    var cardname = req.body.username;
+    var cardnumber = req.body.cardnumber;
+    var exp_date = req.body.exp_date;
+
+    // Create client
+  soap.createClient(url, function (err, client) {
+    if (err){
+      throw err;
+    }
+    /*  
+    * Parameters of the service call: they need to be called as specified
+    * in the WSDL file
+    */
+    credit_card={"name" : cardname , "number" : cardnumebr, "exp_date" : exp_date};
+    var args = { 
+      message: JSON.stringify(credit_card),
+      splitter: ":" 
+    };  
+    // call the service
+    client.MessageSplitter(args, function (err, res) {
+    if (err)
+      throw err;
+      // print the service returned result
+      console.log(res); 
+    }); 
+  });
+
+
     db_get_user(username, (err, user) => {
-            if(err){
-                logger.error(err);
-                return res.send(500);
+        if(err){
+        logger.error(err);
+        return res.send(500);
+        }
+        user.cart.push([ObjectId(req.body.data.item_id), req.body.data.qty || 0]);
+        DBO.collection("user").updateOne({username: req.body.username}, {$set: {cart: user.cart}}, function(_err, _resp){
+            if(_err) {
+            logger.error(`Item purchased failed for item: ${req.body.username} ${_err}`);
+            return res.sendStatus(500);
             }
-            user.cart.push([ObjectId(req.body.data.item_id), req.body.data.qty || 0]);
-            DBO.collection("user").updateOne({username: req.body.username}, {$set: {cart: user.cart}}, function(_err, _resp){
-                if(_err) {
-                    logger.error(`Item purchased failed for item: ${req.body.username} ${_err}`);
-                    return res.sendStatus(500);
-                }
-                logger.debug(`Purchase done for item ${req.body.username}`);
-                return res.json({"msg": "New item purchased"});
+            logger.debug(`Purchase done for item ${req.body.username}`);
+            return res.json({"msg": "New item purchased"});
             });
-    });
+        });
     logger.debug(`New item purchased`);
-});
+    });
 
 
 

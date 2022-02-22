@@ -1,0 +1,66 @@
+// sellerService/grpc_server.js
+
+require('dotenv').config();
+const grpc = require('@grpc/grpc-js');
+const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
+const services = require('../../buyerService/proto/buyer_grpc_pb');
+const API = require("./api");
+
+// Mongo Connection
+const DB_URL = "mongodb://localhost:27017";
+var DBO; // db object
+let api=null;
+
+MongoClient.connect(DB_URL, function(err, db) {
+    if (err)
+        throw err;
+    console.log("Database created!");
+    DBO = db.db('ecommerce');
+    //db.close();
+});
+
+/*
+app.post('/account', (req, res) => { // params: {name, passwd}
+    user_data = {name: req.body.name, passwd: req.body.passwd, ratings: [], items: []};
+    DBO.collection("user").insertOne(user_data, function(db_err, db_resp) {
+        if (db_err) {
+            return res.json({'reg': false, 'msg': `Registration failed with error: ${db_err}`});
+        }
+        logger.debug(`Item inserted with item_id ${db_resp.insertedId}`);
+        res.json({'reg': true, 'msg': `Registration successful for ${req.body.name}`});
+    });
+});
+*/
+
+/*
+async function connectDB() {
+    try {
+        await dbClient.connect();
+        let db = await dbClient.db(process.env.DB_NAME);
+        db.command({ ping: 1 });
+        console.log("Connected successfully to mongo server");
+        // Create index
+        await db.collection("user").createIndex({ email: 1 });
+
+        // Init api
+        api = new API(db, grpc);
+    } catch (e) {
+        console.error(e);
+    }
+}*/
+
+async function main() {
+    let server = new grpc.Server();
+    api = new API(DBO, grpc);
+    server.addService(services.BuyerSvcService, {
+        register: api.register,
+    });
+    let address = process.env.HOST + ":" + process.env.PORT;
+    server.bindAsync(address, grpc.ServerCredentials.createInsecure(), () => {
+        server.start();
+        console.log("Server running at " + address);
+    });
+}
+
+main();

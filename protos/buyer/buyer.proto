@@ -1,0 +1,129 @@
+syntax="proto3";
+
+package buyer;
+
+service BuyerSvc{
+  rpc register(userRequest) returns (registerResponse);
+  rpc login(userRequest) returns (loginResponse);
+  rpc searchItemsForSale(searchItemsForSaleRequest) returns (searchItemsForSaleResponse);  
+  rpc addItemsToCart(addItemsRequest) returns (addItemsResponse);
+  rpc rmvItemsToCart(rmvItemsRequest) returns (rmvItemsResponse);
+  rpc clearCart(clearCartRequest) returns (clearCartResponse);
+  rpc displayCart(displayCartRequest) returns (displayCartResponse);
+  rpc provideFeedback(provideFeedbackRequest) returns (provideFeedbackResponse);
+  rpc getSellerRating(getSellerRatingRequest) returns (rating);
+  rpc getBuyerHistory(getBuyerHistoryRequest) returns (getBuyerHistoryResponse);
+}
+
+message registerResponse{
+  string res=1;
+}
+
+message loginResponse{
+  string res=1;
+}
+
+message searchItemsForSaleRequest {
+  int32 category=1;
+  repeated string keywordList=2;
+}
+
+message searchItemsForSaleResponse {
+  repeated Item itemList=1;
+}
+
+message addItemsRequest{
+  string username=1;
+  string id=2;
+  int32 qty=3;
+}
+
+message addItemsResponse{
+  string res=1;
+}
+
+message rmvItemsRequest{
+  string username=1;
+  string id=2;
+  int32 qty=3;
+}
+
+message rmvItemsResponse{
+  string res=1;
+}
+
+message clearCartRequest{
+  string username=1;
+}
+
+message clearCartResponse{
+  string res=1;
+}
+
+message displayCartRequest{
+  string username=1;
+}
+
+message displayCartResponse{
+  repeated Item itemList=1;
+}
+
+message provideFeedbackRequest {
+  string username = 1;
+  repeated feedback fb = 2; 
+}
+
+message provideFeedbackResponse {
+  string res=1;
+}
+
+message getSellerRatingRequest{
+  string username=1;
+}
+
+message rating{
+  int32 val=1;
+}
+
+message getBuyerHistoryRequest {
+  string username=1; 
+}
+
+message getBuyerHistoryResponse {
+  repeated transaction transList=1;
+}
+
+message transaction {
+  repeated transactiontuple tTuple=1; 
+}
+
+message transactiontuple {
+  Item item=1;
+  int32 qty=2;
+}
+
+message userRequest {
+  string username=1;
+  string password=2;
+}
+
+message Item{
+  string name=1;
+  int32 catergory=2;
+  repeated string keywordList=3;
+  string condition=4;
+  int32 price=5;
+  int32 qty=6;
+}
+
+message userResponse {
+  string username=1;
+  string password=2;
+  repeated rating ratingsList=3;
+  repeated Item itemList=4;
+}
+
+message feedback {
+  Item item=1;
+  int32 val=2;
+}

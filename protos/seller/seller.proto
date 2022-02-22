@@ -1,0 +1,91 @@
+syntax="proto3";
+
+package seller;
+
+service SellerSvc{
+    rpc register(userRequest) returns (registerResponse);
+    rpc authenticate(userRequest) returns (authenticateResponse);
+    rpc getSellerRating(userName) returns (rating);
+    rpc putAnItemForSale(putAnItemForSaleRequest) returns (putAnItemForSaleResponse);
+    rpc changeSalePrice(changeSalePriceRequest) returns (changeSalePriceResponse);
+    rpc rmvAnItem(rmvAnItemRequest) returns (rmvAnItemResponse);
+    rpc displayItems(displayItemsRequest) returns (displayItemResponse);
+}
+
+message registerResponse{
+    string res=1;
+}
+
+message authenticateResponse{
+    string res=1;
+}
+
+message userName{
+    string username=1;
+}
+
+message rating{
+    int32 val=1;
+}
+
+message userRequest {
+    string username=1;
+    string password=2;
+}
+
+message Item{
+    string name=1;
+    int32 catergory=2;
+    repeated string keywordList=3;
+    string condition=4;
+    int32 price=5;
+    int32 qty=6;
+}
+
+message putAnItemForSaleRequest {
+  string username=1;
+  Item item=2;
+  int32 qty=3;
+}
+
+message putAnItemForSaleResponse {
+  string res=1;
+}
+
+message changeSalePriceRequest {
+  string itemId=1;
+  int32 price=2;
+}
+
+message changeSalePriceResponse {
+  string res=1;
+}
+
+message rmvAnItemResponse {
+  string res=1;
+}
+
+message rmvAnItemRequest {
+  string username = 1;
+  string itemId = 2;
+  int32 qty=3;
+}
+
+message ItemQtyPair{
+  Item item=1;
+  int32 qty=2;
+}
+
+message itemList{
+  repeated ItemQtyPair itemLists=1;
+}
+
+message displayItemsRequest {
+  string username=1;
+}
+
+message displayItemResponse {
+  repeated Item itemsList=1;
+}
+
+
