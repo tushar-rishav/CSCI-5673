@@ -78,7 +78,7 @@ function restrict(req, res, next) {
         next();
     } else {
         logger.info(`Request denied!`);
-        res.status(404).send('Not implemented yet');
+        res.json({msg: 'Request denied'});
     }
   }
 

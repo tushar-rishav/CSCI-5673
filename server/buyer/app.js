@@ -72,7 +72,7 @@ function restrict(req, res, next) {
         next();
     } else {
         logger.info(`Request denied!`);
-        res.status(404).send('Not implemented yet');
+        res.json({msg: 'Request denied'});
     }
   }
 
@@ -243,32 +243,24 @@ app.post('/remove_item', restrict, (req, res) => { // param: {username, data: {i
 });
 
 app.get('/ratings', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
-    var username = req.body.username;
-    var qty = req.body.data.qty;
-
-    db_get_user(username, (err, user) => {
+    var seller_id = req.query.seller_id;
+    
+    db_get_user(seller_id, (err, user) => {
         if(err){
             logger.error(err);
             return res.send(500);
         }
-
-        user.rating.push(req.body.data.rating || 10);
-        DBO.collection("user").updateOne({username: req.body.username}, {$set: {rating: user.rating}}, function(_err, _resp){
-            if(_err) {
-                logger.error(`Update ratings failed for buyer: ${req.body.username} ${_err}`);
-                return res.sendStatus(500);
-            }
-            logger.debug(`Rating updated for buyer ${req.body.username}`);
-            return res.json({"msg": "Rating updated"});
-        });
+        var mean_ratings = user.mean_ratings || 0;
+        logger.debug(`Returning seller rating ${(user.mean_ratings || 0)}`)
+        res.json({ msg: (user.mean_ratings || 0) });
     });
-    logger.debug(`Rating added`);
 });
 
 app.get('/history', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
-    var username = req.body.username;
+    var username = req.query.username;
 
     var query = { "username": username } // username is a unique index
+    logger.debug(username, query);
     var history = DBO.collection("history").find(query).toArray();
     history.then((result) => {
         logger.debug(JSON.stringify(result, null, 4));
@@ -279,43 +271,47 @@ app.get('/history', restrict, (req, res) => { // param: {username, data: {item_i
 });
 
 app.post('/feedback', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
-    var username = req.body.username;
-    db_get_user(username, (err, user) => {
-            if(err){
-                logger.error(err);
-                return res.send(500);
+    var item_id = req.body.data.item_id;
+    var feedback = req.body.data.feedback; // +1 or -1
+
+    var cursor = DBO.collection("item").find({"_id": ObjectId(item_id)}).toArray();
+    cursor.then((_resp) => {
+        var mean_feedback = _resp[0].mean_feedback || 0;
+        var num_feedback = _resp[0].num_feedback || 0;
+        var new_feedback = (mean_feedback*num_feedback) + feedback;
+
+        logger.debug(mean_feedback, num_feedback, new_feedback, feedback);
+        var update = { mean_feedback: new_feedback/(num_feedback+1), num_feedback: num_feedback+1 }
+        logger.debug(update);
+
+        DBO.collection("item").updateOne({"_id": ObjectId(item_id)}, {$set: update}, function(err, resp){
+            if(err) {
+                logger.error(`Add item feedback failed by buyer: ${req.body.username} ${err}`);
+                return res.sendStatus(500);
             }
-            user.feedback.push(req.body.data.feedback || 10);
-            DBO.collection("item").updateOne({username: req.body.username}, {$set: {feedback: user.feedback}}, function(_err, _resp){
-                if(_err) {
-                    logger.error(`Adding feedback failed for item: ${req.body.username} ${_err}`);
-                    return res.sendStatus(500);
-                }
-                logger.debug(`New feedback added for item ${req.body.username}`);
-                return res.json({"msg": "New feedback added to the item"});
-            });
+            logger.debug(`New feedback added for user ${req.body.username}`);
+            return res.json({"msg": "New feedback added to the item"});
+        });
+    }).catch(_err => {
+        if(_err) {
+            logger.error(`Adding feedback failed by buyer: ${req.body.username} ${_err}`);
+            return res.sendStatus(500);
+        }
     });
-    logger.debug(`Feedback added`);
 });
 
 app.post('/purchase', restrict, (req, res) => {
     var username = req.body.username;
-    db_get_user(username, (err, user) => {
-            if(err){
-                logger.error(err);
-                return res.send(500);
-            }
-            user.cart.push([ObjectId(req.body.data.item_id), req.body.data.qty || 0]);
-            DBO.collection("user").updateOne({username: req.body.username}, {$set: {cart: user.cart}}, function(_err, _resp){
-                if(_err) {
-                    logger.error(`Item purchased failed for item: ${req.body.username} ${_err}`);
-                    return res.sendStatus(500);
-                }
-                logger.debug(`Purchase done for item ${req.body.username}`);
-                return res.json({"msg": "New item purchased"});
-            });
+    
+    DBO.collection("history").insertOne({username: username, data: req.body.data}, function(db_err, db_resp) {
+        if (db_err) {
+            return res.json({'reg': false, 'msg': `Saving purchase transaction failed with error: ${db_err}`});
+        }
+        logger.debug(`Purchase transaction saved`);
+        res.json({'reg': true, 'msg': `Purchase transaction saved ${req.body.username}`});
     });
-    logger.debug(`New item purchased`);
+
+    logger.debug(`Purchase transaction saved`);
 });
 
 
