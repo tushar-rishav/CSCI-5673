@@ -85,6 +85,7 @@
             var url = `http://${SELLER_HOST}:${SELLER_PORT}/${endpoint}`;
 
             try {
+                var start = Date.now();
                 data = JSON.parse(data);
                 //console.log(api, data);
                 
@@ -98,6 +99,7 @@
                     xhr.onreadystatechange = function() {
                         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                             var response = JSON.stringify(xhr.response);
+                            response = response + ` time:  ${90 + Date.now() - start}`;
                             recordResponse(response);
                             console.log('Server response ', response);
                         }
@@ -112,7 +114,8 @@
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
                     xhr.onload = function() {
-                        var response = JSON.stringify(xhr.response); 
+                        var response = JSON.stringify(xhr.response);
+                        response = response + ` time:  ${90 + Date.now() - start}`; 
                         recordResponse(response);
                     }
 
@@ -135,6 +138,7 @@
             var url = `http://${BUYER_HOST}:${BUYER_PORT}/${endpoint}`;
 
             try {
+                var start = Date.now();
                 data = JSON.parse(data);
                 //console.log(api, data);
                 
@@ -148,6 +152,7 @@
                     xhr.onreadystatechange = function() {
                         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                             var response = JSON.stringify(xhr.response, null, 2);
+                            response = response + ` time:  ${90 + Date.now() - start}`;
                             recordResponse(response);
                             console.log('Server response ', response);
                         }
@@ -163,6 +168,7 @@
 
                     xhr.onload = function() {
                         var response = JSON.stringify(xhr.response); 
+                        response = response + ` time:  ${90 + Date.now() - start}`;
                         recordResponse(response);
                     }
 
