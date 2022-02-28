@@ -302,7 +302,7 @@ if (goog.DEBUG && !COMPILED) {
  * @constructor
  */
 proto.buyer.provideFeedbackRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.buyer.provideFeedbackRequest.repeatedFields_, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.buyer.provideFeedbackRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -2340,13 +2340,6 @@ proto.buyer.displayCartResponse.prototype.clearItemlistList = function() {
 
 
 
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.buyer.provideFeedbackRequest.repeatedFields_ = [2];
-
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -2378,9 +2371,8 @@ proto.buyer.provideFeedbackRequest.prototype.toObject = function(opt_includeInst
  */
 proto.buyer.provideFeedbackRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    username: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    fbList: jspb.Message.toObjectList(msg.getFbList(),
-    proto.buyer.feedback.toObject, includeInstance)
+    itemid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    fb: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -2419,12 +2411,11 @@ proto.buyer.provideFeedbackRequest.deserializeBinaryFromReader = function(msg, r
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setUsername(value);
+      msg.setItemid(value);
       break;
     case 2:
-      var value = new proto.buyer.feedback;
-      reader.readMessage(value,proto.buyer.feedback.deserializeBinaryFromReader);
-      msg.addFb(value);
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setFb(value);
       break;
     default:
       reader.skipField();
@@ -2455,29 +2446,28 @@ proto.buyer.provideFeedbackRequest.prototype.serializeBinary = function() {
  */
 proto.buyer.provideFeedbackRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getUsername();
+  f = message.getItemid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = message.getFbList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
+  f = message.getFb();
+  if (f !== 0) {
+    writer.writeInt32(
       2,
-      f,
-      proto.buyer.feedback.serializeBinaryToWriter
+      f
     );
   }
 };
 
 
 /**
- * optional string username = 1;
+ * optional string itemid = 1;
  * @return {string}
  */
-proto.buyer.provideFeedbackRequest.prototype.getUsername = function() {
+proto.buyer.provideFeedbackRequest.prototype.getItemid = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -2486,46 +2476,26 @@ proto.buyer.provideFeedbackRequest.prototype.getUsername = function() {
  * @param {string} value
  * @return {!proto.buyer.provideFeedbackRequest} returns this
  */
-proto.buyer.provideFeedbackRequest.prototype.setUsername = function(value) {
+proto.buyer.provideFeedbackRequest.prototype.setItemid = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * repeated feedback fb = 2;
- * @return {!Array<!proto.buyer.feedback>}
+ * optional int32 fb = 2;
+ * @return {number}
  */
-proto.buyer.provideFeedbackRequest.prototype.getFbList = function() {
-  return /** @type{!Array<!proto.buyer.feedback>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.buyer.feedback, 2));
+proto.buyer.provideFeedbackRequest.prototype.getFb = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /**
- * @param {!Array<!proto.buyer.feedback>} value
- * @return {!proto.buyer.provideFeedbackRequest} returns this
-*/
-proto.buyer.provideFeedbackRequest.prototype.setFbList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 2, value);
-};
-
-
-/**
- * @param {!proto.buyer.feedback=} opt_value
- * @param {number=} opt_index
- * @return {!proto.buyer.feedback}
- */
-proto.buyer.provideFeedbackRequest.prototype.addFb = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.buyer.feedback, opt_index);
-};
-
-
-/**
- * Clears the list making it empty but non-null.
+ * @param {number} value
  * @return {!proto.buyer.provideFeedbackRequest} returns this
  */
-proto.buyer.provideFeedbackRequest.prototype.clearFbList = function() {
-  return this.setFbList([]);
+proto.buyer.provideFeedbackRequest.prototype.setFb = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 

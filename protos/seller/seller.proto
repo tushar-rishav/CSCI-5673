@@ -44,7 +44,7 @@ message Item{
 
 message putAnItemForSaleRequest {
   string username=1;
-  Item item=2;
+  string item_id=2;
   int32 qty=3;
 }
 

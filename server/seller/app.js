@@ -34,7 +34,7 @@ const app = express();
 
 app.set('prod', process.env.prod);
 
-// encode the JSON message into protobuf
+/* encode the JSON message into protobuf
 async function encodeMessage(payload, messageName) {
   const root = await protobuf.load("buyer.proto");
   const testMessage = root.lookupType(messageName);
@@ -52,6 +52,7 @@ async function decodeMessage(buffer, messageName) {
   const message = testMessage.decode(buffer);
   return testMessage.toObject(message);
 }
+*/
 
 var logger = log4js.getLogger();
 logger.level = app.get('prod')==1 ? "info" : "debug";
@@ -102,7 +103,7 @@ function restrict(req, res, next) {
         next();
     } else {
         logger.info(`Request denied!`);
-        res.status(404).send('Not implemented yet');
+        res.json({msg: 'Request denied'});
     }
   }
 
@@ -122,46 +123,69 @@ function authenticate(username, passwd, fn) {
 }
 
 // Sign-up
-
 app.post('/account', (req, res) => { // params: {username, passwd}
     user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, items: []};
     logger.info(user_data.body);
-    client.register(encodeMessage(user_data, messages.userRequest) , function(err, response) {
-      console.log("called: " );  
-      console.log(response);
+
+    var name = req.body.username;
+    var passwd = req.body.passwd;
+    var type = "seller";
+    var grpc_response = "";
+
+    // populate the grpc request as a proto file
+    let user_request = new messages.userRequest();
+    user_request.setUsername(name);
+    user_request.setPassword(passwd);
+    console.log("Printing the protobuf:"+user_request);
+    
+    // serialize the structure to binary data
+    var binary_data = user_request.serializeBinary();
+    console.log(binary_data);
+
+    client.register(user_request, function(err, response) {
+      grpc_response = response.getRes();
+      console.log("Got response from GRPC server: "+grpc_response );  
+      console.log(err);
+      if(err){
+        res.json({"msg":"Seller Registration failed"});
+      }
+      else{
+        res.json({"msg":"Seller Registration success"});
+      }
     }); 
-/* 
-    DBO.collection("user").insertOne(user_data, function(db_err, db_resp) {
-        if (db_err) {
-            return res.json({'reg': false, 'msg': `Registration failed with error: ${db_err}`});
-        }
-        logger.debug(`User inserted with user_id ${db_resp.insertedId}`);
-        res.json({'reg': true, 'msg': `Registration successful for ${req.body.username}`});
-    });*/
 });
 
 // Login
-
 app.post('/login', (req, res, next) => { // params: {username, passwd}
     logger.info(req.body);
     user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
-    client.login(encodeMessage(user_data, messages.userRequest) , function(err, response) {
-      console.log("called: " );  
-      console.log(response);
+    var name = req.body.username;
+    var passwd = req.body.passwd;
+    var type = "seller";
+    var grpc_response = "";
+
+    // populate the grpc request as a proto file
+    let user_request = new messages.userRequest();
+    user_request.setUsername(name);
+    user_request.setPassword(passwd);
+    console.log("Printing the protobuf:"+user_request);
+
+    // serialize the structure to binary data
+    var binary_data = user_request.serializeBinary();
+    console.log(binary_data);
+
+    client.login(user_request, function(err, response) {
+        grpc_response = response.getRes();
+        console.log("Got response from GRPC server: "+grpc_response );  
+        if(err ){
+            res.json({"msg":"Seller Login failed"});
+            console.log(err);
+        }
+        else{
+            res.json({"msg":"Seller Login success"});
+            app.locals[name] = name;
+        }
     }); 
-    /*authenticate(req.body.username, req.body.passwd, (err, user) => {
-        if (err){
-            err_msg = `Auth failed for user ${req.body.username}`;
-            logger.error(`${err_msg}`);
-            res.json({'auth': false, 'msg': 'Auth failed'});
-        }
-        else if(user) {
-            logger.info(`Auth successful for user ${req.body.username}`);
-            app.locals[req.body.username] = user;
-            res.json({'auth': true, 'msg': 'Auth successful'});
-        }
-        next();
-    });*/
 });
 
 // Logout
@@ -172,65 +196,87 @@ app.post('/logout', (req, res) => {  // params: {username}
 });
 
 // Ratings
-
 app.get('/ratings', restrict, (req, res) => { // display seller rating
     logger.info(req.body);
     user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
-    client.login(encodeMessage(user_data, messages.ratings) , function(err, response) {
-      console.log("called: " );  
-      console.log(response);
-    }); 
-    /*
-    logger.debug('Implemented');
-    db_get_user(req.query.username, (user_err, user_resp) => {
-        if(user_err){
-            logger.error(`Error fetching user info for user ${req.query.username} error: ${user_err}`);
-            return res.sendStatus(500);
-        }
+    res.json({"msg":"Not required to implement"});
 
-        res.json({"ratings": user_resp.mean_ratings });
-    })
-    */
+    /* populate the grpc request as a proto file
+    console.log(user_data.username+" : "+user_data.item_id+" : "+user_data.qty);
+    
+    let seller_request = new messages.userName();
+    seller_request.setUsername(seller_id);
+    console.log("Printing the protobuf:"+seller_request);
+
+    // serialize the structure to binary data
+    var binary_data = seller_request.serializeBinary();
+    console.log(binary_data);
+    var grpc_response = "";
+
+    client.getSellerRating(seller_request, function(err, response) {
+        logger.debug(response);
+        logger.debug(err);
+        grpc_response = response.getRes();
+        console.log("Got response from GRPC server: "+grpc_response);
+        if(err){
+            res.json({"msg":"Seller Rating failed"});
+        }
+        else{
+            res.json({"msg":"Seller Rating success"+});
+        }
+    }); */
 });
 
 // Display Items
-
 app.get('/display_item', restrict, (req, res, next) => { // param {username}
-    logger.info(req.body);
-    user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
-    client.login(encodeMessage(user_data, messages.displayItemsRequest) , function(err, response) {
-      console.log("called: " );  
-      console.log(response);
-    }); 
-    /*db_get_user(req.query.username, (user_err, user_resp) => {
-        if(user_err){
-            logger.error(`Error fetching user info for user ${req.query.username} error: ${user_err}`);
-            return res.sendStatus(500);
-        }
+    logger.info(req.query);
+    user_data = {username: req.query.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
+    
+    // populate the grpc request as a proto file
+    console.log(user_data.username);
+    
+    let display_item_request = new messages.displayItemsRequest();
+    display_item_request.setUsername(user_data.username);        
+    console.log("Printing the protobuf:"+display_item_request);
 
-        items = user_resp.items;
-        var query = {"_id": { "$in": items } }
-        var docs = DBO.collection("item").find(query, {projection: {_id: 0}}).toArray();
-        docs.then((result) => {
-            logger.debug(JSON.stringify(result, null, 4));
-            res.json(result);
-        }).catch((item_err) => {
-            logger.error(`Error fetching items: ${item_err}`);
-            res.sendStatus(500);
-        });
-
-    });*/
+    // serialize the structure to binary data
+    var binary_data = display_item_request.serializeBinary();
+    console.log(binary_data);
+    
+    var grpc_response="";
+    client.displayItems(display_item_request, function(err, response) {
+        logger.debug(response);
+        logger.debug(err);
+        grpc_response = JSON.stringify(response, null, 4);
+        console.log("Got response from GRPC server: "+grpc_response);
+    });
 });
 
 // Add Item 
-
 app.post('/add_item', restrict, (req, res) => { // param: {username, data}
     logger.info(req.body);
-    user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
-    client.login(encodeMessage(user_data, messages.addItemsRequest) , function(err, response) {
-      console.log("called: " );  
-      console.log(response);
+    user_data = {username: req.body.username, item_id: req.body.data.item_id, qty: req.body.data.qty};
+    
+    // populate the grpc request as a proto file
+    console.log(user_data.username+" : "+user_data.item_id+" : "+user_data.qty);
+    let add_items_salerequest = new messages.putAnItemForSaleRequest();
+    add_items_sale_request.setUsername(user_data.username);
+    add_items_sale_request.setId(user_data.item_id);
+    add_items_sale_request.setQty(user_data.qty);
+    
+    console.log("Printing the protobuf:"+add_items_sale_request);
+
+    // serialize the structure to binary data
+    var binary_data = add_items_sale_request.serializeBinary();
+    console.log(binary_data);
+    
+    client.putAnItemForSale(add_items_sale_request, function(err, response) {
+        logger.debug(response);
+        logger.debug(err);
+        var grpc_response = response;
+        console.log("Got response from GRPC server: "+grpc_response);
     }); 
+
     /*
     DBO.collection("item").insertOne(req.body.data, function(item_err, item_resp) {
         if(item_err){

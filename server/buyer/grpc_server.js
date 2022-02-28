@@ -33,10 +33,10 @@ async function main() {
       login : api.login,        
       searchItemsForSale : api.searchItemsForSale,
       addItemsToCart : api.addItemsToCart,
-      rmvItemsFromCart : api.rmvItemsFromCart,
+      rmvItemsToCart : api.rmvItemsToCart,
       clearCart : api.clearCart,
       displayCart : api.displayCart,
-      provideFeedback : api.provideFeedback.
+      provideFeedback : api.provideFeedback,
       getSellerRating : api.getSellerRating,
       getBuyerHistory : api.getBuyerHistory,
     });

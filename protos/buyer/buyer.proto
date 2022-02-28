@@ -69,8 +69,8 @@ message displayCartResponse{
 }
 
 message provideFeedbackRequest {
-  string username = 1;
-  repeated feedback fb = 2; 
+  string itemid = 1;
+  int32 fb = 2; 
 }
 
 message provideFeedbackResponse {

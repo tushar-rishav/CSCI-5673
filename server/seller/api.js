@@ -43,69 +43,99 @@ module.exports = class API {
     this.grpc = grpc;
   }
 
-  // registers the user into the database
+  // registers the user and add an entry into the "user" database
+  // receives the binary data from server front end
   register = (call, callback) => {
-    console.log("Called Register API");
+    console.log("Received a GRPC request for Register API");
     const users = this.db.collection("user");
-    let user_data = {name: call.request.getUsername(), passwd: call.request.getPassword(), ratings: [], items: []};
+
+    var user_request = call.request;
+    console.log(user_request);
+
+    let user_data = {username: user_request.getUsername(), passwd: user_request.getPassword(), type:"seller", ratings: [], items:[]};
+    var out = "";
     users.insertOne(user_data, function(db_err, db_resp) {
         let resp = new messages.registerResponse();
         if (db_err) {
-        //return res.json({'reg': false, 'msg': `Registration failed with error: ${db_err}`});
-        resp.setRes("Failed case scenario");
+          logger.info(db_err);
+            out = {'reg': false, 'msg': `Registration failed with error: ${db_err}`};
+            resp.setRes(JSON.stringify(out));
+            return callback(db_err, resp);
         }
-        logger.debug(`Item inserted with item_id ${db_resp.insertedId}`);
-        resp.setRes("Passed case scenario");
+        out = {'reg': true, 'msg': `Registration successful for ${user_data.username}`};
+        logger.info(db_resp);
+        resp.setRes(JSON.stringify(out));
+        console.log(resp);
         callback(null, resp);
-        });
+    });
   }
 
   // authenticates the user and lets you access to the apis
   login = (call, callback) => {
-    console.log("Called Login API");
+    console.log("Received a GRPC request for Login API");
     const users = this.db.collection("user");
-    authenticate(call.request.getUsername(), call.request.getPassword(), (err, user) => {
+    var user_request = call.request;
+    console.log(user_request);
+
+    let user_data = {username: user_request.getUsername(), passwd: user_request.getPassword(), type:"seller", ratings: [], cart: []};
+    console.log(user_data);
+    authenticate(user_data.username, user_data.passwd, (err, user) => {
         let resp = new messages.authenticateResponse();
-        if (err){
-        err_msg = `Auth failed for user ${call.request.getUsername()}`;
-        logger.error(`${err_msg}`);
-        resp.setRes("Failed case scenario");
-        // res.json({'auth': false, 'msg': 'Auth failed'});
+        if(user) {
+            logger.info(`Auth successful for user ${user_data.username}`);
+            var out = {'reg': true, 'msg': `Login successful for ${user_data.username}`};
+            resp.setRes(JSON.stringify(out));
+            callback(null, resp);
         }
-        else if(user) {
-        logger.info(`Auth successful for user ${call.request.getUsername()}`);
-        //app.locals[call.request.getUsername()] = user;
-        resp.setRes("Succesful authentication");
-        // res.json({'auth': true, 'msg': 'Auth successful'});
+        else if (err){
+            var err_msg = {'reg': false, 'msg': `Login failed with error: ${err}`};
+            logger.error(`${err_msg}`);
+            resp.setRes(JSON.stringify(err_msg));
+            callback(null, resp);
         }
-        //next();
-
-        // populate the repsonse
-
-        });
+    });
   }
 
   // gets the seller rating for this seller and access "user" database
   getSellerRating = (call, callback) => {
-    console.log("Called get Seller Rating API");
-    logger.debug('Not Implemented');
-    db_get_user(req.query.username, (user_err, user_resp) => {
+    logger.info("Get Seller Rating API :"+call.request);
+    var seller_request = call.request;
+    console.log(seller_request);
+    
+    let resp = new messages.rating();
+    
+/*
+    db_get_user(seller_request.getUsername(), (user_err, user_resp) => {
         if(user_err){
-        logger.error(`Error fetching user info for user ${req.query.username} error: ${user_err}`);
-        return res.sendStatus(500);
+          var err_msg = `Error fetching user info for user ${req.query.username} error: ${user_err}`;
+          logger.error(`${err_msg}`);
+          logger.error(user_err);
+          resp.setRes(err_msg);
+          callback(err, resp);
         }
-
-        res.json({"ratings": user_resp.mean_ratings }); 
-        });  
+        resp.setRes({"ratings": user_resp.mean_ratings });
+        callback(null, resp);
+    });  */
+    callback(null, resp);
   }
 
   // puts an item for sale and interacts with both "items" and "users" database
   putAnItemForSale = (call, callback) => {
-    console.log("Called putAnItemForSale API");
+    console.log("Received a GRPC request for AputAnItemForSale API");
+    var add_items_request = call.request;
+    console.log(add_items_request);
+
+    const users = this.db.collection("user");
+    var username = add_items_request.getUsername();
+    var item_id = add_items_request.getId();
+    var qty = add_items_request.getQty();
+    // @tushar check with him 
+    var data = {"item_id":item_id, "qty":qty}
+    
     DBO.collection("item").insertOne(req.body.data, function(item_err, item_resp) {
         if(item_err){
-        logger.error(`Error fetching user info for user ${req.body.username} error: ${item_err}`);
-        return res.sendStatus(500);
+          logger.error(`Error fetching user info for user ${req.body.username} error: ${item_err}`);
+          return res.sendStatus(500);
         }
         // FIXME Add item ID to seller item id list
         db_get_user(username, (err, user) => {
@@ -143,7 +173,6 @@ module.exports = class API {
         logger.debug(`Item price updated by seller ${req.body.username}`);
         res.sendStatus(200);
         });
-
   }
 
   // remove an item from sale and interacts with 
@@ -196,51 +225,54 @@ module.exports = class API {
 
   // display the items put for sale by the seller and access the "user" database  
   displayItems = (call, callback) => {
-    console.log("Called Display Items API");
+    logger.info("Called Display Cart API");
+    var display_item_request = call.request;
+    console.log(display_item_request);
+
     const users = this.db.collection("user");
-    const name = call.request.getUsername();   
-    // this is a itemsList
-    var list = [];
+    var username = display_item_request.getUsername();
     let resp = new messages.displayItemResponse();
 
-    db_get_user(name, (user_err, user_resp) => {
+    var list = [];
+    db_get_user(username, (user_err, user_resp) => {
         if(user_err){
-        logger.error(`Error fetching user info for user ${name} error: ${user_err}`);
-        // set the list now
-        resp.setItemslistList(list);
-        return callback(user_err, resp);
+            var err_msg = `Failed to display cart for ${username}`;
+            logger.error(`${err_msg}`);
+            logger.error(user_err);
+            resp.setItemslistList(list);
+            callback(err, resp);
         }
 
-        console.log("I am Akhil: "+JSON.stringify(user_resp)+":"+name);
-        items = user_resp.items;
-        var query = {"_id": { "$in": items } }
+        var item_ids = user_resp.items;
+        logger.debug(`Found item_ids in cart: ${item_ids}`);
+        var query = {"_id": { "$in": item_ids } }
         var docs = DBO.collection("item").find(query, {projection: {_id: 0}}).toArray();
         docs.then((result) => {
-            logger.debug(JSON.stringify(result, null, 4));
-            // result is a list of JSON objects of [item]
-            result.forEach(function(item, index) {
-                //item: <name, category, keywords:[], condition, price, qty>
-                // repeated ItemQtyPair itemLists=1;
-                //  Item item=1;
-                //  int32 qty=2;
-                // Item:     string name=1; int32 catergory=2; repeated string keywordList=3; string condition=4; int32 price=5; int32 qty=6;
-                let item_protobuf = new messages.Item();
-                item_protobuf.setName(item["name"]);
-                item_protobuf.setCatergory(item["category"]);
-                item_protobuf.setKeywordlistList(item["keywordList"]);
-                item_protobuf.setCondition(item["condition"]);
-                item_protobuf.setPrice(item["price"]);
-                item_protobuf.setQty(item["qty"]);
+          logger.debug(JSON.stringify(result, null, 4));
 
-                resp.addItemslist(item_protobuf); 
-                }); 
-            //res.json(result);
-            return callback(null, resp);
-        }).catch((item_err) => {
-          logger.error(`Error fetching items: ${item_err}`);
-          //res.sendStatus(500);
-          return callback(item_err, resp);
+          //search_response.setItemlistList(result);
+          result.forEach(function(item, index) {
+            var item_protobuf = new messages.Item();
+            item_protobuf.setName(item["name"]);
+            item_protobuf.setCatergory(item["category"]);
+            
+            // set the keyword list
+            item_protobuf.setKeywordlistList(item["keywords"]);            
+            item_protobuf.setCondition(item["condition"]);
+            item_protobuf.setPrice(parseInt(item["price"]));
+            item_protobuf.setQty(item["qty"]);
+            
+            resp.addItemlist(item_protobuf);
+            logger.debug(item_protobuf);
           });
+          logger.debug(resp);
+            
+          //res.setRes({"info" : result, "cart": user_resp.cart});
+          callback(null, resp);
+        }).catch((item_err) => {
+            logger.error(`Error fetching items: ${item_err}`);
+            callback(item_err, resp);
+        });
     }); 
   }
 
