@@ -99,7 +99,7 @@
                     xhr.onreadystatechange = function() {
                         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                             var response = JSON.stringify(xhr.response);
-                            response = response + ` time:  ${90 + Date.now() - start}`;
+                            response = response + ` time:  ${Date.now() - start}`;
                             recordResponse(response);
                             console.log('Server response ', response);
                         }
@@ -115,7 +115,7 @@
 
                     xhr.onload = function() {
                         var response = JSON.stringify(xhr.response);
-                        response = response + ` time:  ${90 + Date.now() - start}`; 
+                        response = response + ` time:  ${Date.now() - start}`; 
                         recordResponse(response);
                     }
 
@@ -152,7 +152,7 @@
                     xhr.onreadystatechange = function() {
                         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                             var response = JSON.stringify(xhr.response, null, 2);
-                            response = response + ` time:  ${90 + Date.now() - start}`;
+                            response = response + ` time:  ${Date.now() - start}`;
                             recordResponse(response);
                             console.log('Server response ', response);
                         }
@@ -168,7 +168,7 @@
 
                     xhr.onload = function() {
                         var response = JSON.stringify(xhr.response); 
-                        response = response + ` time:  ${90 + Date.now() - start}`;
+                        response = response + ` time:  ${Date.now() - start}`;
                         recordResponse(response);
                     }
 
