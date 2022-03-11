@@ -1,24 +1,40 @@
 const NTP = require('../index').Client;
-var FIRST = require('../index').FIRST
+const Measurement = require('../index').Measurement;
 //const client = new NTP('utcnist2.colorado.edu', 123, { timeout: 3000 });
 
 var burst_id = 0
+const NTP_HOST = 'localhost'
+//const NTP_HOST =  'a.st1.ntp.br'
+//const NTP_HOST = '192.168.0.15';
+const NTP_PORT = 123;
+const totalBurst = 5;
+
+var metrics = new Measurement(fpath='metrics.json');
 
 var burst = function(){
 	
-	for(var i = 0; i < 8; i++){
-		var client = new NTP('localhost', 123,
-							{ timeout: 3000 },
+	for(let i = 0; i < 8; i++){
+		var client = new NTP(NTP_HOST,
+							NTP_PORT,
+							{ timeout: 10000 },
 							burst_id=burst_id, 
 							msg_id=i);
-		FIRST.value = i==0 ? true : false;
-		console.log(burst_id, i);
 		client
 			.syncTime()
-			.then(response => console.log(`TIME (${burst_id}, ${i}):`, response))
-			.catch(console.log);
-	}
-	burst_id += 1;
-}
+			.then(response => {
+				metrics.record(response); 
+				console.log('NTP response', response);
+				metrics.dumpToDisk();
 
-setInterval(burst, 2000);
+			})
+			.catch(console.error);
+	}
+	
+	burst_id += 1;
+	if(burst_id == totalBurst){
+		console.log('Total burst sent. Stopping furhter bursts...');
+		clearInterval(interval);
+	}
+}
+setImmediate(burst);
+var interval = setInterval(burst, 4*1000);

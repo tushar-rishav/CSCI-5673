@@ -1,3 +1,4 @@
+const fs = require('fs');
 const udp = require('dgram');
 
 const { NTPPacket, MODES } = require('./packet');
@@ -5,7 +6,24 @@ const { NTPPacket, MODES } = require('./packet');
 // seconds between NTP epoch 1900 - Unix epoch 1970
 const NTP_DELTA = 2208988800;
 
-var FIRST = { value: true };
+class Measurement {
+	constructor(
+		fpath='measurement.json'
+	){
+		this.fpath = fpath;
+		this.data = {};
+
+		return this;
+	}
+
+	dumpToDisk() {
+		fs.writeFile(this.fpath, JSON.stringify(this.data, null, 4), (err) => console.error);
+	}
+
+	record(data) {
+		this.data[data.id] = data;
+	}
+}
 
 class Client {
 	constructor(
@@ -100,4 +118,4 @@ class Client {
 	}
 }
 
-module.exports = {Client, FIRST};
+module.exports = {Client, Measurement};
