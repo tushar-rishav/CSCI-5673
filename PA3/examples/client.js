@@ -3,11 +3,11 @@ const Measurement = require('../index').Measurement;
 //const client = new NTP('utcnist2.colorado.edu', 123, { timeout: 3000 });
 
 var burst_id = 0
-const NTP_HOST = 'localhost'
+//const NTP_HOST = 'localhost'
 //const NTP_HOST =  'a.st1.ntp.br'
-//const NTP_HOST = '192.168.0.15';
-const NTP_PORT = 123;
-const totalBurst = 5;
+const NTP_HOST = '128.110.219.103';
+const NTP_PORT = 6000;
+const totalBurst = 10;
 
 var metrics = new Measurement(fpath='metrics.json');
 
