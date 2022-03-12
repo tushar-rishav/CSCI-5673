@@ -5,7 +5,7 @@ const Measurement = require('../index').Measurement;
 var burst_id = 0
 //const NTP_HOST = 'localhost'
 //const NTP_HOST =  'a.st1.ntp.br'
-const NTP_HOST = '128.110.219.103';
+const NTP_HOST =  '128.110.219.103'; // '34.133.44.127'
 const NTP_PORT = 6000;
 const totalBurst = 10;
 

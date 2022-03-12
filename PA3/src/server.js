@@ -19,10 +19,9 @@ class Server extends EventEmitter {
 	send(rinfo, message, callback) {
 		if (message instanceof NTPPacket) {
 			const sendPackage = new NTPPacket(MODES.SERVER).bufferize(message);
-
-			this.socket.send(sendPackage, rinfo.port, rinfo.server, callback);
-
+			this.socket.send(sendPackage, rinfo.port, rinfo.address, callback);
 			return this;
+
 		} else {
 			throw new Error('Invalid response packet');
 		}
