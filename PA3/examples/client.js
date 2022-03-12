@@ -7,29 +7,29 @@ var burst_id = 0
 //const NTP_HOST =  'a.st1.ntp.br'
 const NTP_HOST =  '128.110.219.103'; // '34.133.44.127'
 const NTP_PORT = 6000;
-const totalBurst = 10;
+const totalBurst = 15;
 
 var metrics = new Measurement(fpath='metrics.json');
 
 var burst = function(){
-	
+
 	for(let i = 0; i < 8; i++){
 		var client = new NTP(NTP_HOST,
 							NTP_PORT,
 							{ timeout: 10000 },
-							burst_id=burst_id, 
+							burst_id=burst_id,
 							msg_id=i);
 		client
 			.syncTime()
 			.then(response => {
-				metrics.record(response); 
+				metrics.record(response);
 				console.log('NTP response', response);
 				metrics.dumpToDisk();
 
 			})
 			.catch(console.error);
 	}
-	
+
 	burst_id += 1;
 	if(burst_id == totalBurst){
 		console.log('Total burst sent. Stopping furhter bursts...');
@@ -37,4 +37,4 @@ var burst = function(){
 	}
 }
 setImmediate(burst);
-var interval = setInterval(burst, 4*1000);
+var interval = setInterval(burst, 4*60*1000);
