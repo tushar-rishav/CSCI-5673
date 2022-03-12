@@ -46,9 +46,9 @@ class Client {
 	createPacket() {
 		const packet = new NTPPacket(MODES.CLIENT);
 	
-		packet.originateTimestamp = Math.floor(Date.now() / 1000);
+		packet.originateTimestamp = Date.now() / 1000;
 		if(this.msg_id) // txTimestamp is 0 fir first messgae in burst
-			packet.txTimestamp = Math.floor(Date.now() / 1000);
+			packet.txTimestamp = Date.now() / 1000;
 	
 		//console.log('Created NTP packet', packet);
 		return packet.bufferize(packet);
@@ -57,7 +57,7 @@ class Client {
 	parse(buffer) {
 		const message = NTPPacket.parse(buffer);
 		//console.log('Received NTP packet from server: ', message);
-		message.destinationTimestamp = Math.floor(Date.now() / 1000) + NTP_DELTA;
+		message.destinationTimestamp = (Date.now() / 1000) + NTP_DELTA;
 		message.time = new Date(Math.floor((message.rxTimestamp - NTP_DELTA) * 1000));
 	
 		// Timestamp Name          ID   When Generated

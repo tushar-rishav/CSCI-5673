@@ -40,7 +40,7 @@ class Server extends EventEmitter {
 	parse(message, rinfo) {
 		const packet = NTPPacket.parse(message);
 		console.log('Packet received by server: ', packet);
-		const rxTimestamp = Math.floor(Date.now() / 1000);
+		const rxTimestamp = Date.now() / 1000;
 
 		packet.originateTimestamp = Math.floor(packet.txTimestamp);
 		packet.referenceTimestamp = rxTimestamp - 5;
