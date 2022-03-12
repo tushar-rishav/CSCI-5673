@@ -42,7 +42,7 @@ class Server extends EventEmitter {
 		console.log('Packet received by server: ', packet);
 		const rxTimestamp = Date.now() / 1000;
 
-		packet.originateTimestamp = Math.floor(packet.txTimestamp);
+		packet.originateTimestamp = packet.txTimestamp;
 		packet.referenceTimestamp = rxTimestamp - 5;
 		packet.rxTimestamp = rxTimestamp;
 
