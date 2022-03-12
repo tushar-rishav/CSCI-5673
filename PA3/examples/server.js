@@ -6,7 +6,6 @@ server.handle((message, response) => {
 	console.log('Packet sent by server:', message);
 	response(message, (err, resp) => {
 		if(err) console.error(err);
-		else console.log(resp);
 	});
 });
 
