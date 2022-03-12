@@ -1,0 +1,3362 @@
+{
+    "0:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,  
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044188.59,
+        "originateTimestamp": 3856044193.586,
+        "rxTimestamp": 3856044193.59,
+        "txTimestamp": 3856044193.59,
+        "destinationTimestamp": 3856044193.627,
+        "time": "2022-03-12T03:23:13.590Z",
+        "d": 0.0409998893737793,
+        "t": -0.016499757766723633,
+        "id": "0:5"
+    },
+    "0:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044188.6,
+        "originateTimestamp": 3856044193.586,
+        "rxTimestamp": 3856044193.6,
+        "txTimestamp": 3856044193.6,
+        "destinationTimestamp": 3856044193.632,
+        "time": "2022-03-12T03:23:13.600Z",
+        "d": 0.046000003814697266,
+        "t": -0.009000062942504883,
+        "id": "0:7"
+    },
+    "0:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044188.6,
+        "originateTimestamp": 3856044193.586,
+        "rxTimestamp": 3856044193.6,
+        "txTimestamp": 3856044193.6,
+        "destinationTimestamp": 3856044193.633,
+        "time": "2022-03-12T03:23:13.600Z",
+        "d": 0.04699993133544922,
+        "t": -0.00950002670288086,
+        "id": "0:1"
+    },
+    "0:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044188.594,
+        "originateTimestamp": 3856044193.586,
+        "rxTimestamp": 3856044193.594,
+        "txTimestamp": 3856044193.594,
+        "destinationTimestamp": 3856044193.633,
+        "time": "2022-03-12T03:23:13.593Z",
+        "d": 0.04699993133544922,
+        "t": -0.015500068664550781,
+        "id": "0:2"
+    },
+    "0:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044188.592,
+        "originateTimestamp": 3856044193.586,
+        "rxTimestamp": 3856044193.592,
+        "txTimestamp": 3856044193.592,
+        "destinationTimestamp": 3856044193.634,
+        "time": "2022-03-12T03:23:13.592Z",
+        "d": 0.04799985885620117,
+        "t": -0.017999887466430664,
+        "id": "0:4"
+    },
+    "0:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044188.592,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856044193.592,
+        "txTimestamp": 3856044193.592,
+        "destinationTimestamp": 3856044193.634,
+        "time": "2022-03-12T03:23:13.592Z",
+        "d": 1647055393.6339998,
+        "t": 823527696.7750001,
+        "id": "0:0"
+    },
+    "0:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044188.593,
+        "originateTimestamp": 3856044193.586,
+        "rxTimestamp": 3856044193.593,
+        "txTimestamp": 3856044193.593,
+        "destinationTimestamp": 3856044193.635,
+        "time": "2022-03-12T03:23:13.593Z",
+        "d": 0.04900026321411133,
+        "t": -0.01750016212463379,
+        "id": "0:3"
+    },
+    "0:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044188.593,
+        "originateTimestamp": 3856044193.586,
+        "rxTimestamp": 3856044193.593,
+        "txTimestamp": 3856044193.593,
+        "destinationTimestamp": 3856044193.635,
+        "time": "2022-03-12T03:23:13.593Z",
+        "d": 0.04900026321411133,
+        "t": -0.01750016212463379,
+        "id": "0:6"
+    },
+    "1:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044428.653,
+        "originateTimestamp": 3856044433.646,
+        "rxTimestamp": 3856044433.653,
+        "txTimestamp": 3856044433.653,
+        "destinationTimestamp": 3856044433.7390003,
+        "time": "2022-03-12T03:27:13.653Z",
+        "d": 0.09300041198730469,
+        "t": -0.03950023651123047,
+        "id": "1:2"
+    },
+    "1:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044428.656,
+        "originateTimestamp": 3856044433.646,
+        "rxTimestamp": 3856044433.656,
+        "txTimestamp": 3856044433.656,
+        "destinationTimestamp": 3856044433.74,
+        "time": "2022-03-12T03:27:13.656Z",
+        "d": 0.09399986267089844,
+        "t": -0.03699970245361328,
+        "id": "1:1"
+    },
+    "1:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044428.656,
+        "originateTimestamp": 3856044433.646,
+        "rxTimestamp": 3856044433.656,
+        "txTimestamp": 3856044433.656,
+        "destinationTimestamp": 3856044433.741,
+        "time": "2022-03-12T03:27:13.656Z",
+        "d": 0.0950002670288086,
+        "t": -0.03749990463256836,
+        "id": "1:6"
+    },
+    "1:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044428.6540003,
+        "originateTimestamp": 3856044433.646,
+        "rxTimestamp": 3856044433.6540003,
+        "txTimestamp": 3856044433.6540003,
+        "destinationTimestamp": 3856044433.741,
+        "time": "2022-03-12T03:27:13.654Z",
+        "d": 0.0950002670288086,
+        "t": -0.039499759674072266,
+        "id": "1:5"
+    },
+    "1:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044428.6549997,
+        "originateTimestamp": 3856044433.646,
+        "rxTimestamp": 3856044433.6549997,
+        "txTimestamp": 3856044433.6549997,
+        "destinationTimestamp": 3856044433.742,
+        "time": "2022-03-12T03:27:13.654Z",
+        "d": 0.09600019454956055,
+        "t": -0.03900027275085449,
+        "id": "1:3"
+    },
+    "1:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044428.6540003,
+        "originateTimestamp": 3856044433.646,
+        "rxTimestamp": 3856044433.6540003,
+        "txTimestamp": 3856044433.6540003,
+        "destinationTimestamp": 3856044433.743,
+        "time": "2022-03-12T03:27:13.654Z",
+        "d": 0.0970001220703125,
+        "t": -0.04049968719482422,
+        "id": "1:4"
+    },
+    "1:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044428.6549997,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856044433.6549997,
+        "txTimestamp": 3856044433.6549997,
+        "destinationTimestamp": 3856044433.744,
+        "time": "2022-03-12T03:27:13.654Z",
+        "d": 1647055633.744,
+        "t": 823527816.7829998,
+        "id": "1:0"
+    },
+    "1:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044428.657,
+        "originateTimestamp": 3856044433.6470003,
+        "rxTimestamp": 3856044433.657,
+        "txTimestamp": 3856044433.657,
+        "destinationTimestamp": 3856044433.744,
+        "time": "2022-03-12T03:27:13.657Z",
+        "d": 0.0969996452331543,
+        "t": -0.038500070571899414,
+        "id": "1:7"
+    },
+    "2:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044668.741,
+        "originateTimestamp": 3856044673.742,
+        "rxTimestamp": 3856044673.741,
+        "txTimestamp": 3856044673.741,
+        "destinationTimestamp": 3856044673.87,
+        "time": "2022-03-12T03:31:13.741Z",
+        "d": 0.12799978256225586,
+        "t": -0.06499981880187988,
+        "id": "2:1"
+    },
+    "2:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044668.744,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856044673.744,
+        "txTimestamp": 3856044673.744,
+        "destinationTimestamp": 3856044673.88,
+        "time": "2022-03-12T03:31:13.744Z",
+        "d": 1647055873.88,
+        "t": 823527936.8039999,
+        "id": "2:0"
+    },
+    "2:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044668.742,
+        "originateTimestamp": 3856044673.742,
+        "rxTimestamp": 3856044673.742,
+        "txTimestamp": 3856044673.742,
+        "destinationTimestamp": 3856044673.88,
+        "time": "2022-03-12T03:31:13.742Z",
+        "d": 0.1380000114440918,
+        "t": -0.0690000057220459,
+        "id": "2:2"
+    },
+    "2:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044668.743,
+        "originateTimestamp": 3856044673.742,
+        "rxTimestamp": 3856044673.743,
+        "txTimestamp": 3856044673.743,
+        "destinationTimestamp": 3856044673.88,
+        "time": "2022-03-12T03:31:13.743Z",
+        "d": 0.1380000114440918,
+        "t": -0.06800007820129395,
+        "id": "2:5"
+    },
+    "2:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044668.742,
+        "originateTimestamp": 3856044673.742,
+        "rxTimestamp": 3856044673.742,
+        "txTimestamp": 3856044673.742,
+        "destinationTimestamp": 3856044673.881,
+        "time": "2022-03-12T03:31:13.742Z",
+        "d": 0.13899993896484375,
+        "t": -0.06949996948242188,
+        "id": "2:6"
+    },
+    "2:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044668.743,
+        "originateTimestamp": 3856044673.742,
+        "rxTimestamp": 3856044673.743,
+        "txTimestamp": 3856044673.743,
+        "destinationTimestamp": 3856044673.881,
+        "time": "2022-03-12T03:31:13.743Z",
+        "d": 0.13899993896484375,
+        "t": -0.06850004196166992,
+        "id": "2:3"
+    },
+    "2:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044668.744,
+        "originateTimestamp": 3856044673.742,
+        "rxTimestamp": 3856044673.744,
+        "txTimestamp": 3856044673.744,
+        "destinationTimestamp": 3856044673.882,
+        "time": "2022-03-12T03:31:13.744Z",
+        "d": 0.1399998664855957,
+        "t": -0.06800007820129395,
+        "id": "2:4"
+    },
+    "2:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044668.745,
+        "originateTimestamp": 3856044673.742,
+        "rxTimestamp": 3856044673.745,
+        "txTimestamp": 3856044673.745,
+        "destinationTimestamp": 3856044673.882,
+        "time": "2022-03-12T03:31:13.745Z",
+        "d": 0.1399998664855957,
+        "t": -0.06700015068054199,
+        "id": "2:7"
+    },
+    "3:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044908.743,
+        "originateTimestamp": 3856044913.748,
+        "rxTimestamp": 3856044913.743,
+        "txTimestamp": 3856044913.743,
+        "destinationTimestamp": 3856044913.796,
+        "time": "2022-03-12T03:35:13.743Z",
+        "d": 0.04799985885620117,
+        "t": -0.029000043869018555,
+        "id": "3:1"
+    },
+    "3:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044908.744,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856044913.744,
+        "txTimestamp": 3856044913.744,
+        "destinationTimestamp": 3856044913.8129997,
+        "time": "2022-03-12T03:35:13.744Z",
+        "d": 1647056113.8129997,
+        "t": 823528056.8375001,
+        "id": "3:0"
+    },
+    "3:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044908.748,
+        "originateTimestamp": 3856044913.748,
+        "rxTimestamp": 3856044913.748,
+        "txTimestamp": 3856044913.748,
+        "destinationTimestamp": 3856044913.814,
+        "time": "2022-03-12T03:35:13.748Z",
+        "d": 0.06599998474121094,
+        "t": -0.03299999237060547,
+        "id": "3:2"
+    },
+    "3:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044908.749,
+        "originateTimestamp": 3856044913.748,
+        "rxTimestamp": 3856044913.749,
+        "txTimestamp": 3856044913.749,
+        "destinationTimestamp": 3856044913.815,
+        "time": "2022-03-12T03:35:13.749Z",
+        "d": 0.06699991226196289,
+        "t": -0.03250002861022949,
+        "id": "3:3"
+    },
+    "3:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044908.748,
+        "originateTimestamp": 3856044913.748,
+        "rxTimestamp": 3856044913.748,
+        "txTimestamp": 3856044913.748,
+        "destinationTimestamp": 3856044913.815,
+        "time": "2022-03-12T03:35:13.748Z",
+        "d": 0.06699991226196289,
+        "t": -0.033499956130981445,
+        "id": "3:6"
+    },
+    "3:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044908.749,
+        "originateTimestamp": 3856044913.748,
+        "rxTimestamp": 3856044913.749,
+        "txTimestamp": 3856044913.749,
+        "destinationTimestamp": 3856044913.816,
+        "time": "2022-03-12T03:35:13.749Z",
+        "d": 0.06799983978271484,
+        "t": -0.03299999237060547,
+        "id": "3:7"
+    },
+    "3:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044908.75,
+        "originateTimestamp": 3856044913.748,
+        "rxTimestamp": 3856044913.75,
+        "txTimestamp": 3856044913.75,
+        "destinationTimestamp": 3856044913.817,
+        "time": "2022-03-12T03:35:13.750Z",
+        "d": 0.0689997673034668,
+        "t": -0.03250002861022949,
+        "id": "3:4"
+    },
+    "3:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856044908.75,
+        "originateTimestamp": 3856044913.748,
+        "rxTimestamp": 3856044913.75,
+        "txTimestamp": 3856044913.75,
+        "destinationTimestamp": 3856044913.817,
+        "time": "2022-03-12T03:35:13.750Z",
+        "d": 0.0689997673034668,
+        "t": -0.03250002861022949,
+        "id": "3:5"
+    },
+    "4:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045148.841,
+        "originateTimestamp": 3856045153.8459997,
+        "rxTimestamp": 3856045153.841,
+        "txTimestamp": 3856045153.841,
+        "destinationTimestamp": 3856045153.9309998,
+        "time": "2022-03-12T03:39:13.841Z",
+        "d": 0.08500003814697266,
+        "t": -0.047499656677246094,
+        "id": "4:1"
+    },
+    "4:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045148.8459997,
+        "originateTimestamp": 3856045153.8459997,
+        "rxTimestamp": 3856045153.8459997,
+        "txTimestamp": 3856045153.8459997,
+        "destinationTimestamp": 3856045153.932,
+        "time": "2022-03-12T03:39:13.845Z",
+        "d": 0.08600044250488281,
+        "t": -0.043000221252441406,
+        "id": "4:4"
+    },
+    "4:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045148.844,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856045153.844,
+        "txTimestamp": 3856045153.844,
+        "destinationTimestamp": 3856045153.935,
+        "time": "2022-03-12T03:39:13.843Z",
+        "d": 1647056353.935,
+        "t": 823528176.8764999,
+        "id": "4:0"
+    },
+    "4:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045148.843,
+        "originateTimestamp": 3856045153.8459997,
+        "rxTimestamp": 3856045153.843,
+        "txTimestamp": 3856045153.843,
+        "destinationTimestamp": 3856045153.936,
+        "time": "2022-03-12T03:39:13.843Z",
+        "d": 0.09000015258789062,
+        "t": -0.04799985885620117,
+        "id": "4:5"
+    },
+    "4:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045148.844,
+        "originateTimestamp": 3856045153.8459997,
+        "rxTimestamp": 3856045153.844,
+        "txTimestamp": 3856045153.844,
+        "destinationTimestamp": 3856045153.9379997,
+        "time": "2022-03-12T03:39:13.843Z",
+        "d": 0.09200000762939453,
+        "t": -0.04799985885620117,
+        "id": "4:7"
+    },
+    "4:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045148.843,
+        "originateTimestamp": 3856045153.8459997,
+        "rxTimestamp": 3856045153.843,
+        "txTimestamp": 3856045153.843,
+        "destinationTimestamp": 3856045153.939,
+        "time": "2022-03-12T03:39:13.843Z",
+        "d": 0.09300041198730469,
+        "t": -0.0494999885559082,
+        "id": "4:6"
+    },
+    "4:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045148.8450003,
+        "originateTimestamp": 3856045153.8459997,
+        "rxTimestamp": 3856045153.8450003,
+        "txTimestamp": 3856045153.8450003,
+        "destinationTimestamp": 3856045153.941,
+        "time": "2022-03-12T03:39:13.845Z",
+        "d": 0.0950002670288086,
+        "t": -0.04849958419799805,
+        "id": "4:2"
+    },
+    "4:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045148.8459997,
+        "originateTimestamp": 3856045153.8459997,
+        "rxTimestamp": 3856045153.8459997,
+        "txTimestamp": 3856045153.8459997,
+        "destinationTimestamp": 3856045153.942,
+        "time": "2022-03-12T03:39:13.845Z",
+        "d": 0.09600019454956055,
+        "t": -0.04800009727478027,
+        "id": "4:3"
+    },
+    "5:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045388.9379997,
+        "originateTimestamp": 3856045393.946,
+        "rxTimestamp": 3856045393.9379997,
+        "txTimestamp": 3856045393.9379997,
+        "destinationTimestamp": 3856045394.1879997,
+        "time": "2022-03-12T03:43:13.937Z",
+        "d": 0.24199962615966797,
+        "t": -0.12900018692016602,
+        "id": "5:1"
+    },
+    "5:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045388.943,
+        "originateTimestamp": 3856045393.946,
+        "rxTimestamp": 3856045393.943,
+        "txTimestamp": 3856045393.943,
+        "destinationTimestamp": 3856045394.189,
+        "time": "2022-03-12T03:43:13.942Z",
+        "d": 0.24300003051757812,
+        "t": -0.12450027465820312,
+        "id": "5:5"
+    },
+    "5:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045388.941,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856045393.941,
+        "txTimestamp": 3856045393.941,
+        "destinationTimestamp": 3856045394.19,
+        "time": "2022-03-12T03:43:13.941Z",
+        "d": 1647056594.19,
+        "t": 823528296.846,
+        "id": "5:0"
+    },
+    "5:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045388.942,
+        "originateTimestamp": 3856045393.946,
+        "rxTimestamp": 3856045393.942,
+        "txTimestamp": 3856045393.942,
+        "destinationTimestamp": 3856045394.19,
+        "time": "2022-03-12T03:43:13.942Z",
+        "d": 0.24399995803833008,
+        "t": -0.12600016593933105,
+        "id": "5:3"
+    },
+    "5:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045388.941,
+        "originateTimestamp": 3856045393.946,
+        "rxTimestamp": 3856045393.941,
+        "txTimestamp": 3856045393.941,
+        "destinationTimestamp": 3856045394.191,
+        "time": "2022-03-12T03:43:13.941Z",
+        "d": 0.24499988555908203,
+        "t": -0.12750005722045898,
+        "id": "5:7"
+    },
+    "5:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045388.94,
+        "originateTimestamp": 3856045393.946,
+        "rxTimestamp": 3856045393.94,
+        "txTimestamp": 3856045393.94,
+        "destinationTimestamp": 3856045394.192,
+        "time": "2022-03-12T03:43:13.940Z",
+        "d": 0.24599981307983398,
+        "t": -0.12899994850158691,
+        "id": "5:4"
+    },
+    "5:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045388.943,
+        "originateTimestamp": 3856045393.946,
+        "rxTimestamp": 3856045393.943,
+        "txTimestamp": 3856045393.943,
+        "destinationTimestamp": 3856045394.193,
+        "time": "2022-03-12T03:43:13.942Z",
+        "d": 0.24699974060058594,
+        "t": -0.12650012969970703,
+        "id": "5:2"
+    },
+    "5:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045388.9440002,
+        "originateTimestamp": 3856045393.946,
+        "rxTimestamp": 3856045393.9440002,
+        "txTimestamp": 3856045393.9440002,
+        "destinationTimestamp": 3856045394.1940002,
+        "time": "2022-03-12T03:43:13.944Z",
+        "d": 0.2480001449584961,
+        "t": -0.12599992752075195,
+        "id": "5:6"
+    },
+    "6:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045629.049,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856045634.049,
+        "txTimestamp": 3856045634.049,
+        "destinationTimestamp": 3856045634.1800003,
+        "time": "2022-03-12T03:47:14.048Z",
+        "d": 1647056834.1800003,
+        "t": 823528416.9589996,
+        "id": "6:0"
+    },
+    "6:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045629.05,
+        "originateTimestamp": 3856045634.046,
+        "rxTimestamp": 3856045634.05,
+        "txTimestamp": 3856045634.05,
+        "destinationTimestamp": 3856045634.185,
+        "time": "2022-03-12T03:47:14.050Z",
+        "d": 0.13899993896484375,
+        "t": -0.06549978256225586,
+        "id": "6:2"
+    },
+    "6:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045629.05,
+        "originateTimestamp": 3856045634.046,
+        "rxTimestamp": 3856045634.05,
+        "txTimestamp": 3856045634.05,
+        "destinationTimestamp": 3856045634.189,
+        "time": "2022-03-12T03:47:14.050Z",
+        "d": 0.14300012588500977,
+        "t": -0.06749987602233887,
+        "id": "6:3"
+    },
+    "6:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045629.05,
+        "originateTimestamp": 3856045634.046,
+        "rxTimestamp": 3856045634.05,
+        "txTimestamp": 3856045634.05,
+        "destinationTimestamp": 3856045634.19,
+        "time": "2022-03-12T03:47:14.050Z",
+        "d": 0.14400005340576172,
+        "t": -0.06799983978271484,
+        "id": "6:1"
+    },
+    "6:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045629.051,
+        "originateTimestamp": 3856045634.046,
+        "rxTimestamp": 3856045634.051,
+        "txTimestamp": 3856045634.051,
+        "destinationTimestamp": 3856045634.193,
+        "time": "2022-03-12T03:47:14.051Z",
+        "d": 0.14699983596801758,
+        "t": -0.06849980354309082,
+        "id": "6:5"
+    },
+    "6:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045629.05,
+        "originateTimestamp": 3856045634.046,
+        "rxTimestamp": 3856045634.05,
+        "txTimestamp": 3856045634.05,
+        "destinationTimestamp": 3856045634.1940002,
+        "time": "2022-03-12T03:47:14.050Z",
+        "d": 0.14800024032592773,
+        "t": -0.06999993324279785,
+        "id": "6:4"
+    },
+    "6:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045629.05,
+        "originateTimestamp": 3856045634.046,
+        "rxTimestamp": 3856045634.05,
+        "txTimestamp": 3856045634.05,
+        "destinationTimestamp": 3856045634.1940002,
+        "time": "2022-03-12T03:47:14.050Z",
+        "d": 0.14800024032592773,
+        "t": -0.06999993324279785,
+        "id": "6:4"
+    },
+    "6:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045629.053,
+        "originateTimestamp": 3856045634.047,
+        "rxTimestamp": 3856045634.053,
+        "txTimestamp": 3856045634.053,
+        "destinationTimestamp": 3856045634.1949997,
+        "time": "2022-03-12T03:47:14.053Z",
+        "d": 0.14799976348876953,
+        "t": -0.06799983978271484,
+        "id": "6:7"
+    },
+    "7:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045869.12,
+        "originateTimestamp": 3856045874.1099997,
+        "rxTimestamp": 3856045874.12,
+        "txTimestamp": 3856045874.12,
+        "destinationTimestamp": 3856045874.192,
+        "time": "2022-03-12T03:51:14.120Z",
+        "d": 0.0820002555847168,
+        "t": -0.03099989891052246,
+        "id": "7:6"
+    },
+    "7:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045869.123,
+        "originateTimestamp": 3856045874.1099997,
+        "rxTimestamp": 3856045874.123,
+        "txTimestamp": 3856045874.123,
+        "destinationTimestamp": 3856045874.199,
+        "time": "2022-03-12T03:51:14.123Z",
+        "d": 0.08900022506713867,
+        "t": -0.031499624252319336,
+        "id": "7:5"
+    },
+    "7:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045869.1219997,
+        "originateTimestamp": 3856045874.1099997,
+        "rxTimestamp": 3856045874.1219997,
+        "txTimestamp": 3856045874.1219997,
+        "destinationTimestamp": 3856045874.199,
+        "time": "2022-03-12T03:51:14.121Z",
+        "d": 0.08900022506713867,
+        "t": -0.03250002861022949,
+        "id": "7:4"
+    },
+    "7:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045869.123,
+        "originateTimestamp": 3856045874.1099997,
+        "rxTimestamp": 3856045874.123,
+        "txTimestamp": 3856045874.123,
+        "destinationTimestamp": 3856045874.2,
+        "time": "2022-03-12T03:51:14.123Z",
+        "d": 0.09000015258789062,
+        "t": -0.03199958801269531,
+        "id": "7:7"
+    },
+    "7:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045869.1210003,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856045874.1210003,
+        "txTimestamp": 3856045874.1210003,
+        "destinationTimestamp": 3856045874.201,
+        "time": "2022-03-12T03:51:14.121Z",
+        "d": 1647057074.2010002,
+        "t": 823528537.0205002,
+        "id": "7:0"
+    },
+    "7:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045869.1210003,
+        "originateTimestamp": 3856045874.1099997,
+        "rxTimestamp": 3856045874.1210003,
+        "txTimestamp": 3856045874.1210003,
+        "destinationTimestamp": 3856045874.2019997,
+        "time": "2022-03-12T03:51:14.121Z",
+        "d": 0.09200000762939453,
+        "t": -0.03499937057495117,
+        "id": "7:1"
+    },
+    "7:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045869.1219997,
+        "originateTimestamp": 3856045874.1099997,
+        "rxTimestamp": 3856045874.1219997,
+        "txTimestamp": 3856045874.1219997,
+        "destinationTimestamp": 3856045874.203,
+        "time": "2022-03-12T03:51:14.121Z",
+        "d": 0.09300041198730469,
+        "t": -0.0345001220703125,
+        "id": "7:2"
+    },
+    "7:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856045869.1219997,
+        "originateTimestamp": 3856045874.1099997,
+        "rxTimestamp": 3856045874.1219997,
+        "txTimestamp": 3856045874.1219997,
+        "destinationTimestamp": 3856045874.204,
+        "time": "2022-03-12T03:51:14.121Z",
+        "d": 0.09400033950805664,
+        "t": -0.03500008583068848,
+        "id": "7:3"
+    },
+    "8:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046109.2279997,
+        "originateTimestamp": 3856046114.209,
+        "rxTimestamp": 3856046114.2279997,
+        "txTimestamp": 3856046114.2279997,
+        "destinationTimestamp": 3856046114.332,
+        "time": "2022-03-12T03:55:14.227Z",
+        "d": 0.12299966812133789,
+        "t": -0.04250025749206543,
+        "id": "8:3"
+    },
+    "8:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046109.231,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856046114.231,
+        "txTimestamp": 3856046114.231,
+        "destinationTimestamp": 3856046114.333,
+        "time": "2022-03-12T03:55:14.231Z",
+        "d": 1647057314.3330002,
+        "t": 823528657.0644999,
+        "id": "8:0"
+    },
+    "8:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046109.23,
+        "originateTimestamp": 3856046114.209,
+        "rxTimestamp": 3856046114.23,
+        "txTimestamp": 3856046114.23,
+        "destinationTimestamp": 3856046114.334,
+        "time": "2022-03-12T03:55:14.230Z",
+        "d": 0.125,
+        "t": -0.041500091552734375,
+        "id": "8:5"
+    },
+    "8:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046109.231,
+        "originateTimestamp": 3856046114.209,
+        "rxTimestamp": 3856046114.231,
+        "txTimestamp": 3856046114.231,
+        "destinationTimestamp": 3856046114.334,
+        "time": "2022-03-12T03:55:14.231Z",
+        "d": 0.125,
+        "t": -0.04050016403198242,
+        "id": "8:7"
+    },
+    "8:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046109.23,
+        "originateTimestamp": 3856046114.209,
+        "rxTimestamp": 3856046114.23,
+        "txTimestamp": 3856046114.23,
+        "destinationTimestamp": 3856046114.335,
+        "time": "2022-03-12T03:55:14.230Z",
+        "d": 0.12599992752075195,
+        "t": -0.04200005531311035,
+        "id": "8:2"
+    },
+    "8:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046109.229,
+        "originateTimestamp": 3856046114.209,
+        "rxTimestamp": 3856046114.229,
+        "txTimestamp": 3856046114.229,
+        "destinationTimestamp": 3856046114.335,
+        "time": "2022-03-12T03:55:14.229Z",
+        "d": 0.12599992752075195,
+        "t": -0.042999982833862305,
+        "id": "8:6"
+    },
+    "8:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046109.231,
+        "originateTimestamp": 3856046114.209,
+        "rxTimestamp": 3856046114.231,
+        "txTimestamp": 3856046114.231,
+        "destinationTimestamp": 3856046114.336,
+        "time": "2022-03-12T03:55:14.231Z",
+        "d": 0.1269998550415039,
+        "t": -0.041500091552734375,
+        "id": "8:1"
+    },
+    "8:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046109.229,
+        "originateTimestamp": 3856046114.209,
+        "rxTimestamp": 3856046114.229,
+        "txTimestamp": 3856046114.229,
+        "destinationTimestamp": 3856046114.337,
+        "time": "2022-03-12T03:55:14.229Z",
+        "d": 0.12799978256225586,
+        "t": -0.04399991035461426,
+        "id": "8:4"
+    },
+    "9:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046349.33,
+        "originateTimestamp": 3856046354.309,
+        "rxTimestamp": 3856046354.33,
+        "txTimestamp": 3856046354.33,
+        "destinationTimestamp": 3856046354.354,
+        "time": "2022-03-12T03:59:14.330Z",
+        "d": 0.04500007629394531,
+        "t": -0.0015001296997070312,
+        "id": "9:1"
+    },
+    "9:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046349.3310003,
+        "originateTimestamp": 3856046354.309,
+        "rxTimestamp": 3856046354.3310003,
+        "txTimestamp": 3856046354.3310003,
+        "destinationTimestamp": 3856046354.355,
+        "time": "2022-03-12T03:59:14.331Z",
+        "d": 0.046000003814697266,
+        "t": -0.0009996891021728516,
+        "id": "9:5"
+    },
+    "9:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046349.333,
+        "originateTimestamp": 3856046354.309,
+        "rxTimestamp": 3856046354.333,
+        "txTimestamp": 3856046354.333,
+        "destinationTimestamp": 3856046354.356,
+        "time": "2022-03-12T03:59:14.333Z",
+        "d": 0.04699993133544922,
+        "t": 0.0005002021789550781,
+        "id": "9:4"
+    },
+    "9:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046349.333,
+        "originateTimestamp": 3856046354.309,
+        "rxTimestamp": 3856046354.333,
+        "txTimestamp": 3856046354.333,
+        "destinationTimestamp": 3856046354.356,
+        "time": "2022-03-12T03:59:14.333Z",
+        "d": 0.04699993133544922,
+        "t": 0.0005002021789550781,
+        "id": "9:3"
+    },
+    "9:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046349.332,
+        "originateTimestamp": 3856046354.309,
+        "rxTimestamp": 3856046354.332,
+        "txTimestamp": 3856046354.332,
+        "destinationTimestamp": 3856046354.3570004,
+        "time": "2022-03-12T03:59:14.331Z",
+        "d": 0.048000335693359375,
+        "t": -0.0010004043579101562,
+        "id": "9:2"
+    },
+    "9:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046349.3310003,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856046354.3310003,
+        "txTimestamp": 3856046354.3310003,
+        "destinationTimestamp": 3856046354.358,
+        "time": "2022-03-12T03:59:14.331Z",
+        "d": 1647057554.3579998,
+        "t": 823528777.1520004,
+        "id": "9:0"
+    },
+    "9:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046349.332,
+        "originateTimestamp": 3856046354.309,
+        "rxTimestamp": 3856046354.332,
+        "txTimestamp": 3856046354.332,
+        "destinationTimestamp": 3856046354.359,
+        "time": "2022-03-12T03:59:14.331Z",
+        "d": 0.05000019073486328,
+        "t": -0.0020003318786621094,
+        "id": "9:6"
+    },
+    "9:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046349.3310003,
+        "originateTimestamp": 3856046354.309,
+        "rxTimestamp": 3856046354.3310003,
+        "txTimestamp": 3856046354.3310003,
+        "destinationTimestamp": 3856046354.3599997,
+        "time": "2022-03-12T03:59:14.331Z",
+        "d": 0.05099964141845703,
+        "t": -0.0034995079040527344,
+        "id": "9:7"
+    },
+    "10:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046589.432,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856046594.432,
+        "txTimestamp": 3856046594.432,
+        "destinationTimestamp": 3856046594.4709997,
+        "time": "2022-03-12T04:03:14.432Z",
+        "d": 1647057794.4709997,
+        "t": 823528897.1965003,
+        "id": "10:0"
+    },
+    "10:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046589.45,
+        "originateTimestamp": 3856046594.409,
+        "rxTimestamp": 3856046594.45,
+        "txTimestamp": 3856046594.45,
+        "destinationTimestamp": 3856046594.472,
+        "time": "2022-03-12T04:03:14.449Z",
+        "d": 0.06300020217895508,
+        "t": 0.009499788284301758,
+        "id": "10:4"
+    },
+    "10:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046589.451,
+        "originateTimestamp": 3856046594.409,
+        "rxTimestamp": 3856046594.451,
+        "txTimestamp": 3856046594.451,
+        "destinationTimestamp": 3856046594.473,
+        "time": "2022-03-12T04:03:14.451Z",
+        "d": 0.06400012969970703,
+        "t": 0.010000228881835938,
+        "id": "10:7"
+    },
+    "10:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046589.451,
+        "originateTimestamp": 3856046594.409,
+        "rxTimestamp": 3856046594.451,
+        "txTimestamp": 3856046594.451,
+        "destinationTimestamp": 3856046594.474,
+        "time": "2022-03-12T04:03:14.451Z",
+        "d": 0.06500005722045898,
+        "t": 0.009500265121459961,
+        "id": "10:6"
+    },
+    "10:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046589.4519997,
+        "originateTimestamp": 3856046594.409,
+        "rxTimestamp": 3856046594.4519997,
+        "txTimestamp": 3856046594.4519997,
+        "destinationTimestamp": 3856046594.474,
+        "time": "2022-03-12T04:03:14.451Z",
+        "d": 0.06500005722045898,
+        "t": 0.010499715805053711,
+        "id": "10:5"
+    },
+    "10:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046589.4519997,
+        "originateTimestamp": 3856046594.409,
+        "rxTimestamp": 3856046594.4519997,
+        "txTimestamp": 3856046594.4519997,
+        "destinationTimestamp": 3856046594.475,
+        "time": "2022-03-12T04:03:14.451Z",
+        "d": 0.06599998474121094,
+        "t": 0.009999752044677734,
+        "id": "10:1"
+    },
+    "10:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046589.453,
+        "originateTimestamp": 3856046594.409,
+        "rxTimestamp": 3856046594.453,
+        "txTimestamp": 3856046594.453,
+        "destinationTimestamp": 3856046594.476,
+        "time": "2022-03-12T04:03:14.453Z",
+        "d": 0.06699991226196289,
+        "t": 0.010500192642211914,
+        "id": "10:2"
+    },
+    "10:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046589.4519997,
+        "originateTimestamp": 3856046594.409,
+        "rxTimestamp": 3856046594.4519997,
+        "txTimestamp": 3856046594.4519997,
+        "destinationTimestamp": 3856046594.477,
+        "time": "2022-03-12T04:03:14.451Z",
+        "d": 0.06800031661987305,
+        "t": 0.00899958610534668,
+        "id": "10:3"
+    },
+    "11:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046829.532,
+        "originateTimestamp": 3856046834.506,
+        "rxTimestamp": 3856046834.532,
+        "txTimestamp": 3856046834.532,
+        "destinationTimestamp": 3856046834.601,
+        "time": "2022-03-12T04:07:14.532Z",
+        "d": 0.09499979019165039,
+        "t": -0.0214998722076416,
+        "id": "11:4"
+    },
+    "11:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046829.533,
+        "originateTimestamp": 3856046834.506,
+        "rxTimestamp": 3856046834.533,
+        "txTimestamp": 3856046834.533,
+        "destinationTimestamp": 3856046834.604,
+        "time": "2022-03-12T04:07:14.533Z",
+        "d": 0.09800004959106445,
+        "t": -0.02200007438659668,
+        "id": "11:5"
+    },
+    "11:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046829.534,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856046834.534,
+        "txTimestamp": 3856046834.534,
+        "destinationTimestamp": 3856046834.6070004,
+        "time": "2022-03-12T04:07:14.534Z",
+        "d": 1647058034.6070004,
+        "t": 823529017.2304997,
+        "id": "11:0"
+    },
+    "11:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046829.533,
+        "originateTimestamp": 3856046834.506,
+        "rxTimestamp": 3856046834.533,
+        "txTimestamp": 3856046834.533,
+        "destinationTimestamp": 3856046834.611,
+        "time": "2022-03-12T04:07:14.533Z",
+        "d": 0.10500001907348633,
+        "t": -0.025500059127807617,
+        "id": "11:2"
+    },
+    "11:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046829.533,
+        "originateTimestamp": 3856046834.506,
+        "rxTimestamp": 3856046834.533,
+        "txTimestamp": 3856046834.533,
+        "destinationTimestamp": 3856046834.616,
+        "time": "2022-03-12T04:07:14.533Z",
+        "d": 0.1100001335144043,
+        "t": -0.0280001163482666,
+        "id": "11:7"
+    },
+    "11:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046829.533,
+        "originateTimestamp": 3856046834.506,
+        "rxTimestamp": 3856046834.533,
+        "txTimestamp": 3856046834.533,
+        "destinationTimestamp": 3856046834.623,
+        "time": "2022-03-12T04:07:14.533Z",
+        "d": 0.11700010299682617,
+        "t": -0.03150010108947754,
+        "id": "11:1"
+    },
+    "11:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046829.534,
+        "originateTimestamp": 3856046834.506,
+        "rxTimestamp": 3856046834.534,
+        "txTimestamp": 3856046834.534,
+        "destinationTimestamp": 3856046834.626,
+        "time": "2022-03-12T04:07:14.534Z",
+        "d": 0.11999988555908203,
+        "t": -0.032000064849853516,
+        "id": "11:3"
+    },
+    "11:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856046829.539,
+        "originateTimestamp": 3856046834.506,
+        "rxTimestamp": 3856046834.539,
+        "txTimestamp": 3856046834.539,
+        "destinationTimestamp": 3856046834.63,
+        "time": "2022-03-12T04:07:14.539Z",
+        "d": 0.12400007247924805,
+        "t": -0.029000043869018555,
+        "id": "11:6"
+    },
+    "12:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047069.632,
+        "originateTimestamp": 3856047074.606,
+        "rxTimestamp": 3856047074.632,
+        "txTimestamp": 3856047074.632,
+        "destinationTimestamp": 3856047074.729,
+        "time": "2022-03-12T04:11:14.632Z",
+        "d": 0.1230001449584961,
+        "t": -0.03550004959106445,
+        "id": "12:7"
+    },
+    "12:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047069.634,
+        "originateTimestamp": 3856047074.606,
+        "rxTimestamp": 3856047074.634,
+        "txTimestamp": 3856047074.634,
+        "destinationTimestamp": 3856047074.73,
+        "time": "2022-03-12T04:11:14.633Z",
+        "d": 0.12400007247924805,
+        "t": -0.03400015830993652,
+        "id": "12:1"
+    },
+    "12:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047069.6359997,
+        "originateTimestamp": 3856047074.606,
+        "rxTimestamp": 3856047074.6359997,
+        "txTimestamp": 3856047074.6359997,
+        "destinationTimestamp": 3856047074.731,
+        "time": "2022-03-12T04:11:14.635Z",
+        "d": 0.125,
+        "t": -0.032500267028808594,
+        "id": "12:2"
+    },
+    "12:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047069.633,
+        "originateTimestamp": 3856047074.606,
+        "rxTimestamp": 3856047074.633,
+        "txTimestamp": 3856047074.633,
+        "destinationTimestamp": 3856047074.734,
+        "time": "2022-03-12T04:11:14.633Z",
+        "d": 0.12800025939941406,
+        "t": -0.037000179290771484,
+        "id": "12:3"
+    },
+    "12:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047069.635,
+        "originateTimestamp": 3856047074.606,
+        "rxTimestamp": 3856047074.635,
+        "txTimestamp": 3856047074.635,
+        "destinationTimestamp": 3856047074.7349997,
+        "time": "2022-03-12T04:11:14.635Z",
+        "d": 0.1289997100830078,
+        "t": -0.03549957275390625,
+        "id": "12:5"
+    },
+    "12:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047069.635,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856047074.635,
+        "txTimestamp": 3856047074.635,
+        "destinationTimestamp": 3856047074.737,
+        "time": "2022-03-12T04:11:14.635Z",
+        "d": 1647058274.737,
+        "t": 823529137.2665002,
+        "id": "12:0"
+    },
+    "12:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047069.634,
+        "originateTimestamp": 3856047074.606,
+        "rxTimestamp": 3856047074.634,
+        "txTimestamp": 3856047074.634,
+        "destinationTimestamp": 3856047074.738,
+        "time": "2022-03-12T04:11:14.633Z",
+        "d": 0.13199996948242188,
+        "t": -0.03800010681152344,
+        "id": "12:4"
+    },
+    "12:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047069.634,
+        "originateTimestamp": 3856047074.606,
+        "rxTimestamp": 3856047074.634,
+        "txTimestamp": 3856047074.634,
+        "destinationTimestamp": 3856047074.74,
+        "time": "2022-03-12T04:11:14.633Z",
+        "d": 0.13399982452392578,
+        "t": -0.03900003433227539,
+        "id": "12:6"
+    },
+    "13:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047309.7349997,
+        "originateTimestamp": 3856047314.7060003,
+        "rxTimestamp": 3856047314.7349997,
+        "txTimestamp": 3856047314.7349997,
+        "destinationTimestamp": 3856047314.738,
+        "time": "2022-03-12T04:15:14.734Z",
+        "d": 0.03199958801269531,
+        "t": 0.012999534606933594,
+        "id": "13:6"
+    },
+    "13:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047309.736,
+        "originateTimestamp": 3856047314.7060003,
+        "rxTimestamp": 3856047314.736,
+        "txTimestamp": 3856047314.736,
+        "destinationTimestamp": 3856047314.748,
+        "time": "2022-03-12T04:15:14.736Z",
+        "d": 0.04199981689453125,
+        "t": 0.008999824523925781,
+        "id": "13:5"
+    },
+    "13:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047309.736,
+        "originateTimestamp": 3856047314.7060003,
+        "rxTimestamp": 3856047314.736,
+        "txTimestamp": 3856047314.736,
+        "destinationTimestamp": 3856047314.75,
+        "time": "2022-03-12T04:15:14.736Z",
+        "d": 0.043999671936035156,
+        "t": 0.007999897003173828,
+        "id": "13:2"
+    },
+    "13:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047309.736,
+        "originateTimestamp": 3856047314.7060003,
+        "rxTimestamp": 3856047314.736,
+        "txTimestamp": 3856047314.736,
+        "destinationTimestamp": 3856047314.752,
+        "time": "2022-03-12T04:15:14.736Z",
+        "d": 0.04599952697753906,
+        "t": 0.006999969482421875,
+        "id": "13:4"
+    },
+    "13:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047309.736,
+        "originateTimestamp": 3856047314.7060003,
+        "rxTimestamp": 3856047314.736,
+        "txTimestamp": 3856047314.736,
+        "destinationTimestamp": 3856047314.7539997,
+        "time": "2022-03-12T04:15:14.736Z",
+        "d": 0.04799938201904297,
+        "t": 0.006000041961669922,
+        "id": "13:3"
+    },
+    "13:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047309.738,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856047314.738,
+        "txTimestamp": 3856047314.738,
+        "destinationTimestamp": 3856047314.774,
+        "time": "2022-03-12T04:15:14.738Z",
+        "d": 1647058514.7740002,
+        "t": 823529257.3509998,
+        "id": "13:0"
+    },
+    "13:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047309.7390003,
+        "originateTimestamp": 3856047314.7060003,
+        "rxTimestamp": 3856047314.7390003,
+        "txTimestamp": 3856047314.7390003,
+        "destinationTimestamp": 3856047314.776,
+        "time": "2022-03-12T04:15:14.739Z",
+        "d": 0.06999969482421875,
+        "t": -0.0019998550415039062,
+        "id": "13:1"
+    },
+    "13:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047309.7390003,
+        "originateTimestamp": 3856047314.7060003,
+        "rxTimestamp": 3856047314.7390003,
+        "txTimestamp": 3856047314.7390003,
+        "destinationTimestamp": 3856047314.777,
+        "time": "2022-03-12T04:15:14.739Z",
+        "d": 0.0709996223449707,
+        "t": -0.002499818801879883,
+        "id": "13:7"
+    },
+    "14:3": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047549.836,
+        "originateTimestamp": 3856047554.8059998,
+        "rxTimestamp": 3856047554.836,
+        "txTimestamp": 3856047554.836,
+        "destinationTimestamp": 3856047554.885,
+        "time": "2022-03-12T04:19:14.836Z",
+        "d": 0.07900047302246094,
+        "t": -0.00950002670288086,
+        "id": "14:3"
+    },
+    "14:1": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047549.837,
+        "originateTimestamp": 3856047554.8059998,
+        "rxTimestamp": 3856047554.837,
+        "txTimestamp": 3856047554.837,
+        "destinationTimestamp": 3856047554.917,
+        "time": "2022-03-12T04:19:14.837Z",
+        "d": 0.11100006103515625,
+        "t": -0.024499893188476562,
+        "id": "14:1"
+    },
+    "14:6": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047549.837,
+        "originateTimestamp": 3856047554.8059998,
+        "rxTimestamp": 3856047554.837,
+        "txTimestamp": 3856047554.837,
+        "destinationTimestamp": 3856047554.918,
+        "time": "2022-03-12T04:19:14.837Z",
+        "d": 0.1120004653930664,
+        "t": -0.02500009536743164,
+        "id": "14:6"
+    },
+    "14:0": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047549.8389997,
+        "originateTimestamp": 2208988800,
+        "rxTimestamp": 3856047554.8389997,
+        "txTimestamp": 3856047554.8389997,
+        "destinationTimestamp": 3856047554.92,
+        "time": "2022-03-12T04:19:14.838Z",
+        "d": 1647058754.92,
+        "t": 823529377.3789997,
+        "id": "14:0"
+    },
+    "14:5": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047549.8380003,
+        "originateTimestamp": 3856047554.8059998,
+        "rxTimestamp": 3856047554.8380003,
+        "txTimestamp": 3856047554.8380003,
+        "destinationTimestamp": 3856047554.922,
+        "time": "2022-03-12T04:19:14.838Z",
+        "d": 0.11600017547607422,
+        "t": -0.02599954605102539,
+        "id": "14:5"
+    },
+    "14:4": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047549.837,
+        "originateTimestamp": 3856047554.8059998,
+        "rxTimestamp": 3856047554.837,
+        "txTimestamp": 3856047554.837,
+        "destinationTimestamp": 3856047554.9230003,
+        "time": "2022-03-12T04:19:14.837Z",
+        "d": 0.11700057983398438,
+        "t": -0.027500152587890625,
+        "id": "14:4"
+    },
+    "14:7": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047549.8380003,
+        "originateTimestamp": 3856047554.8059998,
+        "rxTimestamp": 3856047554.8380003,
+        "txTimestamp": 3856047554.8380003,
+        "destinationTimestamp": 3856047554.924,
+        "time": "2022-03-12T04:19:14.838Z",
+        "d": 0.11800003051757812,
+        "t": -0.026999473571777344,
+        "id": "14:7"
+    },
+    "14:2": {
+        "mode": 4,
+        "leap": 0,
+        "version": 3,
+        "stratum": 2,
+        "poll": 10,
+        "precision": 0,
+        "rootDelay": 0,
+        "rootDispersion": 0,
+        "referenceId": {
+            "type": "Buffer",
+            "data": [
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "referenceTimestamp": 3856047549.8380003,
+        "originateTimestamp": 3856047554.8059998,
+        "rxTimestamp": 3856047554.8380003,
+        "txTimestamp": 3856047554.8380003,
+        "destinationTimestamp": 3856047554.925,
+        "time": "2022-03-12T04:19:14.838Z",
+        "d": 0.11900043487548828,
+        "t": -0.027499675750732422,
+        "id": "14:2"
+    }
+}

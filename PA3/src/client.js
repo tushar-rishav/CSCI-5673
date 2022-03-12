@@ -58,7 +58,7 @@ class Client {
 		const message = NTPPacket.parse(buffer);
 		//console.log('Received NTP packet from server: ', message);
 		message.destinationTimestamp = (Date.now() / 1000) + NTP_DELTA;
-		message.time = new Date(Math.floor((message.rxTimestamp - NTP_DELTA) * 1000));
+		//message.time = new Date(Math.floor((message.rxTimestamp - NTP_DELTA) * 1000));
 	
 		// Timestamp Name          ID   When Generated
 		// ------------------------------------------------------------
