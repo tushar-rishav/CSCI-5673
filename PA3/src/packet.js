@@ -107,7 +107,7 @@ class NTPPacket {
 		// First 4 bytes
 		buffer[0] = (packet.leap << 6) | (packet.version << 3) | (this.mode << 0);
 		buffer[1] = packet.stratum;
-		buffer[2] = packet.poll; 
+		buffer[2] = packet.poll;
 		buffer[3] = packet.precision;
 
 		buffer.writeUInt32BE(packet.rootDelay, 4); // skip first 4 bytes
@@ -130,7 +130,7 @@ class NTPPacket {
 
 		// TX Timestamp
 		writeInMillis(buffer, 40, packet.txTimestamp, true);
-		
+
 		return buffer;
 	}
 }

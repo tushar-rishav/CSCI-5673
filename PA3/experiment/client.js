@@ -11,23 +11,29 @@ const totalBurst = 15;
 
 var metrics = new Measurement(fpath='metrics.json');
 
-var burst = function(){
-
-	for(let i = 0; i < 8; i++){
-		var client = new NTP(NTP_HOST,
-							NTP_PORT,
-							{ timeout: 10000 },
-							burst_id=burst_id,
-							msg_id=i);
-		client
+function sendRequest(client){
+    client
 			.syncTime()
 			.then(response => {
 				metrics.record(response);
 				console.log('NTP response', response);
 				metrics.dumpToDisk();
-
+                clearInterval(client.timer); // stop retransmission loop
 			})
 			.catch(console.error);
+}
+
+var burst = function(){
+
+	for(let i = 0; i < 8; i++){
+		let client = new NTP(NTP_HOST,
+							NTP_PORT,
+							{ timeout: 10000 },
+							burst_id=burst_id,
+							msg_id=i);
+
+        setTimeout(sendRequest, 0, client);
+        client.timer = setInterval(sendRequest, 2*1000, client); // 2 seconds timeout for retransmission
 	}
 
 	burst_id += 1;
@@ -37,4 +43,4 @@ var burst = function(){
 	}
 }
 setImmediate(burst);
-var interval = setInterval(burst, 4*1000);
+var interval = setInterval(burst, 4*60*1000); // 4 minutes interval

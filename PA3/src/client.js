@@ -45,11 +45,11 @@ class Client {
 
 	createPacket() {
 		const packet = new NTPPacket(MODES.CLIENT);
-	
+
 		packet.originateTimestamp = Date.now() / 1000;
 		if(this.msg_id) // txTimestamp is 0 fir first messgae in burst
 			packet.txTimestamp = Date.now() / 1000;
-	
+
 		//console.log('Created NTP packet', packet);
 		return packet.bufferize(packet);
 	}
@@ -59,7 +59,7 @@ class Client {
 		//console.log('Received NTP packet from server: ', message);
 		message.destinationTimestamp = (Date.now() / 1000) + NTP_DELTA;
 		//message.time = new Date(Math.floor((message.rxTimestamp - NTP_DELTA) * 1000));
-	
+
 		// Timestamp Name          ID   When Generated
 		// ------------------------------------------------------------
 		// Originate Timestamp     T1   time request sent by client
@@ -70,13 +70,13 @@ class Client {
 		const T2 = message.rxTimestamp;
 		const T3 = message.txTimestamp;
 		const T4 = message.destinationTimestamp;
-	
+
 		// The roundtrip delay d and system clock offset t are defined as:
 		// -
 		// d = (T4 - T1) - (T3 - T2)     t = ((T2 - T1) + (T3 - T4)) / 2
 		message.d = (T4 - T1) - (T3 - T2);
 		message.t = (T2 - T1 + (T3 - T4)) / 2;
-	
+
 		return message;
 	}
 
