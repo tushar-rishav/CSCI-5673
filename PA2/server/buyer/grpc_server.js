@@ -7,7 +7,7 @@ const services = require('../../buyerService/proto/buyer_grpc_pb');
 const API = require("./api");
 
 // Mongo Connection
-const DB_URL = "mongodb://localhost:27017";
+const DB_URL = "mongodb://34.67.69.44:27017";
 var DBO; // db object
 let api=null;
 const dbClient=new MongoClient(DB_URL, { useUnifiedTopology: true });
@@ -39,6 +39,7 @@ async function main() {
       provideFeedback : api.provideFeedback,
       getSellerRating : api.getSellerRating,
       getBuyerHistory : api.getBuyerHistory,
+      makePurchase : api.makePurchase,
     });
 
     let address = "0.0.0.0:50051";

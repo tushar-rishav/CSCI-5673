@@ -1,8 +1,8 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 'use strict';
-var grpc = require('@grpc/grpc-js');
-var protos_seller_pb = require('./seller_pb.js');
+var grpc = require('grpc');
+var protos_seller_pb = require('../protos/seller_pb.js');
 
 function serialize_seller_authenticateResponse(arg) {
   if (!(arg instanceof protos_seller_pb.authenticateResponse)) {

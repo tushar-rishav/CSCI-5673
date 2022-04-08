@@ -5,7 +5,7 @@ package seller;
 service SellerSvc{
     rpc register(userRequest) returns (registerResponse);
     rpc authenticate(userRequest) returns (authenticateResponse);
-    rpc getSellerRating(userName) returns (rating);
+    rpc getSellerRating(rating_request) returns (rating);
     rpc putAnItemForSale(putAnItemForSaleRequest) returns (putAnItemForSaleResponse);
     rpc changeSalePrice(changeSalePriceRequest) returns (changeSalePriceResponse);
     rpc rmvAnItem(rmvAnItemRequest) returns (rmvAnItemResponse);
@@ -20,7 +20,7 @@ message authenticateResponse{
     string res=1;
 }
 
-message userName{
+message rating_request{
     string username=1;
 }
 
@@ -40,6 +40,8 @@ message Item{
     string condition=4;
     int32 price=5;
     int32 qty=6;
+    int32 meanfeedback=7;
+    int32 feedbackcount=8;
 }
 
 message putAnItemForSaleRequest {
@@ -87,5 +89,3 @@ message displayItemsRequest {
 message displayItemResponse {
   repeated Item itemsList=1;
 }
-
-

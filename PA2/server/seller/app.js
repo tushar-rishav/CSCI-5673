@@ -174,7 +174,7 @@ app.post('/login', (req, res, next) => { // params: {username, passwd}
     var binary_data = user_request.serializeBinary();
     console.log(binary_data);
 
-    client.login(user_request, function(err, response) {
+    client.authenticate(user_request, function(err, response) {
         grpc_response = response.getRes();
         console.log("Got response from GRPC server: "+grpc_response );  
         if(err ){
@@ -189,48 +189,38 @@ app.post('/login', (req, res, next) => { // params: {username, passwd}
 });
 
 // Logout
-
 app.post('/logout', (req, res) => {  // params: {username}
     delete app.locals[req.body.username];
     res.json({'auth': false, 'msg': 'Logout successful'});
+    console.log("Logout Successful at Server front-end" );  
 });
 
 // Ratings
 app.get('/ratings', restrict, (req, res) => { // display seller rating
-    logger.info(req.body);
-    user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
-    res.json({"msg":"Not required to implement"});
+    user_data = {username: req.query.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
 
-    /* populate the grpc request as a proto file
-    console.log(user_data.username+" : "+user_data.item_id+" : "+user_data.qty);
-    
-    let seller_request = new messages.userName();
-    seller_request.setUsername(seller_id);
-    console.log("Printing the protobuf:"+seller_request);
+    let user_name = new messages.rating_request();
+    user_name.setUsername(user_data.username);
+    console.log(user_name);
 
-    // serialize the structure to binary data
-    var binary_data = seller_request.serializeBinary();
-    console.log(binary_data);
-    var grpc_response = "";
-
-    client.getSellerRating(seller_request, function(err, response) {
-        logger.debug(response);
-        logger.debug(err);
-        grpc_response = response.getRes();
+    client.getSellerRating(user_name, function(err, response) {
+        var grpc_response = response.getVal();
         console.log("Got response from GRPC server: "+grpc_response);
-        if(err){
-            res.json({"msg":"Seller Rating failed"});
+        if(err ){
+            res.json({"msg":`Ratings retrieval for seller failed:${user_data.username} ${grpc_response}`});
+            console.log(err);
         }
         else{
-            res.json({"msg":"Seller Rating success"+});
+            res.json({"msg":`Ratings retrieval Success: ${user_data.username} ${grpc_response}`});
+            console.log(`Ratings retrieval Success: ${user_data.username} ${grpc_response}`);
         }
-    }); */
+    }); 
 });
 
 // Display Items
 app.get('/display_item', restrict, (req, res, next) => { // param {username}
     logger.info(req.query);
-    user_data = {username: req.query.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
+    user_data = {username: req.query.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, item: []};
     
     // populate the grpc request as a proto file
     console.log(user_data.username);
@@ -249,6 +239,26 @@ app.get('/display_item', restrict, (req, res, next) => { // param {username}
         logger.debug(err);
         grpc_response = JSON.stringify(response, null, 4);
         console.log("Got response from GRPC server: "+grpc_response);
+
+        // populate the items list
+        var itemsList = response.getItemslistList();
+        
+        // @tushar check with him 
+        dataList = [];
+        itemsList.forEach( function(item, index){
+            var data={ "name": item.getName(), "category": item.getCatergory(), "keywords": item.getKeywordlistList(),"condition": item.getCondition(), "price": item.getPrice(), "qty": item.getQty(), "mean_feedback": item.getMeanfeedback(), "num_feedback": item.getFeedbackcount() };
+            dataList.push(data);
+        });
+        
+        if(err ){
+            res.json({"msg":"Display Items for sale by this seller failed"});
+            console.log(err);
+        }
+        else{
+            var dataListStr= JSON.stringify(dataList,null,4);
+            res.json({"msg":dataListStr});
+            console.log("Display Items for sale by this seller Success:"+dataListStr);
+        }
     });
 });
 
@@ -256,13 +266,35 @@ app.get('/display_item', restrict, (req, res, next) => { // param {username}
 app.post('/add_item', restrict, (req, res) => { // param: {username, data}
     logger.info(req.body);
     user_data = {username: req.body.username, item_id: req.body.data.item_id, qty: req.body.data.qty};
+
+    // populate the item value based on req.body.data
+    var data_req = req.body.data;
+    console.log(data_req);
+    
+    let item = new messages.Item();
+    item.setName(data_req.name);
+    item.setCatergory(data_req.category);
+    item.setCondition(data_req.condition);
+    item.setPrice(data_req.price);
+    item.setQty(data_req.qty);
+    
+    console.log(data_req.mean_feedback);
+    item.setMeanfeedback(data_req.mean_feedback);
+    console.log(data_req.num_feedback);
+    item.setFeedbackcount(data_req.num_feedback);
+    
+    // loop through the string array
+    data_req.keywords.forEach(function(elem, index) {
+        item.addKeywordlist(elem);
+        console.log("Adding element: "+elem);
+    });
     
     // populate the grpc request as a proto file
     console.log(user_data.username+" : "+user_data.item_id+" : "+user_data.qty);
-    let add_items_salerequest = new messages.putAnItemForSaleRequest();
+    let add_items_sale_request = new messages.putAnItemForSaleRequest();
     add_items_sale_request.setUsername(user_data.username);
-    add_items_sale_request.setId(user_data.item_id);
-    add_items_sale_request.setQty(user_data.qty);
+    add_items_sale_request.setItemId(user_data.item_id);
+    add_items_sale_request.setItem(item);
     
     console.log("Printing the protobuf:"+add_items_sale_request);
 
@@ -275,113 +307,62 @@ app.post('/add_item', restrict, (req, res) => { // param: {username, data}
         logger.debug(err);
         var grpc_response = response;
         console.log("Got response from GRPC server: "+grpc_response);
-    }); 
-
-    /*
-    DBO.collection("item").insertOne(req.body.data, function(item_err, item_resp) {
-        if(item_err){
-            logger.error(`Error fetching user info for user ${req.body.username} error: ${item_err}`);
-            return res.sendStatus(500);
+        if(err ){
+            res.json({"msg":"Adding Item for Sale failed"});
+            console.log(err);
         }
-        // FIXME Add item ID to seller item id list
-        db_get_user(username, (err, user) => {
-            if(err){
-                logger.error(err);
-                return res.send(500);
-            }
-            user.items.push([item_resp.insertedId, req.body.data.qty]);
-            DBO.collection("user").updateOne({username: req.body.username}, {$set: {items: user.items}}, function(_err, _resp){
-                if(_err) {
-                    logger.error(`Adding item failed for seller: ${req.body.username} ${_err}`);
-                    return res.sendStatus(500);
-                }
-                logger.debug(`New item added for seller ${req.body.username}`);
-                return res.json({"msg": "Item added successfully"});
-            });
-        });
-        logger.debug(`Item inserted with item_id ${item_resp.insertedId}`);
-    });
-    */
+        else{
+            res.json({"msg":"Adding Item for Sale Success"});
+            console.log("Adding Item for Sale Success");
+        }
+    }); 
 });
 
 // Change Price
-
 app.post('/change_price', restrict, (req, res) => { // params: username, data: {item_id: <>, price: <>}
     logger.info(req.body);
+
+    let change_price_request = new messages.changeSalePriceRequest();
+    change_price_request.setItemid(req.body.data.item_id);
+    change_price_request.setPrice(req.body.data.price);
+    
     user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
-    client.login(encodeMessage(user_data, messages.changeItemsRequest) , function(err, response) {
-      console.log("called: " );  
-      console.log(response);
-    }); 
-    /* 
-    var query = { "_id": ObjectId(req.body.data.item_id)};
-    var values = { $set: {price: req.body.data.price} };
-
-    DBO.collection("item").updateOne(query, values, function(item_err, item_res) {
-        if (item_err){
-            logger.error(`Item updated failed: ${item_err}`);
-            return res.sendStatus(500);
+    client.changeSalePrice(change_price_request, function(err, response) {
+        var grpc_response = response;
+        console.log("Got response from GRPC server: "+grpc_response);
+        if(err ){
+            res.json({"msg":"Change Item for Sale failed"});
+            console.log(err);
         }
-
-        logger.debug(`Item price updated by seller ${req.body.username}`);
-        res.sendStatus(200);
-    });
-    */
+        else{
+            res.json({"msg":"Change Item for Sale Success"});
+            console.log("Change Item for Sale Success");
+        }
+    }); 
 });
 
-// Remove Item
-
+// Remove Item 
 app.post('/remove_item', restrict, (req, res, next) => { // params: username, data: {item_id: <>, qty: <> }
     logger.info(req.body);
+
+    let rmv_item_request = new messages.rmvAnItemRequest();
+    rmv_item_request.setUsername(req.body.username);
+    rmv_item_request.setItemid(req.body.data.item_id);
+    rmv_item_request.setQty(req.body.data.qty);
+
     user_data = {username: req.body.username, passwd: req.body.passwd, type: "seller", mean_ratings: 0, num_ratings: 0, cart: []};
-    client.login(encodeMessage(user_data, messages.rmvItemsRequest) , function(err, response) {
-      console.log("called: " );  
-      console.log(response);
+    client.rmvAnItem(rmv_item_request , function(err, response) {
+        var grpc_response = response;
+        console.log("Got response from GRPC server: "+grpc_response);
+        if(err ){
+            res.json({"msg":"Removed Item Quantity failed"});
+            console.log(err);
+        }
+        else{
+            res.json({"msg":"Removed Item Quantity  Success"});
+            console.log("Removed Item Quantity Success");
+        }
     }); 
-    /*
-    var query = { "_id": ObjectId(req.body.data.item_id) };
-    var cursor = DBO.collection('item').find(query);
-    cursor.forEach(doc => {
-        let qty = req.body.data.qty;
-        if(qty == 0){
-            DBO.collection("item").deleteOne(query, function(item_err, item_resp){ // delete item from item collection
-                if(item_err) {
-                    logger.error(`Remove item failed ${item_err}`);
-                    return res.sendStatus(500);
-                }
-
-                db_get_user(req.body.username, (user_err, user) => {    // delete item_id from corresponding seller
-                    if(user_err){
-                        logger.error(`Error reading user info ${user_err}`);
-                        return res.sendStatus(500);
-                    }
-
-                    user_items = user.items.filter(id => id[0] !== ObjectId(req.body.data.item_id));
-                    DBO.collection("user").updateOne({username: req.body.username}, {$set: {items: user_items}}, function(_err, _resp){
-                        if(_err) {
-                            logger.error(`Remove item failed for seller: ${req.body.username} ${_err}`);
-                            return res.sendStatus(500);
-                        }
-                        logger.debug(`No left over quantity. Item deleted for seller ${req.body.username}`);
-                        return res.json({"msg": "Item removed successfully"});
-                    });
-                });
-            });            
-        }
-        else {
-            let value = {$set: {qty: qty}}; 
-            DBO.collection("item").updateOne(query, value, function(item_err, item_res){
-                if(item_err) {
-                    logger.error(`Remove item failed for seller: ${req.body.username} ${item_err}`);
-                    return res.sendStatus(500);
-                }
-                
-                logger.debug(`Item quantity reduced by seller: ${req.body.username}`);
-                return res.json({"msg": "Item quantity reduced by seller"});
-            });
-        }
-    });
-    */
 });
 
 app.use(error);

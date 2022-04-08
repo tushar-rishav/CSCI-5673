@@ -66,7 +66,7 @@ app.use(function (req, res, next) {
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 
-const DB_URL = "mongodb://localhost:27017";
+const DB_URL = "mongodb://34.67.69.44:27017";
 var DBO; // db object
 
 MongoClient.connect(DB_URL, function(err, db) {
@@ -353,11 +353,11 @@ app.post('/clear_cart', restrict, (req, res) => { // param: {username, data: {it
     }); 
 });
 
-app.get('/ratings', restrict, (req, res) => { // param: {username, data: {item_id, qty}}
+app.get('/ratings', (req, res) => { // param: {username, data: {item_id, qty}}
     
     // populate the grpc request as a proto file
     // console.log(user_data.username+" : "+user_data.item_id+" : "+user_data.qty);
-    var seller_id = req.query.seller_id;
+    var seller_id = req.query.username;
     
     let seller_request = new messages.getSellerRatingRequest();
     seller_request.setUsername(seller_id);
@@ -389,8 +389,10 @@ app.get('/history', restrict, (req, res) => { // param: {username, data: {item_i
     logger.debug(username, query);
 
     let buyer_history_request  = new messages.getBuyerHistoryRequest();
+    buyer_history_request.setUsername(username);
+    console.log("Printing the protobuf:"+buyer_history_request);
 
-    client.getBuyerHistory(seller_request, function(err, response) {
+    client.getBuyerHistory(buyer_history_request, function(err, response) {
         logger.debug(response);
         logger.debug(err);
         //grpc_response = response.getRes();
@@ -404,11 +406,12 @@ app.post('/feedback', restrict, (req, res) => { // param: {username, data: {item
     var item_id = req.body.data.item_id;
     var feedback = req.body.data.feedback; // +1 or -1
 
-    let feedback_request = new provideFeedbackRequest();
+    let feedback_request = new messages.provideFeedbackRequest();
     feedback_request.setItemid(item_id);
     feedback_request.setFb(feedback);
 
     user_data = {username: req.body.username, data: req.body.data};
+    console.log(user_data);
     client.provideFeedback( feedback_request , function(err, response) {
         logger.debug(response);
         logger.debug(err);
@@ -422,6 +425,20 @@ app.post('/purchase', restrict, (req, res) => {
     var cardnumber = req.body.cardnumber;
     var exp_date = req.body.exp_date;
 
+    let make_purchase_request  = new messages.makePurchaseRequest();
+    make_purchase_request.setUsername(cardname);
+    make_purchase_request.setCardnumber(cardnumber);
+    make_purchase_request.setCardexpirydate(exp_date);
+
+    console.log("Printing the protobuf:"+make_purchase_request);
+
+    client.makePurchase( make_purchase_request , function(err, response) {
+        logger.debug(response);
+        logger.debug(err);
+        grpc_response = response.getRes();
+        console.log("Got response from GRPC server: "+grpc_response);
+    });
+
     // Create client
     soap.createClient(url, function (err, client) {
         if (err){
@@ -431,7 +448,7 @@ app.post('/purchase', restrict, (req, res) => {
         * Parameters of the service call: they need to be called as specified
         * in the WSDL file
         */
-        credit_card={"name" : cardname , "number" : cardnumebr, "exp_date" : exp_date};
+        credit_card={"name" : cardname , "number" : cardnumber, "exp_date" : exp_date};
         var args = { 
         message: JSON.stringify(credit_card),
         splitter: ":" 

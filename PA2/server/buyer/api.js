@@ -83,6 +83,7 @@ module.exports = class API {
 
     let user_data = {username: user_request.getUsername(), passwd: user_request.getPassword(), type:"buyer", ratings: [], cart:[]};
     var out = "";
+    console.log(user_data);
     users.insertOne(user_data, function(db_err, db_resp) {
         let resp = new messages.registerResponse();
         if (db_err) {
@@ -222,6 +223,7 @@ module.exports = class API {
     var qty = rmv_items_request.getQty();
 
     let resp = new messages.rmvItemsResponse();
+    console.log("Remove Items: "+rmv_items_request);
 
     db_get_user(username, (err, user) => {
         if (err){
@@ -232,7 +234,24 @@ module.exports = class API {
             callback(err, resp);
         }
         else if(user) {
-            user.cart = user.cart.map(id => id[0] === ObjectId(item_id) ? [id[0], qty] : id);
+            console.log("Before");
+            console.log(user.cart);
+            var new_cart=[];
+
+            // @Sai Akhil: using new one
+            user.cart.forEach(function(value, key){
+                //new_cart.push();
+                console.log(item_id+ " :: " +value[0]);
+                if(value[0] == item_id){
+                    value[1] = qty;
+                    console.log(value[1]+" :in: "+qty);
+                }
+            });
+
+            // @Tushar: commenting your approach
+            //user.cart = user.cart.map(id => {if(id[0]==ObjectId(item_id)){id = [ObjectId(item_id), qty];console.log(id);}});
+            console.log("After");
+            console.log(user.cart);
             user.cart = user.cart.filter(id => id[1] != 0);
             
             DBO.collection("user").updateOne({username: username}, {$set: {cart: user.cart}}, function(_err, _resp){
@@ -345,7 +364,7 @@ module.exports = class API {
     var item_id = feedback_request.getItemid(); 
     var feedback = feedback_request.getFb();
 
-    let resp = new messages.provideFeedbackResponse();
+    let response = new messages.provideFeedbackResponse();
 
     var cursor = DBO.collection("item").find({"_id": ObjectId(item_id)}).toArray();
     cursor.then((_resp) => {
@@ -360,24 +379,87 @@ module.exports = class API {
         DBO.collection("item").updateOne({"_id": ObjectId(item_id)}, {$set: update}, function(err, resp){
             if(err) {
                 logger.error(`Add item feedback failed by buyer ${err}`);
-                resp.setRes("500");
-                callback(null, resp);
+                response.setRes("500");
+                callback(null, response);
             }
             logger.debug(`New feedback added for user `);
-            resp.setRes({"msg": "New feedback added to the item"});
-            callback(null, resp);
+            var out_msg = "New feedback added to the item";
+            response.setRes(out_msg);
+            callback(null, response);
         });
     }).catch(_err => {
         if(_err) {
             logger.error(`Adding feedback failed by buyer: ${_err}`);
-            resp.setRes("Adding feedback failed by buyer");
-            callback(null, resp);
+            response.setRes("Adding feedback failed by buyer");
+            callback(null, response);
         }
     });
     logger.debug(`Feedback added`);
 
   }  
   
+  makePurchase = (call, callback) => {
+    logger.info("Called Purchase API");
+    var purchase_request = call.request;
+    var user_name = purchase_request.getUsername();
+    var card_number =  purchase_request.getCardnumber();
+    var exp_date = purchase_request.getCardexpirydate();
+    
+    var data = {cardnumber:card_number, expdate:exp_date };
+    let response = new messages.makePurchaseResponse();
+    DBO.collection("history").insertOne({username: user_name, data: data}, function(db_err, db_resp) {
+        if (db_err) {
+            logger.error(`Saving purchase transaction failed by buyer ${err}`);
+            response.setRes("Failed adding purchased transaction to DB");
+            callback(db_err, response);
+        }
+        logger.debug(`Purchase transaction saved`);
+        response.setRes(`Purchase transaction saved ${user_name}`);
+        callback(null, response);
+    });
+    logger.debug(`Purchase transaction saved`);
+
+    /*
+    const history = this.db.collection("history");
+    let response = new messages.provideFeedbackResponse();
+
+    var cursor = DBO.collection("history").find({"username": ObjectId(user_name)}).toArray();
+    cursor.then((_resp) => {
+
+        if(!_resp.length){
+            DBO.collection("history").insertOne({"username": user_name}, {$set: {history:_history}}, function(err, resp){
+                
+            });    
+        }
+
+        // update the history 
+        _history = _resp[0].history;
+        _history.push(112211);
+        logger.debug(_history);        
+        DBO.collection("history").updateOne({"username": user_name}, {$set: {history:_history}}, function(err, resp){
+            if(err) {
+                logger.error(`Purchase failed by buyer ${err}`);
+                response.setRes("500");
+                callback(null, response);
+            }
+            logger.debug(`Completed the purchase`);
+
+            var out_msg = "Completed the purchase";
+            response.setRes(out_msg);
+            callback(null, response);
+        });
+    }).catch(_err => {
+        if(_err) {
+            logger.error(`Adding feedback failed by buyer: ${_err}`);
+            response.setRes("Adding feedback failed by buyer");
+            callback(null, response);
+        }
+    });
+    */
+
+    logger.debug(`Purchase recorded ${user_name}`);
+  }
+
   getSellerRating = (call, callback) => {
     logger.info("Get Seller Rating API :"+call.request);
     var seller_request = call.request;
@@ -386,9 +468,10 @@ module.exports = class API {
     var seller_id = seller_request.getUsername();    
     let resp = new messages.rating();
     
+    console.log(seller_id);
     db_get_user(seller_id, (err, user) => {
         if(err){
-            var err_msg = `Get Seller Ratings for seller id: ${seller_id}`;
+            var err_msg = `Get Seller Ratings Failed at DB for seller id: ${seller_id}`;
             logger.error(`${err_msg}`);
             logger.error(err);
             resp.setVal(-1);
@@ -402,15 +485,23 @@ module.exports = class API {
   }
   
   getBuyerHistory = (call, callback) => {
-    console.log("Called get Buyer History API");
+    console.log("Called getBuyerHistory API");
+
+    var buyer_history_request = call.request;
+    var user_name = buyer_history_request.getUsername();
+    console.log(buyer_history_request);
+    var query = {"username":user_name};
+
+    var buyer_history_response = new messages.getBuyerHistoryResponse();
 
     var history = DBO.collection("history").find(query).toArray();
     history.then((result) => {
         logger.debug(JSON.stringify(result, null, 4));
-        return res.json(result);
+        //buyer_history_response.setRes("Done Deal");
+        callback(null, buyer_history_response);
     }).catch((err) => {
-        res.json({"msg": `Fetching history failed with error: ${err}`});
+        //buyer_history_response.setRes("Failed Deal");
+        callback(err, buyer_history_response);
     });
-
   }
 };

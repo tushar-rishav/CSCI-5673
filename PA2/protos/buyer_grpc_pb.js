@@ -1,8 +1,8 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 'use strict';
-var grpc = require('@grpc/grpc-js');
-var protos_buyer_pb = require('./buyer_pb.js');
+var grpc = require('grpc');
+var protos_buyer_pb = require('../protos/buyer_pb.js');
 
 function serialize_buyer_addItemsRequest(arg) {
   if (!(arg instanceof protos_buyer_pb.addItemsRequest)) {

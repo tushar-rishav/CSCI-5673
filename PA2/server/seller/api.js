@@ -12,7 +12,7 @@ logger.level = "debug";
 var DBO;
 
 function db_get_user(name, callback) {
-  var query = {"name": name} // name is unique index
+  var query = {"username": name} // name is unique index
   var user = DBO.collection("user").find(query).toArray();
   user.then((result) => {
       logger.debug(JSON.stringify(result, null, 4));
@@ -24,15 +24,15 @@ function authenticate(name, passwd, fn) {
   logger.debug(`Authenticating ${name}:${passwd}`);
   db_get_user(name, (db_err, user) => {
       if(db_err){
-      logger.error(`Authentication DB failure for user: ${name} with error: ${db_err}`);
-      fn(null, null);
+        logger.error(`Authentication DB failure for user: ${name} with error: ${db_err}`);
+        fn(null, null);
       }
       else{
-      if(user.name == name && user.passwd == passwd){
-      return fn(null, user);
-      } else {
-      return fn(Error('Auth failed'));
-      }}
+        if(user.username == name && user.passwd == passwd){
+          return fn(null, user);
+        } else {
+        return fn(Error('Auth failed'));
+        }}
       }); 
 }
 
@@ -96,63 +96,57 @@ module.exports = class API {
     });
   }
 
-  // gets the seller rating for this seller and access "user" database
-  getSellerRating = (call, callback) => {
-    logger.info("Get Seller Rating API :"+call.request);
-    var seller_request = call.request;
-    console.log(seller_request);
-    
-    let resp = new messages.rating();
-    
-/*
-    db_get_user(seller_request.getUsername(), (user_err, user_resp) => {
-        if(user_err){
-          var err_msg = `Error fetching user info for user ${req.query.username} error: ${user_err}`;
-          logger.error(`${err_msg}`);
-          logger.error(user_err);
-          resp.setRes(err_msg);
-          callback(err, resp);
-        }
-        resp.setRes({"ratings": user_resp.mean_ratings });
-        callback(null, resp);
-    });  */
-    callback(null, resp);
-  }
-
   // puts an item for sale and interacts with both "items" and "users" database
   putAnItemForSale = (call, callback) => {
-    console.log("Received a GRPC request for AputAnItemForSale API");
+    console.log("Received a GRPC request for A putAnItemForSale API");
     var add_items_request = call.request;
     console.log(add_items_request);
 
     const users = this.db.collection("user");
     var username = add_items_request.getUsername();
-    var item_id = add_items_request.getId();
-    var qty = add_items_request.getQty();
+    var item_id = add_items_request.getItemId();
+    var item = add_items_request.getItem();
+    var keywords = item.getKeywordlistList();
+
     // @tushar check with him 
-    var data = {"item_id":item_id, "qty":qty}
+    var data = {"username":username, "item_id":item_id, "data":{ "name": item.getName(), "category": item.getCatergory(), "keywords": keywords,"condition": item.getCondition(), "price": item.getPrice(), "qty": item.getQty(), "mean_feedback": item.getMeanfeedback(), "num_feedback": item.getFeedbackcount() }};
     
-    DBO.collection("item").insertOne(req.body.data, function(item_err, item_resp) {
+    DBO.collection("item").insertOne(data.data, function(item_err, item_resp) {
         if(item_err){
-          logger.error(`Error fetching user info for user ${req.body.username} error: ${item_err}`);
+          logger.error(`Error fetching user info for user ${data.username} error: ${item_err}`);
           return res.sendStatus(500);
         }
         // FIXME Add item ID to seller item id list
-        db_get_user(username, (err, user) => {
-            if(err){
+        db_get_user(data.username, (err, user) => {
+          let resp = new messages.putAnItemForSaleResponse();
+          if (err){
+            var err_msg = `Failed adding item ${data.username}`;
+            logger.error(`${err_msg}`);
             logger.error(err);
-            return res.send(500);
-            }
-            user.items.push([item_resp.insertedId, req.body.data.qty]);
-            DBO.collection("user").updateOne({username: req.body.username}, {$set: {items: user.items}}, function(_err, _resp){
-                if(_err) {
-                logger.error(`Adding item failed for seller: ${req.body.username} ${_err}`);
-                return res.sendStatus(500);
-                }
-                logger.debug(`New item added for seller ${req.body.username}`);
-                return res.json({"msg": "Item added successfully"});
-                });
+            resp.setRes("Failed adding item to cart for "+data.username);
+            callback(err, resp);
+          }
+          else if(user) {
+            user.items.push(ObjectId(item_resp.insertedId));
+            DBO.collection("user").updateOne({username: data.username}, {$set: {items: user.items}}, function(_err, _resp){
+              logger.debug(`New item added for seller ${data.username}`);
+              //return res.json({"msg": "Item added successfully"});
+              if (err){
+                  var err_msg = {'reg': false, 'msg': `Add item failed with error: ${err}`};
+                  logger.error(`Adding item failed for seller: ${data.username} ${_err}`);
+                  logger.error(`${err_msg}`);
+                  resp.setRes(JSON.stringify(err_msg));
+                  callback(err, resp);
+              }
+              else {
+                logger.info(`Added Item successful for user ${data.username}`);
+                var out = {'reg': true, 'msg': `Add Item successful for ${data.username}`};
+                resp.setRes(JSON.stringify(out));
+                callback(null, resp);
+              }
             });
+          }
+        });
         logger.debug(`Item inserted with item_id ${item_resp.insertedId}`);
     });
 
@@ -161,66 +155,128 @@ module.exports = class API {
   // puts an item for sale and interacts with only "items" database
   changeSalePrice = (call, callback) => {
     console.log("Called changeSalePrice API");
-    var query = { "_id": ObjectId(req.body.data.item_id)};
-    var values = { $set: {price: req.body.data.price} };
+    var change_price_request = call.request;
+
+    var query = { "_id": ObjectId(change_price_request.getItemid())};
+    var values = { $set: {price: change_price_request.getPrice()} };
+    let resp = new messages.changeSalePriceResponse();
+    //console.log(query);
+    //console.log(values);
 
     DBO.collection("item").updateOne(query, values, function(item_err, item_res) {
-        if (item_err){
+      if (item_err){
         logger.error(`Item updated failed: ${item_err}`);
-        return res.sendStatus(500);
-        }
-
-        logger.debug(`Item price updated by seller ${req.body.username}`);
-        res.sendStatus(200);
-        });
+        var err_msg = {'reg': false, 'msg': `Change sale price failed with error: ${err}`};
+        logger.error(`Change sale price failed for seller: ${item_err}`);
+        logger.error(`${err_msg}`);
+        resp.setRes(JSON.stringify(err_msg));
+        callback(item_err, resp);
+      }
+      else {
+        logger.info(`Change Sale Price Successfully updated`);
+        var out = {'reg': true, 'msg': `Change Sale Price Successfully updated`};
+        resp.setRes(JSON.stringify(out));
+        callback(null, resp);
+      }
+    });
   }
 
-  // remove an item from sale and interacts with 
+  // remove an item from sale and interacts with rmvAnItemRequest
   rmvAnItem = (call, callback) => {
     console.log("Called rmvAnItem API");
-    var query = { "_id": ObjectId(req.body.data.item_id) };
+
+    var rmv_item_request = call.request;
+    var username = rmv_item_request.getUsername();
+    var item_id = rmv_item_request.getItemid();
+    var qty = rmv_item_request.getQty();
+
+    var query = { "_id": ObjectId(item_id)};
+    let resp = new messages.rmvAnItemResponse();
+
     var cursor = DBO.collection('item').find(query);
     cursor.forEach(doc => {
-        let qty = req.body.data.qty;
-        if(qty == 0){
+      if(qty == 0){
         DBO.collection("item").deleteOne(query, function(item_err, item_resp){ // delete item from item collection
             if(item_err) {
-            logger.error(`Remove item failed ${item_err}`);
-            return res.sendStatus(500);
+              logger.error(`Removing Item failed: ${username} ${item_err}`);
+              var err_msg = {'reg': false, 'msg': `Removing item failed with error: ${username} ${item_err}`};
+              logger.error(`Removing Item failed for seller: ${username} ${item_err}`);
+              logger.error(`${err_msg}`);
+              resp.setRes(JSON.stringify(err_msg));
+              callback(item_err, resp);
             }
 
-            db_get_user(req.body.username, (user_err, user) => {    // delete item_id from corresponding seller
+            db_get_user(username, (_erruser_err, user) => {    // delete item_id from corresponding seller
                 if(user_err){
-                logger.error(`Error reading user info ${user_err}`);
-                return res.sendStatus(500);
+                  logger.error(`Removing Item failed: ${username} ${user_err}`);
+                  var err_msg = {'reg': false, 'msg': `Removing item failed with error: ${user_err}`};
+                  logger.error(`Removing Item failed for seller: ${user_err}`);
+                  logger.error(`${err_msg}`);
+                  resp.setRes(JSON.stringify(err_msg));
+                  callback(user_err, resp);
                 }
-
-                user_items = user.items.filter(id => id[0] !== ObjectId(req.body.data.item_id));
-                DBO.collection("user").updateOne({username: req.body.username}, {$set: {items: user_items}}, function(_err, _resp){
+                user_items = user.items.filter(id => id[0] !== ObjectId(item_id));
+                DBO.collection("user").updateOne({username: username}, {$set: {items: user_items}}, function(_err, _resp){
                     if(_err) {
-                    logger.error(`Remove item failed for seller: ${req.body.username} ${_err}`);
-                    return res.sendStatus(500);
+                      logger.error(`Removing Item failed: ${username} ${_err}`);
+                      var err_msg = {'reg': false, 'msg': `Removing item failed with error: ${username} ${user_err}`};
+                      logger.error(`Removing Item failed for seller: ${username} ${_err}`);
+                      logger.error(`${err_msg}`);
+                      resp.setRes(JSON.stringify(err_msg));
+                      callback(_err, resp);
                     }
-                    logger.debug(`No left over quantity. Item deleted for seller ${req.body.username}`);
-                    return res.json({"msg": "Item removed successfully"});
-                    });
+                    else {
+                      logger.info(`Successfully Removed Item`);
+                      var out = {'reg': true, 'msg': `Successfully Removed Item`};
+                      resp.setRes(JSON.stringify(out));
+                      callback(null, resp);
+                    }
+                  });
                 });
         });            
-        }
-        else {
-          let value = {$set: {qty: qty}}; 
-          DBO.collection("item").updateOne(query, value, function(item_err, item_res){
-              if(item_err) {
-              logger.error(`Remove item failed for seller: ${req.body.username} ${item_err}`);
-              return res.sendStatus(500);
-              }
-
-              logger.debug(`Item quantity reduced by seller: ${req.body.username}`);
-              return res.json({"msg": "Item quantity reduced by seller"});
-              });
-        }
+      }
+      else {
+        let value = {$set: {qty: qty}}; 
+        DBO.collection("item").updateOne(query, value, function(item_err, item_res){
+          if(item_err) {
+            logger.error(`Removing Item failed: ${username} ${item_err}`);
+            var err_msg = {'reg': false, 'msg': `Removing item failed with error: ${item_err}`};
+            logger.error(`Removing Item failed for seller: ${item_err}`);
+            logger.error(`${err_msg}`);
+            resp.setRes(JSON.stringify(err_msg));
+            callback(item_err, resp);
+          }
+          else {
+            logger.info(`Successfully Removed Item: ${username} ${qty}`);
+            var out = {'reg': true, 'msg': `Successfully Removed Item`};
+            resp.setRes(JSON.stringify(out));
+            callback(null, resp);
+          }
+        });
+      }
     });
+  }
 
+  // gets the seller rating for this seller and access "user" database
+  getSellerRating = (call, callback) => {
+    logger.info("Get Seller Rating API :");
+    var seller_request = call.request;
+    console.log(seller_request);
+    var usrName = seller_request.getUsername();
+    
+    let resp = new messages.rating();    
+    db_get_user(usrName, (user_err, user_resp) => {
+        if(user_err){
+          var err_msg = `Error fetching user info for user ${usrName} error: ${user_err}`;
+          logger.error(`${err_msg}`);
+          logger.error(user_err);
+          resp.setVal(-1);
+          callback(user_err, resp);
+        }
+        console.log(user_resp);
+        resp.setVal(user_resp["mean_ratings"]);
+        callback(null, resp);
+    });
   }
 
   // display the items put for sale by the seller and access the "user" database  
@@ -261,8 +317,10 @@ module.exports = class API {
             item_protobuf.setCondition(item["condition"]);
             item_protobuf.setPrice(parseInt(item["price"]));
             item_protobuf.setQty(item["qty"]);
+            item_protobuf.setMeanfeedback(item["mean_feedback"]);
+            item_protobuf.setFeedbackcount(item["num_feedback"]);
             
-            resp.addItemlist(item_protobuf);
+            resp.addItemslist(item_protobuf);
             logger.debug(item_protobuf);
           });
           logger.debug(resp);
