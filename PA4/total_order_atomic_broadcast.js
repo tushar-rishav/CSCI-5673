@@ -36,7 +36,7 @@ class Client extends EventEmitter {
 
 			this.socket.on('message', (data) => {
 				logger.info(`Received response: ${data}`);
-	
+
 				this.socket.close();
 			});
 		});
@@ -53,12 +53,12 @@ class Server extends EventEmitter {
 		this.pending_local_buffer = {}; // to store msgs per peer which has missing previous local_seq
 		this.pending_global_buffer = {}; // to store msgs with global seq which has missing previous global_seq
 		this.delivered_buffer = {};	// to store msgs which have been delivered
-		
+
 		this.send_local_buffer = {}; // buffer sent message by msg_id;
 		this.send_global_buffer = {}; // buffer global message by global_seq;
 
 		this.global_seq_to_msg_id = {}; // find message for given global seq
-		
+
 		for(var i = 0; i < PEERS.length; i++){
 			this.pending_local_buffer[i] = {'local_seq': []}
 		}
@@ -77,7 +77,7 @@ class Server extends EventEmitter {
 	send(packet, port, host, cb){
 		if(cb == undefined)
 			cb = (err) => {logger.error(err)};
-		
+
 		this.socket.send(packet, 0, packet.length, port, host, cb);
 	}
 
@@ -92,7 +92,7 @@ class Server extends EventEmitter {
 	receive(msg, rinfo){
 		logger.info(`Received message: ${msg} from ${rinfo.address}:${rinfo.port}`);
 		msg = JSON.parse(msg);
-		
+
 		if('missing' in msg){ // handle negative ack request
 			if(msg.missing == 'global'){
 				let packet = this.send_global_buffer[msg.global_seq];
@@ -154,7 +154,7 @@ class Server extends EventEmitter {
 			let _peer_id = (g % PEERS.length);
 			let req = {'missing': 'global', 'global_seq': g};
 			let packet = Buffer.from(JSON.stringify(req));
-			
+
 			this.send(packet, PEERS[_peer_id].port, PEERS[_peer_id].host);
 		}
 	}
@@ -167,12 +167,12 @@ class Server extends EventEmitter {
 	}
 
 	deliver(msg){
-		
+
 		logger.info(`Delivering msg_id: ${msg.msg_id} with global_seq: ${msg.global_seq}`);
 
 		this.delivered_buffer[msg.msg_id] = msg;
 		this.last_global_seq = msg.global_seq; // or just increment by one would be same?
-		
+
 		// remove message from pending buffers
 		delete this.pending_local_buffer[msg.msg_id];
 		delete this.pending_global_buffer[msg.msg_id];
@@ -219,12 +219,12 @@ class Server extends EventEmitter {
 
 	broadcast(msg, prepare_global=false){ // msg: Type Buffer
 		msg = JSON.parse(msg);
-		
+
 		if(prepare_global)
 			this.prepare_global_packet(msg);
 		else
 			this.prepare_local_packet(msg);
-		
+
 		let msg_buff = Buffer.from(JSON.stringify(msg));
 
 		// add to send buffer to later retrieve for negative acks
@@ -239,7 +239,7 @@ class Server extends EventEmitter {
 			setTimeout(this.send.bind(this), 0, msg_buff, peer.port, peer.host);
 		});
 	}
-	
+
 }
 
 // UDP server
@@ -249,7 +249,7 @@ udp_server.listen(PEERS[udp_server.id].port, PEERS[udp_server.id].host);
 function error(err, req, res, next) {
     //if (app.get('prod'))
     logger.error(err.stack);
-	
+
     res.status(500);
     res.send('Internal Server Error');
 }
