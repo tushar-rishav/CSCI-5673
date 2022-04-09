@@ -1,7 +1,5 @@
 ### What doesn't work?
-
-1. No sanity check for the data received from client-side.
-2. No retry mechanism for database connection failure in the backend.
+- Group membership and recovery protocol not implemented 
 
 
 ### What works?
@@ -13,6 +11,9 @@
 6. Financial transaction to make purchase service supports SOAP/WSDL.
 7. Test deployment done cloud with end-to-end latency reported below.
 8. Improved client interface. Replaced console interface with simple browser based UI as shown below: ![client_interface](/client_ui.png)
+9. User DB has consensus layer using total-ordered atomic broadcast protocol.
+10. Product DB has raft for managing replica of MongoDB.
+11. Seller and Buyer server replicated with PM2 - nodejs cluster manager.
 
 Round Trip Latency Times:
 =========================
@@ -42,7 +43,10 @@ System Design:
 ==============
 We have set up server-side sellers, server-side buyers, client-side sellers, and buyers based on browser UI. 
 Server-side seller and buyer stores all the items in MongoDB with no state stored in memory. This allows services to be stateless and
-scalable. Also all requests between the client and server is authenticated with username and password stored in the database.
+scalable. Moroever, there's GRPC server which acts as interface to buyer/seller server to perform DB queries. We added consensus with total ordered
+atomic broadcast protocol in buyer/seller server. Morever, MongoDB which has product database is replicated with Raft protocol.
+
+Also all requests between the client and server is authenticated with username and password stored in the database.
 Databse schema looks like below:
 `Item`
 * ID: Unique index, primary key, type: ObjectID
@@ -63,4 +67,4 @@ Databse schema looks like below:
   * num_ratings: Total rating for the user
   * Items: Cart Items for the buyer and items added if seller. Items contain list of (item_id, quantity) pair
   
-When an item quantity is reduced to 0, it's deleted from the databse. 
+When an item quantity is reduced to 0, it's deleted from the databse.
