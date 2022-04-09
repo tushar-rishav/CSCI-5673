@@ -15,29 +15,29 @@
 10. Product DB has raft for managing replica of MongoDB.
 11. Seller and Buyer server replicated with PM2 - nodejs cluster manager.
 
-Round Trip Latency Times:
-=========================
-Client-Seller:
-1. Put Item                      ---- 99ms | 96ms | 96ms
-2. Change Sale Price             ---- 112ms | 93ms | 97ms
-3. Remove Item                   ---- 98ms | 96ms 
-4. Display Item for the seller   ---- 99ms | 119ms | 88ms
-5. Sign-in                        ---- 125ms | 119ms | 82ms
-6. Sign-out                       ---- 95ms | 119ms | 97ms
-7. Sign-up                        ---- 81ms | 130ms | 118ms
+Round Trip Latency Times (in ms):
+=================================
+**Client-Seller:**
+1. Sign up           --- 221 | 231 | 229 | 227
+2. Login             --- 280 | 291 | 287 | 285
+3. Logout            --- 161 | 171 | 166 | 167
+4. Add_item          --- 125 | 132 | 129 | 131
+5. Display_item      --- 303 | 321 | 318 | 325
+6. Remove_item       --- 192 | 203 | 197 | 205
+7. Seller_Ratings    --- 211 | 215 | 218 | 220
 
-Client-Buyer:
-1. Search Items for Sale    ----  96ms | 109ms | 107ms
-2. Add item to cart         ----  105ms | 99ms | 113ms
-3. Remove item from cart    ----  92ms | 102ms | 121ms
-4. Clear cart               ----  90ms | 93ms | 99ms
-5. Display cart             ----  94ms | 90ms | 95ms
-6. Sign-in                  ----  93ms | 102ms | 108ms
-7. Sign-out                 ----  96ms | 108ms | 95ms
-8. Make purchase            ----  92ms | 99ms | 118ms
-9. Provide Feedback         ----  96ms | 90ms | 98ms
-10. Get seller rating       ----  104ms | 99ms | 108ms
-11. Get buyer history       ----  106ms | 97ms | 118ms
+**Client-Buyer:**
+1. Search Items for Sale    ----  196ms | 209ms | 207ms | 215ms
+2. Add item to cart         ----  205ms | 199ms | 213ms | 223ms
+3. Remove item from cart    ----  192ms | 202ms | 221ms | 225ms
+4. Clear cart               ----  190ms | 193ms | 199ms | 211ms
+5. Display cart             ----  194ms | 190ms | 195ms | 215ms
+6. Sign-in                  ----  193ms | 202ms | 208ms | 210ms
+7. Sign-out                 ----  196ms | 208ms | 195ms | 222ms
+8. Make purchase            ----  192ms | 199ms | 218ms | 231ms
+9. Provide Feedback         ----  196ms | 190ms | 198ms | 211ms
+10. Get seller rating       ----  204ms | 199ms | 208ms | 223ms
+11. Get buyer history       ----  206ms | 197ms | 218ms | 255ms
 
 System Design:
 ==============
