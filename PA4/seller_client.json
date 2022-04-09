@@ -1,0 +1,59 @@
+{"action": "put_item", "data": {"name": "iphone", "category": 1, "keywords": ["phone", "electronic"], "condition": "new", "price": 25.6, "qty": 10}}
+
+{"action": "put_item", "data": {"name": "macbook", "category": 1, "keywords": ["computer", "electronic"], "condition": "used", "price": 100, "qty": 5}}
+
+
+{"action": "change_sale_price", "data": {"_id": "61fe023c4b1eae8a6dbeb2a3", "price": 500}}
+
+
+{"action": "remove_item", "data": {"_id": "61fe023c4b1eae8a6dbeb2a3", "qty": 2}}
+
+
+{"action": "display_seller_items"}
+
+
+{"action": "put_item", "data": {"name": "charger", "category": 1, "keywords": ["electronic"], "condition": "used", "price": 10, "qty": 10}}
+{"action": "put_item", "data": {"name": "gold", "category": 1, "keywords": ["metal"], "condition": "new", "price": 100, "qty": 2}}
+    
+
+
+Output Format
+{
+    error: null,
+    resp: ""
+}
+
+// seller
+{"username": "tushar", "passwd": "pass", "type": "seller", "data": {"item_id": "62146310f1dc51f0cad4aa34", "name": "charger", "category": 1, "keywords": ["electronic"], "condition": "used", "price": 10, "qty": 10, "mean_feedback": 0, "num_feedback": 0}}
+
+// buyer
+
+{"username": "rishav", "passwd": "pass", "type": "buyer", "data": {"item_id": "62146310f1dc51f0cad4aa34", "qty":2, "category": 1, "keywords": ["electronic"]}}
+
+{
+    "username": "Sombabu", 
+    "passwd": "pass", 
+    "type": "seller", 
+    "data": 
+    {
+        "item_id": "621d1c190f71be61e02b2d7c", 
+        "name": "phone", 
+        "category": 4, 
+        "keywords": ["phone"], 
+        "condition": "used", 
+        "price": 10, 
+        "qty": 10, 
+        "mean_feedback": 4, 
+        "num_feedback": 10
+    }
+}
+
+{"username": "Sombabu", "passwd": "pass", "type": "seller", "data":{"item_id": "621d1c190f71be61e02b2d7c","name": "phone","category": 4, "keywords": ["phone"], "condition": "used", "price": 10, "qty": 10, "mean_feedback": 4, "num_feedback": 10}}
+
+{"username": "rishav", "passwd": "pass", "type": "buyer", "data": {"item_id": "62146310f1dc51f0cad4aa34", "qty":2, "category": 1, "keywords": ["electronic"]}}
+
+{"username": "gautam_buyer", "passwd": "pass", "type": "buyer", "cardnumber":"123412341234", "exp_date": "08/22", "data": {"item_id": "621d1c190f71be61e02b2d7c", "feedback":1, "qty":5, "category": 4, "keywords": ["phone"]}}
+
+Multiple packets handling at server/client
+Graph and explain why and how it came So
+

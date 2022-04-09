@@ -1,0 +1,283 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js" integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div style="margin: 2%" class="container">
+        <h1> Simple client interface for Seller and Buyer </h1>
+        <hr>
+        <div class="row">
+            <div class="col-8">
+                <div class="seller" style="border: 3em solid black;">
+                    <h3>Seller</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="sellerApi">Seller APIs</label>
+                            <select class="form-control" id="sellerApi">
+                                <option selected value="account:post">Sign-up</option>
+                                <option value="login:post">Sign-in</option>
+                                <option value="logout:post">Sign-out</option>
+                                <option value="add_item:post">Add Items</option>
+                                <option value="display_item:get">Display Items</option>
+                                <option value="change_price:post">Change sale price</option>
+                                <option value="remove_item:post">Remove item</option>
+                                <option value="ratings:get">Get seller rating</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sellerApiData">JSON data to pass</label>
+                            <textarea class="form-control" id="sellerApiData" rows="3"></textarea>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="sellerSubmit">Submit</button>
+                    </form>
+                </div>
+
+                <div class="buyer" style="border: 3em solid black;">
+                    <h3>Buyer</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="buyerApi">Buyer APIs</label>
+                            <select class="form-control" id="buyerApi">
+                                <option selected value="account:post">Sign-up</option>
+                                <option value="login:post">Sign-in</option>
+                                <option value="logout:post">Sign-out</option>
+                                <option value="search:post">Search Items with Category and Keywords</option>
+                                <option value="add_item:post">Add Items</option>
+                                <option value="display_cart:get">Display Cart</option>
+                                <option value="clear_cart:post">Clear Cart</option>
+                                <option value="remove_item:post">Remove item from Cart</option>
+                                <option value="ratings:get">Get seller rating</option>
+                                <option value="history:get">Get History</option>
+                                <option value="feedback:post">Feedback for item</option>
+                                <option value="purchase:post">Make purchase</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="buyerApiData">JSON data to pass</label>
+                            <textarea class="form-control" id="buyerApiData" rows="3"></textarea>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="buyerSubmit" >Submit</button>
+                    </form>
+                </div>
+            </div>
+            <h3>Server response log</h3>
+            <div id="response" class="col-sm">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var cnt=0;
+        var random_val=0;
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+        function sendGetRequest( data, url, http_method, endpoint, sender){
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = "json";
+
+            var kv_pair = Object.entries(data).map(x => x.join('=')).join('&')
+            url = `${url}?${kv_pair}`;
+            console.log(url);
+            xhr.open(`${http_method}`, url, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            /*xhr.onload = function() {
+                var response = JSON.stringify(xhr.response); 
+                recordResponse(response);
+            }*/
+
+            xhr.onreadystatechange = function() {
+                if (this.readyState === XMLHttpRequest.DONE){
+                    if(this.status === 200) {
+                        var response = JSON.stringify(xhr.response);
+                        recordResponse(response);
+                        console.log('Server response ', response);
+                    }else{
+                        console.log('Server response Error: ', this.status);
+                        return 0;
+                    }
+                }
+            }
+
+            xhr.onerror = function(e){
+                alert("Unknown Error Occured. Server response not received.");
+
+                // choose another url
+                random_val = getRandomInt(4);
+                SELLER_HOST = SELLER_IP[random_val];
+                BUYER_HOST = BUYER_IP[random_val];
+
+                var IP = (sender==true?SELLER_HOST:BUYER_HOST);
+                var PORT = (sender==true?SELLER_PORT:BUYER_PORT);
+                url = `http://${IP}:${PORT}/${endpoint}`;
+                console.log("New Randomm Val: "+random_val);
+                console.log("New IP Address: "+url);
+                check = sendGetRequest(data, url, http_method, endpoint, sender);
+            }
+
+            xhr.send();
+            cnt+=1;
+            return 1;
+        }
+
+        function sendPostRequest( data, url, http_method, endpoint, sender ){
+            if(cnt == 10){
+                console.log("I give up!!");
+                return ;
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = "json";
+            xhr.open(`${http_method}`, url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function() {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200){
+                    var response = JSON.stringify(xhr.response);
+                    recordResponse(response);
+                    console.log('Server response ', response);
+                }
+                return 1;
+            }
+
+            xhr.onerror = function(e){
+                alert("Unknown Error Occured. Server response not received.");
+                console.log('Server response Error: ', this.status);
+                
+                // choose another url
+                random_val = getRandomInt(4);
+                SELLER_HOST = SELLER_IP[random_val];
+                BUYER_HOST = BUYER_IP[random_val];
+
+                var IP = (sender==1?SELLER_HOST:BUYER_HOST);
+                var PORT = (sender==1?SELLER_PORT:BUYER_PORT);
+
+                url = `http://${IP}:${PORT}/${endpoint}`;
+                console.log("New Randomm Val: "+random_val);
+                console.log("New IP Address: "+url);
+                check = sendPostRequest(data, url, http_method, endpoint, sender);
+            }
+            
+            xhr.send(JSON.stringify(data));
+            cnt+=1;
+        }
+
+        const SELLER_IP = ['34.70.65.201', '34.70.65.201', '34.70.65.201', '34.70.65.201'];
+        const BUYER_IP = ['34.70.65.202', '34.70.65.202', '34.70.65.202', '34.70.65.202'];
+
+        random_val = getRandomInt(4);
+        var SELLER_HOST = SELLER_IP[random_val];
+        var SELLER_PORT = 6969;
+        var BUYER_HOST = BUYER_IP[random_val];
+        var BUYER_PORT = 8888;
+
+        console.log(random_val);
+        console.log(SELLER_HOST);
+        console.log(BUYER_HOST);
+
+        document.querySelector('#sellerSubmit').addEventListener("click", function(e){
+            e.preventDefault();
+            var api = document.getElementById('sellerApi').value.split(':');
+            var data = document.getElementById('sellerApiData').value;
+            var endpoint = api[0];
+            var http_method = api[1];
+            var url = `http://${SELLER_HOST}:${SELLER_PORT}/${endpoint}`;
+
+            try {
+                data = JSON.parse(data);
+                console.log(api, data);
+
+                if(http_method == 'post') {
+                    sendPostRequest(data, url, http_method, endpoint, 1);
+                } else if (http_method == 'get') {
+                    sendGetRequest(data, url, http_method, endpoint, 1);
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Invalid JSON data format');
+            }
+            
+            return false;
+        }, false);
+
+        document.querySelector('#buyerSubmit').addEventListener("click",  function(e){
+            e.preventDefault();
+            var api = document.getElementById('buyerApi').value.split(':');
+            var data = document.getElementById('buyerApiData').value;
+            var endpoint = api[0];
+            var http_method = api[1];
+            var url = `http://${BUYER_HOST}:${BUYER_PORT}/${endpoint}`;
+
+            try {
+                data = JSON.parse(data);
+                console.log(api, data);
+                
+                var xhr = new XMLHttpRequest();
+                xhr.responseType = "json";
+
+                if(http_method == 'post') {
+                    sendPostRequest(data, url, http_method, endpoint, 0);
+                } else if (http_method == 'get') {
+                    sendGetRequest(data, url, http_method, endpoint, 0);
+                }
+
+                /*
+                if(http_method == 'post') {
+
+                    xhr.open(`${http_method}`, url, true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+
+                    xhr.onreadystatechange = function() {
+                        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                            var response = JSON.stringify(xhr.response, null, 2);
+                            recordResponse(response);
+                            console.log('Server response ', response);
+                        }
+                    }
+                    xhr.send(JSON.stringify(data));
+
+                } else if (http_method == 'get') {
+
+                    /*
+                    var kv_pair = Object.entries(data).map(x => x.join('=')).join('&')
+                    url = `${url}?${kv_pair}`;
+                    console.log(url);
+                    xhr.open(`${http_method}`, url, true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                    xhr.onload = function() {
+                        var response = JSON.stringify(xhr.response); 
+                        recordResponse(response);
+                    }
+
+                    xhr.send();
+                }*/
+            } catch (error) {
+                console.error(error);
+                alert('Invalid JSON data format');
+            }
+            
+            return false;
+        }, false);
+
+        var recordResponse = function (response){
+            console.log(`Recording response: ${response}`);
+            var tag = document.createElement("p");
+            var text = document.createTextNode(response);
+            tag.appendChild(text);
+            var element = document.getElementById("response");
+            element.prepend(tag);
+        }
+
+
+    </script>
+</body>
+
+</html>

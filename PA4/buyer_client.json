@@ -1,0 +1,13 @@
+{"action":"search_items", "data":{"category":1,"keyList":["phone","computer"]}}
+{"action":"search_items", "data":{"category":0,"keyList":["phone","computer"]}}
+
+{"action":"add_item", "data":{"id":"61fdea18f4729cc855d63f84","quantity":12}}
+{"action":"add_item", "data":{"id":"61fdeac3f4729cc855d63f85","quantity":11}}
+{"action":"add_item", "data":{"id":"61fdeac3f4729cc855d63f85","quantity":12}}
+{"action":"add_item", "data":{"id":"61fdeac3f4729cc855d63f85","quantity":12}}
+
+{"action":"rmv_item", "data":{"id":2,"quantity":11}}
+
+{"action":"clr_cart", "data":{"category":2,"keyList":["akhil","teja","sai"]}}
+
+{"action":"display_cart", "data":{}}
