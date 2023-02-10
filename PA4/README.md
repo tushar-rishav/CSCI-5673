@@ -10,7 +10,7 @@
 5. All communication between server and database is done over gRPC.
 6. Financial transaction to make purchase service supports SOAP/WSDL.
 7. Test deployment done cloud with end-to-end latency reported below.
-8. Improved client interface. Replaced console interface with simple browser based UI as shown below: ![client_interface](/client_ui.png)
+8. Improved client interface. Replaced console interface with simple browser based UI as shown below: ![client_interface](/PA4/client_ui.png)
 9. User DB has consensus layer using total-ordered atomic broadcast protocol.
 10. Product DB has raft for managing replica of MongoDB.
 11. Seller and Buyer server replicated with PM2 - nodejs cluster manager.
