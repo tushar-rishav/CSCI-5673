@@ -12,7 +12,7 @@
 5. All communication between server and database is done over gRPC.
 6. Financial transaction to make purchase service supports SOAP/WSDL.
 7. Test deployment done cloud with end-to-end latency reported below.
-8. Improved client interface. Replaced console interface with simple browser based UI as shown below: ![client_interface](/client_ui.png)
+8. Improved client interface. Replaced console interface with simple browser based UI as shown below: ![client_interface](/PA2/client_ui.png)
 
 Round Trip Latency Times:
 =========================
